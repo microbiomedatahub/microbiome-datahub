@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Marcellus&family=Oswald&display=swap');
+
+/*--
+  colors
+--*/
+$colD9E016: #D9E016;
+$col464006: #464006;
+$colFC540C: #FC540C;
+$colB9A0A0: #B9A0A0;
+$colF5F5F5: #F5F5F5;
+$colD9D9D9: #D9D9D9;
+$col9F9F9F: #9F9F9F;
+$col8F8E8E: #8F8E8E;
+$col575757: #575757;
+
+
+$colFFF:    #FFF;
+$col000:    #000;
+
+/*--
+  font family
+--*/
+$fontOptima: 'Marcellus', serif;
+$fontOswald: 'Oswald', sans-serif; // weight 400 only
+$fontLucidaGrande: 'Lucida Grande', sans-serif;
+$fontGillSans: 'Lato', sans-serif;
+
+/*--
+  break points
+  -- mobile first
+--*/
+$breakpoints: (
+        'over': 'screen and (min-width: 1441px)',
+        'pc': 'screen and (min-width: 1025px) and (max-width: 1200px)',
+        'pcMin': 'screen and (min-width: 1025px) and (max-width: 1439px)',
+        'ts': 'screen and (max-width: 1024px)',
+        'tb': 'screen and (min-width: 769px) and (max-width: 1024px)',
+        'sp': 'screen and (max-width: 768px)',
+) !default;

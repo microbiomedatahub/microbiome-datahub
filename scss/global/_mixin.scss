@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+@use "variables" as v;
+
+/*--
+  media queries
+--*/
+@mixin mq($breakpoint: md) {
+  @media #{map-get(v.$breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+
+@mixin inner() {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  @include mq(sp) {
+    padding: 0 15px;
+  }
+
+  @include mq(tb) {
+    padding: 0 20px;
+  }
+}

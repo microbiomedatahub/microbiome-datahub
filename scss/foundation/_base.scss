@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  position: relative;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font: {
+    size: 1.6rem;
+    style: normal;
+    weight: 500;
+  }
+  color: #222;
+  & * {
+    box-sizing: border-box;
+  }
+}
+
+a:not(.g-not-action) {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+  &:hover {
+    opacity: 0.5;
+  }
+}
+
+img {
+  width: 100%;
+  height: auto;
+}

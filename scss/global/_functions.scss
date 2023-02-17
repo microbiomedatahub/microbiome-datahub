@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+/**
+ * letter-spacing
+ *
+ * @param $av
+ */
+@function letterSpacing ($av) {
+  @return calc(#{$av} / 1000 * 1em);
+}
+
+/**
+ * line-height
+ *
+ * @param $fs
+ * @param $lh
+ */
+@function lineHeight( $fs, $lh ) {
+  @return $lh / $fs;
+}
