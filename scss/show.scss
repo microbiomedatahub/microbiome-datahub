@@ -1,0 +1,123 @@
+@use "./global/index" as g;
+
+.page-title {
+  font: {
+    family: g.$fontOptima;
+    size: 2.8rem;
+  }
+  margin: 0 0 26px;
+}
+
+.facility-name {
+  font: {
+    family: g.$fontOswald;
+    size: 1.8rem;
+    weight: 400;
+  }
+  margin: 0 0 15px;
+}
+
+.data-id {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  margin: 0 0 72px;
+  &__data {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 26px;
+    &__item {
+      display: flex;
+      gap: 6px;
+      .heading {
+        font: {
+          family: g.$fontOswald;
+          size: 1.4rem;
+          weight: 400;
+        }
+      }
+
+      .content {
+        font: {
+          family: g.$fontOswald;
+          size: 1.4rem;
+          weight: 400;
+        }
+        line-height: 20px;
+        padding: 0 10px;
+        border-radius: 12px;
+        background-color: g.$colD9D9D9;
+      }
+    }
+  }
+
+  &__id {
+    font: {
+      family: g.$fontOswald;
+      size: 1.4rem;
+      weight: 400;
+    }
+  }
+}
+
+.data-list {
+  margin: 0 0 13px;
+  border-top: 1px solid g.$colE0E0E0;
+  &__item {
+    display: flex;
+    gap: 42px;
+    padding: 17px 0 20px;
+    border-bottom: 1px solid g.$colE0E0E0;
+    .heading {
+      flex-basis: 13%;
+      font: {
+        family: g.$fontOswald;
+        size: 1.4rem;
+        weight: 400;
+      }
+    }
+    .content {
+      flex-basis: 87%;
+      font: {
+        family: g.$fontGillSans;
+        size: 1.8rem;
+        weight: 300;
+      }
+      line-height: g.lineHeight(18, 20);
+
+      .id {
+        font: {
+          family: g.$fontOswald;
+          size: 1.4rem;
+          weight: 400;
+        }
+        margin: 0 0 3px;
+      }
+      .null {
+        font: {
+          family: g.$fontOswald;
+          size: 1.8rem;
+          weight: 300;
+        }
+      }
+    }
+  }
+}
+
+.date {
+  &__item {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+    font: {
+      family: g.$fontOswald;
+      size: 1.4rem;
+      weight: 300;
+    }
+    margin: 0 0 5px;
+    .heading {
+      font-weight: 300;
+    }
+  }
+}

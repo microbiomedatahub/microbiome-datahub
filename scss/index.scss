@@ -1,129 +1,5 @@
 @use "./global/index" as g;
 
-// Header
-.header {
-  padding: 10px 16px 9px;
-  text-align: left;
-  background: g.$colD9E016;
-  &__title {
-    &__logo {
-      width: 132px;
-      height: auto;
-    }
-  }
-}
-
-// Footer
-.footer {
-  padding: 30px 0 35px;
-  background-color: g.$col464006;
-  &__navigation {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 0 30px;
-    gap: 30px;
-    &__link {
-      font: {
-        family: g.$fontGillSans;
-        size: 1.8rem;
-      }
-      color: g.$colFFF;
-    }
-  }
-  &__copyright {
-    font: {
-      family: g.$fontGillSans;
-      size: 1.2rem;
-    }
-    color: g.$colFFF;
-    text-align: center;
-  }
-}
-
-// App Wrapper
-.app-wrapper {
-  display: grid;
-  grid-template-columns: 320px 1fr;
-}
-
-// Side Menu
-.side-menu {
-  background-color: g.$col9F9F9F;
-  &__select-panel {
-    display: flex;
-    &__button {
-      flex-basis: 50%;
-      font: {
-        family: g.$fontOptima;
-        size: 2.4rem;
-        weight: 700;
-      }
-      padding: 26px 0 22px;
-      text-align: center;
-      border-bottom: 4px solid transparent;
-      background-color: g.$colD9D9D9;
-      &.current {
-        border-color: g.$colFC540C;
-        background-color: g.$col9F9F9F;
-      }
-    }
-  }
-
-  &__links {
-    padding: 23px 36px;
-    &__section {
-      font-family: g.$fontGillSans;
-      margin: 0 0 30px;
-    }
-    &__heading {
-      display: block;
-      font-size: 1.8rem;
-      color: g.$col464006;
-      line-height: g.lineHeight(18, 21);
-      margin: 0 0 10px;
-    }
-    &__item {
-      display: block;
-      font-size: 1.6rem;
-      line-height: g.lineHeight(16, 26);
-      padding: 0 0 0 54px;
-      margin: 0 -36px;
-      &.current {
-        font-weight: 700;
-        background-color: g.$colB9A0A0;
-      }
-    }
-    &__input {
-      width: 100%;
-      height: 36px;
-      padding: 0 18px;
-      border-radius: 30px;
-      background-color: g.$colFFF;
-    }
-    &__range {
-      width: 100%;
-      height: 1px;
-      background-color: g.$colFFF;
-      &::before,
-      &::after {
-        display: block;
-        width: 1px;
-        height: 11px;
-        content: "";
-        margin: -5px 0 0;
-        background-color: g.$colFFF;
-      }
-    }
-  }
-}
-
-// Main
-.app-main {
-  padding: 80px 82px;
-  background: g.$colFFF;
-}
-
 .page-title {
   font: {
     family: g.$fontOptima;
@@ -207,6 +83,7 @@
       size: 1.8rem;
     }
     color: g.$colFFF;
+    cursor: pointer;
     padding: 0 45px 0 15px;
     margin: 0 0 0 11px;
     border-radius: 5px;
@@ -290,10 +167,14 @@
         margin: 0 9px 0 0;
       }
       .content {
-        font-weight: 700;
+        font: {
+          size: 1.4rem;
+          weight: 700;
+        }
         &__button {
           height: 20px;
           font-weight: 400;
+          line-height: 20px;
           padding: 0 10px;
           border-radius: 12px;
           background-color: g.$colD9D9D9;
