@@ -1,7 +1,7 @@
 const SideMenu = () => {
 
     return (
-        <div className="side-menu open">
+        <div className="side-menu">
             <button id="sideMenuSwitch" aria-controls="sideMenu" className="side-menu__switch">
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <desc>グローバルメニューの開くボタン</desc>
