@@ -1,11 +1,11 @@
-import './css/destyle.min.css'
-import './css/base.css'
-import './css/index.css';
-import Header from "./components/Header";
-import SideMenu from "./components/SideMenu";
-import Footer from "./components/Footer";
+import '../css/destyle.min.css'
+import '../css/base.css'
+import '../css/index.css';
+import Header from "../components/Header";
+import SideMenu from "../components/SideMenu";
+import Footer from "../components/Footer";
 
-function App() {
+function Index() {
   return (
     <div className="App">
       <Header />
@@ -161,4 +161,4 @@ function App() {
   );
 }
 
-export default App;
+export default Index
