@@ -20,6 +20,8 @@ const SideMenu = () => {
     'human activity related',
   ])
 
+  const [selectedEnv, setSelectedEnv] = useState('soil')
+
   return (
     <div className={`side-menu ${isShow ? 'open' : ''}`}>
       <button
@@ -61,14 +63,14 @@ const SideMenu = () => {
               <h2 className='side-menu__links__heading'>Environment</h2>
               {environments.map((item, index) => {
                 return (
-                  <a
+                  <p
                     key={index}
-                    href=''
                     title={item}
-                    className={'side-menu__links__item' + (item === 'soil' ? ' current' : '')}
+                    className={`side-menu__links__item ${item === selectedEnv ? ' current' : ''}`}
+                    onClick={() => setSelectedEnv(item)}
                   >
                     {item}
-                  </a>
+                  </p>
                 )
               })}
             </section>
