@@ -21,6 +21,10 @@ const SideMenu = () => {
   ])
 
   const [selectedEnv, setSelectedEnv] = useState('soil')
+  const [hostTaxon, setHostTaxon] = useState('')
+  const [hostDisease, setHostDisease] = useState('')
+  const [hostLocation, setHostLocation] = useState('')
+  const [temperature, setTemperature] = useState(50)
 
   return (
     <div className={`side-menu ${isShow ? 'open' : ''}`}>
@@ -77,22 +81,43 @@ const SideMenu = () => {
 
             <section className='side-menu__links__section'>
               <label className='side-menu__links__heading'>Host taxon</label>
-              <input type='text' placeholder='Host taxon name' className='side-menu__links__input' />
+              <input
+                type='text'
+                placeholder='Host taxon name'
+                className='side-menu__links__input'
+                value={hostTaxon}
+                onChange={(e) => setHostTaxon(e.currentTarget.value)}
+              />
             </section>
 
             <section className='side-menu__links__section'>
               <label className='side-menu__links__heading'>Host disease</label>
-              <input type='text' className='side-menu__links__input' />
+              <input
+                type='text'
+                className='side-menu__links__input'
+                value={hostDisease}
+                onChange={(e) => setHostDisease(e.currentTarget.value)}
+              />
             </section>
 
             <section className='side-menu__links__section'>
               <label className='side-menu__links__heading'>Host location</label>
-              <input type='text' className='side-menu__links__input' />
+              <input
+                type='text'
+                className='side-menu__links__input'
+                value={hostLocation}
+                onChange={(e) => setHostLocation(e.currentTarget.value)}
+              />
             </section>
 
             <section className='side-menu__links__section'>
               <label className='side-menu__links__heading'>Temperature</label>
-              <input type='range' className='side-menu__links__range' />
+              <input
+                type='range'
+                className='side-menu__links__range'
+                value={temperature}
+                onChange={(e) => setTemperature(Number(e.currentTarget.value))}
+              />
             </section>
 
             <button type='submit' className='side-menu__submit'>SUBMIT</button>
