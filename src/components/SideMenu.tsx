@@ -6,9 +6,7 @@ const SideMenu = () => {
     setIsShow(!isShow);
   };
 
-  const [environments, setEnvironments] = useState<Array<string>>([]);
-
-  setEnvironments([
+  const [environments, setEnvironments] = useState<Array<string>>([
     "soil",
     "marine",
     "freshwater",
