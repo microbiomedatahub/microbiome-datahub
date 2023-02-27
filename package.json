@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint --ext .tsx,.ts src/",
+    "lint:fix": "npm run lint -- --fix"
   },
   "dependencies": {
     "jotai": "^2.0.2",
