@@ -1,4 +1,4 @@
-import logo from '../images/site-logo.png';
+import logo from '../images/site-logo.png'
 const Header = () => {
     return (
         <header className="header">
@@ -6,6 +6,6 @@ const Header = () => {
                 <img src={logo} className="header__title__logo" alt="logo" />
             </h1>
         </header>
-    );
-};
-export default Header;
+    )
+}
+export default Header

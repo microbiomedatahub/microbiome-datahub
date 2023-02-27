@@ -1,5 +1,5 @@
-import '../css/index.css';
-import {Link} from "react-router-dom";
+import '../css/index.css'
+import {Link} from "react-router-dom"
 
 function Index() {
   return (
@@ -151,7 +151,7 @@ function Index() {
               </nav>
           </section>
       </main>
-  );
+  )
 }
 
 export default Index

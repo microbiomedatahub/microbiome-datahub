@@ -9,9 +9,9 @@ import {
 } from 'react-router-dom'
 import Index from './routes/Index'
 import Show from './routes/Show'
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import SideMenu from "./components/SideMenu";
+import Header from "./components/Header"
+import Footer from "./components/Footer"
+import SideMenu from "./components/SideMenu"
 
 const router = createBrowserRouter([
   {

@@ -9,6 +9,6 @@ const Footer = () => {
             </nav>
             <p className="footer__copyright">© MicrobeDB.JP project team 2019 | Except where otherwise noted, content on this site is licensed under a Creative Commons Attribution 4.0 International license (CC-BY-4.0)</p>
         </footer>
-    );
-};
-export default Footer;
+    )
+}
+export default Footer

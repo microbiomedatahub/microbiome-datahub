@@ -1,7 +1,12 @@
 {
   "typescript": {
+    "indentWidth": 2,
+    "semiColons": "asi",
+    "quoteStyle": "alwaysSingle",
+    "arrowFunction.useParentheses": "force"
   },
   "json": {
+    "indentWidth": 2
   },
   "markdown": {
   },

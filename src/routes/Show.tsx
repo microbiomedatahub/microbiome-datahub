@@ -1,4 +1,4 @@
-import '../css/show.css';
+import '../css/show.css'
 
 function Show() {
   return (
@@ -56,7 +56,7 @@ function Show() {
               </div>
           </dl>
       </main>
-  );
+  )
 }
 
 export default Show
