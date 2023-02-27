@@ -6,6 +6,8 @@ const SideMenu = () => {
         setIsShow(!isShow)
     }
 
+    const [environments, setEnvironments] = useState(['soil', 'marine', 'freshwater', 'hot spring', 'sediment', 'air', 'gut', 'oral', 'skin', 'reproductive system', 'human activity related'])
+
     return (
         <div className={`side-menu ${isShow ? 'open' : '' }`} >
             <button id="sideMenuSwitch" aria-controls="sideMenu" className="side-menu__switch" onClick={handleToggleButtonClick}>
@@ -33,17 +35,9 @@ const SideMenu = () => {
                     <nav id="projectMenu" className="side-menu__links">
                         <section className="side-menu__links__section">
                             <h2 className="side-menu__links__heading">Environment</h2>
-                            <a href="" title="soil" className="side-menu__links__item current">soil</a>
-                            <a href="" title="marine" className="side-menu__links__item">marine</a>
-                            <a href="" title="freshwater" className="side-menu__links__item">freshwater</a>
-                            <a href="" title="hot spring" className="side-menu__links__item">hot spring</a>
-                            <a href="" title="sediment" className="side-menu__links__item">sediment</a>
-                            <a href="" title="air" className="side-menu__links__item">air</a>
-                            <a href="" title="gut" className="side-menu__links__item">gut</a>
-                            <a href="" title="oral" className="side-menu__links__item">oral</a>
-                            <a href="" title="skin" className="side-menu__links__item">skin</a>
-                            <a href="" title="reproductive system" className="side-menu__links__item">reproductive system</a>
-                            <a href="" title="human activity related" className="side-menu__links__item">human activity related</a>
+                            {environments.map((item, index) => {
+                                return <a key={index} href="" title={item} className={'side-menu__links__item' + (item === 'soil' ? ' current' : '')}>{item}</a>
+                            })}
                         </section>
 
                         <section className="side-menu__links__section">
