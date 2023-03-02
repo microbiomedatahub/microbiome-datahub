@@ -54,7 +54,7 @@ function Index() {
               <article className='results__item' key={index}>
                 <div className='results__item__header'>
                   <h2 className='title'>
-                    <Link to={`/show/`} title=''>
+                    <Link to={`/projects/${item._id}`} title=''>
                       {item._source.title}
                     </Link>
                   </h2>
