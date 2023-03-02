@@ -1,10 +1,13 @@
+import { useSetAtom } from 'jotai'
 import { useState } from 'react'
+import { projectSearchQueryAtom } from '../store/store'
 
 const SideMenu = () => {
   const [isShow, setIsShow] = useState(false)
   const handleToggleButtonClick = () => {
     setIsShow(!isShow)
   }
+  const setProjectSearchQuery = useSetAtom(projectSearchQueryAtom)
 
   const [environments, setEnvironments] = useState<Array<string>>([
     'soil',
@@ -25,6 +28,10 @@ const SideMenu = () => {
   const [hostDisease, setHostDisease] = useState('')
   const [hostLocation, setHostLocation] = useState('')
   const [temperature, setTemperature] = useState(50)
+
+  const searchProject = () => {
+    setProjectSearchQuery({ sample_organism: selectedEnv })
+  }
 
   return (
     <div className={`side-menu ${isShow ? 'open' : ''}`}>
@@ -120,7 +127,7 @@ const SideMenu = () => {
               />
             </section>
 
-            <button type='submit' className='side-menu__submit'>SUBMIT</button>
+            <button type='submit' className='side-menu__submit' onClick={() => searchProject()}>SUBMIT</button>
           </nav>
         </nav>
         <div tabIndex={0}></div>
