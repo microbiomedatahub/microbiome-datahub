@@ -47,51 +47,54 @@ function Index() {
       </form>
 
       <section className='results'>
-        {data?.hits && data.hits[0].map((item, index: number) => {
-          return (
-            <article className='results__item' key={index}>
-              <div className='results__item__header'>
-                <h2 className='title'>
-                  <Link to={`/show/`} title=''>
-                    {item._source.title}
-                  </Link>
-                </h2>
-                <p className='id'>{item._id}</p>
-              </div>
-              <dl className='results__item__data'>
-                <div className='results__item__data__item'>
-                  <dt className='heading'>Environment</dt>
-                  <dd className='content'>
-                    {item._source._annotation.sample_organism.map((envItem: string, envIndex: number) => {
-                      return <button className='content__button' key={envIndex}>{envItem}</button>
-                    })}
-                  </dd>
+        {
+          // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+          data?.hits && data.hits[0].map((item: any, index: number) => {
+            return (
+              <article className='results__item' key={index}>
+                <div className='results__item__header'>
+                  <h2 className='title'>
+                    <Link to={`/show/`} title=''>
+                      {item._source.title}
+                    </Link>
+                  </h2>
+                  <p className='id'>{item._id}</p>
                 </div>
+                <dl className='results__item__data'>
+                  <div className='results__item__data__item'>
+                    <dt className='heading'>Environment</dt>
+                    <dd className='content'>
+                      {item._source._annotation.sample_organism.map((envItem: string, envIndex: number) => {
+                        return <button className='content__button' key={envIndex}>{envItem}</button>
+                      })}
+                    </dd>
+                  </div>
 
-                <div className='results__item__data__item'>
-                  <dt className='heading'>Host taxon</dt>
-                  <dd className='content'>
-                    {item._source._annotation.sample_host_organism.map(
-                      (hostTaxonItem: string, hostTaxonIndex: number) => {
-                        return <button className='content__button' key={hostTaxonIndex}>{hostTaxonItem}</button>
-                      },
-                    )}
-                  </dd>
-                </div>
+                  <div className='results__item__data__item'>
+                    <dt className='heading'>Host taxon</dt>
+                    <dd className='content'>
+                      {item._source._annotation.sample_host_organism.map(
+                        (hostTaxonItem: string, hostTaxonIndex: number) => {
+                          return <button className='content__button' key={hostTaxonIndex}>{hostTaxonItem}</button>
+                        },
+                      )}
+                    </dd>
+                  </div>
 
-                <div className='results__item__data__item'>
-                  <dt className='heading'>BioSamples</dt>
-                  <dd className='content'>{item._source._annotation.sample_count}</dd>
-                </div>
+                  <div className='results__item__data__item'>
+                    <dt className='heading'>BioSamples</dt>
+                    <dd className='content'>{item._source._annotation.sample_count}</dd>
+                  </div>
 
-                <div className='results__item__data__item'>
-                  <dt className='heading'>Data size (GB)</dt>
-                  <dd className='content'>{item._source._annotation.data_size}</dd>
-                </div>
-              </dl>
-            </article>
-          )
-        })}
+                  <div className='results__item__data__item'>
+                    <dt className='heading'>Data size (GB)</dt>
+                    <dd className='content'>{item._source._annotation.data_size}</dd>
+                  </div>
+                </dl>
+              </article>
+            )
+          })
+        }
 
         <article className='results__item'>
           <div className='results__item__header'>
