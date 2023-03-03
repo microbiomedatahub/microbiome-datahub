@@ -1,20 +1,45 @@
 import '../css/index.css'
 import { useAtomValue } from 'jotai'
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import useSWR from 'swr'
+import useSWRMutation from 'swr/mutation'
 import { projectSearchQueryAtom } from '../store/store'
 
 function Index() {
   const pSearchQuery = useAtomValue(projectSearchQueryAtom)
-  const fetcher = (args: string) =>
-    fetch('https://mb.ddbj.nig.ac.jp' + args, { method: 'POST' }).then((res) => res.json())
-  const { data, error, isLoading } = useSWR('/bioproject', fetcher)
+  const retrieveBioProject = async (url: string, { arg }) => {
+    const res = await fetch('https://mb.ddbj.nig.ac.jp' + url, {
+      method: 'POST',
+      ...arg,
+    })
+    return await res.json()
+  }
+
+  const { data, error, isMutating, reset, trigger } = useSWRMutation('/bioproject', retrieveBioProject)
   console.log(data)
+
+  useEffect(() => {
+    reset()
+
+    const queries = []
+    if (pSearchQuery.sample_organism) {
+      queries.push({ 'match': { '_annotation.sample_organism': pSearchQuery.sample_organism } })
+    }
+
+    trigger({
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        'query': { 'bool': { 'must': queries } },
+      }),
+    })
+  }, [pSearchQuery])
 
   return (
     <main className='app-main'>
       {error && <h1>Hi</h1>}
-      {isLoading && <h1>Now Loading....</h1>}
+      {isMutating && <h1>Now Loading....</h1>}
       <h2 className='page-title'>PROJECT</h2>
       <section className='tags'>
         <button className='tags__item'>host taxon name</button>
