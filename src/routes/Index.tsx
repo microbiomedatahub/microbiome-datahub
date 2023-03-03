@@ -25,6 +25,12 @@ function Index() {
     if (pSearchQuery.sample_organism) {
       queries.push({ 'match': { '_annotation.sample_organism': pSearchQuery.sample_organism } })
     }
+    if (pSearchQuery.sample_host_organism) {
+      queries.push({ match: { '_annotation.sample_host_organism': pSearchQuery.sample_host_organism } })
+    }
+    if (pSearchQuery.sample_host_disease) {
+      queries.push({ match: { '_annotation.sample_host_disease': pSearchQuery.sample_host_disease } })
+    }
 
     trigger({
       headers: {

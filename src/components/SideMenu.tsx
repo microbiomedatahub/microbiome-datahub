@@ -30,7 +30,11 @@ const SideMenu = () => {
   const [temperature, setTemperature] = useState(50)
 
   const searchProject = () => {
-    setProjectSearchQuery({ sample_organism: selectedEnv })
+    setProjectSearchQuery({
+      sample_organism: selectedEnv,
+      sample_host_organism: hostTaxon,
+      sample_host_disease: hostDisease,
+    })
   }
 
   return (
