@@ -34,6 +34,7 @@ const SideMenu = () => {
       sample_organism: selectedEnv,
       sample_host_organism: hostTaxon,
       sample_host_disease: hostDisease,
+      sample_host_location: hostLocation,
     })
   }
 

@@ -1,3 +1,5 @@
-import { atom } from "jotai"
+import { atom } from 'jotai'
 
-export const projectSearchQueryAtom = atom({sample_organism: '', sample_host_organism: '', sample_host_disease: ''})
+export const projectSearchQueryAtom = atom(
+  { sample_organism: '', sample_host_organism: '', sample_host_disease: '', sample_host_location: '' },
+)

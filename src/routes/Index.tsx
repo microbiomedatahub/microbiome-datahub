@@ -31,6 +31,9 @@ function Index() {
     if (pSearchQuery.sample_host_disease) {
       queries.push({ match: { '_annotation.sample_host_disease': pSearchQuery.sample_host_disease } })
     }
+    if (pSearchQuery.sample_host_location) {
+      queries.push({ match: { '_annotation.sample_host_location': pSearchQuery.sample_host_location } })
+    }
 
     trigger({
       headers: {
