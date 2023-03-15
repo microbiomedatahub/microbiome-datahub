@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom'
 import '../css/show.css'
 import useSWR from 'swr'
 import dummyChart from '../images/dummy-chart.png'
-import logo from "../images/site-logo.png";
+import logo from '../images/site-logo.png'
 
 function Show() {
   const params = useParams()
@@ -17,7 +17,7 @@ function Show() {
     <main className='app-main'>
       {error && <h1>Hi</h1>}
       {isLoading && <h1>Now Loading....</h1>}
-      <p className="current-type">PROJECT</p>
+      <p className='current-type'>PROJECT</p>
       <h2 className='page-title'>{data?.index?._source?.title}</h2>
       <p className='facility-name'>{data?.index?._source?.organization}</p>
       <div className='data-id'>
@@ -53,14 +53,17 @@ function Show() {
 
         <div className='data-list__item'>
           <dt className='heading'>Publication</dt>
-          {data?.index?._source?.publication.map((p, i) => {
-            return (
-              <dd className='content' key={i}>
-                <p className='id'>{p.id}</p>
-                <p>{p.Title}</p>
-              </dd>
-            )
-          })}
+          {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            data?.index?._source?.publication.map((p: any, i: any) => {
+              return (
+                <dd className='content' key={i}>
+                  <p className='id'>{p.id}</p>
+                  <p>{p.Title}</p>
+                </dd>
+              )
+            })
+          }
         </div>
 
         <div className='data-list__item'>
@@ -82,19 +85,19 @@ function Show() {
         </div>
       </dl>
 
-      <section className="cart">
-        <nav className="chart__navigation">
-          <a href="" className="chart__navigation__link current">CHART 01</a>
-          <a href="" className="chart__navigation__link">CHART 02</a>
-          <a href="" className="chart__navigation__link">CHART 03</a>
-          <a href="" className="chart__navigation__link">CHART 04</a>
+      <section className='cart'>
+        <nav className='chart__navigation'>
+          <a href='' className='chart__navigation__link current'>CHART 01</a>
+          <a href='' className='chart__navigation__link'>CHART 02</a>
+          <a href='' className='chart__navigation__link'>CHART 03</a>
+          <a href='' className='chart__navigation__link'>CHART 04</a>
         </nav>
 
-        <article className="cart__content">
-          <h3 className="chart__title">SUBJECT of This Chart</h3>
-          <p className="chart__description">なにか、チャートに関する説明などがあれば表示する</p>
-          <div className="chart__item">
-            <img src={dummyChart} alt="Dummy Chart" />
+        <article className='cart__content'>
+          <h3 className='chart__title'>SUBJECT of This Chart</h3>
+          <p className='chart__description'>なにか、チャートに関する説明などがあれば表示する</p>
+          <div className='chart__item'>
+            <img src={dummyChart} alt='Dummy Chart' />
           </div>
         </article>
       </section>

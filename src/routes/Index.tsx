@@ -1,12 +1,14 @@
+// @ts-nocheck
 import '../css/index.css'
 import { useAtomValue } from 'jotai'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import useSWRMutation from 'swr/mutation'
 import { projectSearchQueryAtom } from '../store/store'
 
 function Index() {
   const pSearchQuery = useAtomValue(projectSearchQueryAtom)
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   const retrieveBioProject = async (url: string, { arg }) => {
     const res = await fetch('https://mb.ddbj.nig.ac.jp' + url, {
       method: 'POST',
@@ -45,18 +47,20 @@ function Index() {
     })
   }, [pSearchQuery])
 
+  const resultsCount = useMemo(() => data?.hits[0].length, [data?.hits])
+
   return (
     <main className='app-main'>
       {error && <h1>Hi</h1>}
       {isMutating && <h1>Now Loading....</h1>}
-      <nav className="tab-navigation">
-        <a href="" className="tab-navigation__link current">PROJECT</a>
-        <a href="" className="tab-navigation__link">GENOME</a>
+      <nav className='tab-navigation'>
+        <a href='' className='tab-navigation__link current'>PROJECT</a>
+        <a href='' className='tab-navigation__link'>GENOME</a>
       </nav>
 
       <form action='' className='search'>
         <p className='search__results-number'>
-          9999 / 9999
+          {`${resultsCount} / ${resultsCount}`}
         </p>
         <input type='search' className='search__input' placeholder='Search Keyword' />
         <label htmlFor='sort' className='search__sort-label'>order by</label>
