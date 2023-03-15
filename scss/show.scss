@@ -1,5 +1,16 @@
 @use "./global/index" as g;
 
+.current-type {
+  width: fit-content;
+  font: {
+    family: g.$fontOswald;
+    size: 1.4rem;
+    weight: 400;
+  }
+  line-height: g.lineHeight(14, 20);
+  margin: 0 0 8px;
+  border-bottom: 4px solid g.$colFC540C;
+}
 .page-title {
   font: {
     family: g.$fontOptima;
@@ -119,5 +130,59 @@
     .heading {
       font-weight: 300;
     }
+  }
+}
+
+.chart {
+  &__navigation {
+    position: relative;
+    display: flex;
+    gap: 50px;
+    margin: 43px 0 54px;
+    &::after {
+      position: absolute;
+      bottom: 0;
+      width: 100vw;
+      height: 1px;
+      content: "";
+      margin: 0 calc(50% - 50vw);
+      background-color: g.$col9F9F9F;
+    }
+    &__link {
+      font: {
+        family: g.$fontOptima;
+        size: 1.8rem;
+      }
+      color: g.$col575757;
+      line-height: g.lineHeight(18, 22);
+      padding: 0 0 9px;
+      border-bottom: 4px solid transparent;
+      &.current {
+        font-weight: 700;
+        color: g.$col000;
+        border-color: g.$colFC540C;
+      }
+    }
+  }
+
+  &__title {
+    font: {
+      family: g.$fontOptima;
+      size: 1.8rem;
+      weight: 700;
+    }
+    color: g.$col000;
+    line-height: g.lineHeight(18, 22);
+    margin: 0 0 31px;
+  }
+
+  &__description {
+    font: {
+      family: g.$fontGillSans;
+      size: 1.8rem;
+      weight: 300;
+    }
+    line-height: g.lineHeight(18, 22);
+    margin: 0 0 46px;
   }
 }

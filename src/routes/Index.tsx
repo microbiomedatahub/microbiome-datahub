@@ -49,13 +49,10 @@ function Index() {
     <main className='app-main'>
       {error && <h1>Hi</h1>}
       {isMutating && <h1>Now Loading....</h1>}
-      <h2 className='page-title'>PROJECT</h2>
-      <section className='tags'>
-        <button className='tags__item'>host taxon name</button>
-        <button className='tags__item'>host taxon name</button>
-        <button className='tags__item'>T: -99 ― 45</button>
-        <p>{pSearchQuery.sample_organism}</p>
-      </section>
+      <nav className="tab-navigation">
+        <a href="" className="tab-navigation__link current">PROJECT</a>
+        <a href="" className="tab-navigation__link">GENOME</a>
+      </nav>
 
       <form action='' className='search'>
         <p className='search__results-number'>
@@ -97,7 +94,7 @@ function Index() {
                 <dl className='results__item__data'>
                   <div className='results__item__data__item'>
                     <dt className='heading'>Environment</dt>
-                    <dd className='content'>
+                    <dd className='content buttons'>
                       {item._source._annotation.sample_organism.map((envItem: string, envIndex: number) => {
                         return <button className='content__button' key={envIndex}>{envItem}</button>
                       })}
