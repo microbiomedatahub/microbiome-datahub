@@ -28,6 +28,7 @@ const SideMenu = () => {
   const [hostDisease, setHostDisease] = useState('')
   const [hostLocation, setHostLocation] = useState('')
   const [temperature, setTemperature] = useState(50)
+  const [ph, setPh] = useState(0)
 
   const searchProject = () => {
     setProjectSearchQuery({
@@ -128,7 +129,21 @@ const SideMenu = () => {
                 type='range'
                 className='side-menu__links__range'
                 value={temperature}
+                min='-30'
+                max='130'
                 onChange={(e) => setTemperature(Number(e.currentTarget.value))}
+              />
+            </section>
+
+            <section className='side-menu__links__section'>
+              <label className='side-menu__links__heading'>pH</label>
+              <input
+                type='range'
+                className='side-menu__links__range'
+                value={ph}
+                min='0'
+                max='15'
+                onChange={(e) => setPh(Number(e.currentTarget.value))}
               />
             </section>
 
