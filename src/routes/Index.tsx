@@ -1,10 +1,10 @@
 // @ts-nocheck
 import '../css/index.css'
-import { useAtomValue } from 'jotai'
+import { useAtom, useAtomValue } from 'jotai'
 import { useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import useSWRMutation from 'swr/mutation'
-import { projectSearchQueryAtom } from '../store/store'
+import { projectSearchQueryAtom, selectModeAtom } from '../store/store'
 
 function Index() {
   const pSearchQuery = useAtomValue(projectSearchQueryAtom)
@@ -16,6 +16,8 @@ function Index() {
     })
     return await res.json()
   }
+
+  const [selectMode, setSelectMode] = useAtom(selectModeAtom)
 
   const { data, error, isMutating, reset, trigger } = useSWRMutation('/bioproject', retrieveBioProject)
   console.log(data)
@@ -36,6 +38,17 @@ function Index() {
     if (pSearchQuery.sample_host_location) {
       queries.push({ match: { '_annotation.sample_host_location': pSearchQuery.sample_host_location } })
     }
+    // if (pSearchQuery.sample_temperature_range) {
+    //   queries.push({
+    //     aggs: {
+    //       maxTemperature: {
+    //         max: {
+    //           field: '_annotation.sample_temperature_range',
+    //         },
+    //       },
+    //     },
+    //   })
+    // }
 
     trigger({
       headers: {
@@ -54,8 +67,18 @@ function Index() {
       {error && <h1>Hi</h1>}
       {isMutating && <h1>Now Loading....</h1>}
       <nav className='tab-navigation'>
-        <a href='' className='tab-navigation__link current'>PROJECT</a>
-        <a href='' className='tab-navigation__link'>GENOME</a>
+        <button
+          className={`tab-navigation__link${selectMode === 'project' ? ' current' : ''}`}
+          onClick={() => setSelectMode('project')}
+        >
+          PROJECT
+        </button>
+        <button
+          className={`tab-navigation__link${selectMode === 'genome' ? ' current' : ''}`}
+          onClick={() => setSelectMode('genome')}
+        >
+          GENOME
+        </button>
       </nav>
 
       <form action='' className='search'>
@@ -130,106 +153,6 @@ function Index() {
             )
           })
         }
-
-        <article className='results__item'>
-          <div className='results__item__header'>
-            <h2 className='title'>
-              <Link to={`/show/`} title=''>
-                Reference human gut microbiome project
-              </Link>
-            </h2>
-            <p className='id'>PRJNA826698</p>
-          </div>
-          <dl className='results__item__data'>
-            <div className='results__item__data__item'>
-              <dt className='heading'>Environment</dt>
-              <dd className='content'>
-                <button className='content__button'>gut</button>
-              </dd>
-            </div>
-
-            <div className='results__item__data__item'>
-              <dt className='heading'>Host taxon</dt>
-              <dd className='content'>
-                <button className='content__button'>Homo sapiens</button>
-              </dd>
-            </div>
-
-            <div className='results__item__data__item'>
-              <dt className='heading'>BioSamples</dt>
-              <dd className='content'>120</dd>
-            </div>
-
-            <div className='results__item__data__item'>
-              <dt className='heading'>Data size (GB)</dt>
-              <dd className='content'>800</dd>
-            </div>
-          </dl>
-        </article>
-
-        <article className='results__item'>
-          <div className='results__item__header'>
-            <h2 className='title'>Reference human gut microbiome project</h2>
-            <p className='id'>PRJNA826698</p>
-          </div>
-          <dl className='results__item__data'>
-            <div className='results__item__data__item'>
-              <dt className='heading'>Environment</dt>
-              <dd className='content'>
-                <button className='content__button'>gut</button>
-              </dd>
-            </div>
-
-            <div className='results__item__data__item'>
-              <dt className='heading'>Host taxon</dt>
-              <dd className='content'>
-                <button className='content__button'>Homo sapiens</button>
-              </dd>
-            </div>
-
-            <div className='results__item__data__item'>
-              <dt className='heading'>BioSamples</dt>
-              <dd className='content'>120</dd>
-            </div>
-
-            <div className='results__item__data__item'>
-              <dt className='heading'>Data size (GB)</dt>
-              <dd className='content'>800</dd>
-            </div>
-          </dl>
-        </article>
-
-        <article className='results__item'>
-          <div className='results__item__header'>
-            <h2 className='title'>Reference human gut microbiome project</h2>
-            <p className='id'>PRJNA826698</p>
-          </div>
-          <dl className='results__item__data'>
-            <div className='results__item__data__item'>
-              <dt className='heading'>Environment</dt>
-              <dd className='content'>
-                <button className='content__button'>gut</button>
-              </dd>
-            </div>
-
-            <div className='results__item__data__item'>
-              <dt className='heading'>Host taxon</dt>
-              <dd className='content'>
-                <button className='content__button'>Homo sapiens</button>
-              </dd>
-            </div>
-
-            <div className='results__item__data__item'>
-              <dt className='heading'>BioSamples</dt>
-              <dd className='content'>120</dd>
-            </div>
-
-            <div className='results__item__data__item'>
-              <dt className='heading'>Data size (GB)</dt>
-              <dd className='content'>800</dd>
-            </div>
-          </dl>
-        </article>
 
         <nav className='pagination' aria-label='ページャー'>
           <span className='pagination__item current'>1</span>

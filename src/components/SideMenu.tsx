@@ -1,6 +1,6 @@
-import { useSetAtom } from 'jotai'
+import { useAtom, useSetAtom } from 'jotai'
 import { useState } from 'react'
-import { projectSearchQueryAtom } from '../store/store'
+import { projectSearchQueryAtom, selectModeAtom } from '../store/store'
 
 const SideMenu = () => {
   const [isShow, setIsShow] = useState(false)
@@ -8,6 +8,8 @@ const SideMenu = () => {
     setIsShow(!isShow)
   }
   const setProjectSearchQuery = useSetAtom(projectSearchQueryAtom)
+
+  const [selectMode, setSelectMode] = useAtom(selectModeAtom)
 
   const [environments, setEnvironments] = useState<Array<string>>([
     'soil',
@@ -36,6 +38,7 @@ const SideMenu = () => {
       sample_host_organism: hostTaxon,
       sample_host_disease: hostDisease,
       sample_host_location: hostLocation,
+      sample_temperature_range: temperature,
     })
   }
 
@@ -72,8 +75,18 @@ const SideMenu = () => {
         <div tabIndex={0}></div>
         <nav>
           <nav className='side-menu__select-panel'>
-            <button className='side-menu__select-panel__button current'>PROJECT</button>
-            <button className='side-menu__select-panel__button'>GENOME</button>
+            <button
+              className={`side-menu__select-panel__button${selectMode === 'project' ? ' current' : ''}`}
+              onClick={() => setSelectMode('project')}
+            >
+              PROJECT
+            </button>
+            <button
+              className={`side-menu__select-panel__button${selectMode === 'genome' ? ' current' : ''}`}
+              onClick={() => setSelectMode('genome')}
+            >
+              GENOME
+            </button>
           </nav>
           <nav id='projectMenu' className='side-menu__links'>
             <section className='side-menu__links__section'>
