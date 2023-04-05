@@ -19,6 +19,10 @@ const router = createBrowserRouter([
     path: '/projects/:projectId',
     element: <Show />,
   },
+  {
+    path: '/genomes/:genomeId',
+    element: <Show />,
+  },
 ])
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

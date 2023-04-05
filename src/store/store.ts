@@ -13,3 +13,7 @@ export const projectSearchQueryAtom = atom(
 export const selectModeAtom = atom(
   'project',
 )
+
+export const totalAtom = atom(
+  0,
+)
