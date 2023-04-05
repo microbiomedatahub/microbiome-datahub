@@ -17,3 +17,7 @@ export const selectModeAtom = atom(
 export const totalAtom = atom(
   0,
 )
+
+export const resultCountAtom = atom(
+  0,
+)
