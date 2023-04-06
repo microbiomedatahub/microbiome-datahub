@@ -1,6 +1,6 @@
 import { useAtomValue, useSetAtom } from 'jotai'
 import { useEffect, useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
 import { projectSearchQueryAtom, resultCountAtom, totalAtom } from '../store/store'
@@ -8,10 +8,11 @@ import Pagination from './Pagination'
 
 interface GenomeListRequest {
   query: any
+  from: number
   size?: number
 }
 
-const GenomeList = () => {
+const GenomeItems = () => {
   const setTotal = useSetAtom(totalAtom)
 
   const retrieveGenome = async (url: string, { arg }: { arg: GenomeListRequest }) => {
@@ -52,10 +53,18 @@ const GenomeList = () => {
     if (!data?.hits?.total?.value || !data?.hits?.hits) {
       return 1
     }
+    if (data?.hits?.hits.length < 10) {
+      return Math.ceil(data?.hits?.total?.value / 10)
+    }
     return Math.ceil(data?.hits?.total?.value / data?.hits?.hits?.length)
   }, [data?.hits?.total, data?.hits?.hits])
 
   const [currentPage, setCurrentPage] = useState(1)
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  useEffect(() => {
+    setCurrentPage(parseInt(searchParams.get('page') ?? '1'))
+  }, [searchParams])
 
   const pSearchQuery = useAtomValue(projectSearchQueryAtom)
   useEffect(() => {
@@ -77,9 +86,10 @@ const GenomeList = () => {
 
     trigger({
       query: { bool: { must: queries } },
+      from: (currentPage - 1) * 10,
       size: 10,
     })
-  }, [pSearchQuery])
+  }, [pSearchQuery, currentPage])
 
   return (
     <>
@@ -138,4 +148,4 @@ const GenomeList = () => {
   )
 }
 
-export default GenomeList
+export default GenomeItems
