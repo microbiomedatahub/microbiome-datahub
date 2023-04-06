@@ -1,12 +1,14 @@
 import { useAtomValue, useSetAtom } from 'jotai'
-import { useDebugValue, useEffect, useMemo } from 'react'
+import { useDebugValue, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
 import { projectSearchQueryAtom, resultCountAtom, totalAtom } from '../store/store'
+import Pagination from './Pagination'
 
 interface BioProjectListRequest {
   query: any
+  from: number
   size?: number
 }
 
@@ -48,6 +50,15 @@ const BioProjectList = () => {
     return paginationNumberList
   }, [data?.hits?.total, data?.hits?.hits])
 
+  const lastPage = useMemo(() => {
+    if (!data?.hits?.total?.value || !data?.hits?.hits) {
+      return 1
+    }
+    return Math.ceil(data?.hits?.total?.value / data?.hits?.hits?.length)
+  }, [data?.hits?.total, data?.hits?.hits])
+
+  const [currentPage, setCurrentPage] = useState(1)
+
   const pSearchQuery = useAtomValue(projectSearchQueryAtom)
   useEffect(() => {
     reset()
@@ -68,6 +79,7 @@ const BioProjectList = () => {
 
     trigger({
       query: { bool: { must: queries } },
+      from: 0,
       size: 10,
     })
   }, [pSearchQuery])
@@ -126,35 +138,7 @@ const BioProjectList = () => {
           })
         }
 
-        <nav className='pagination' aria-label='ページャー'>
-          {paginationItems.length <= 3
-            && (
-              <>
-                {paginationItems.map((item: number, index: number) => {
-                  return (index + 1) === 1
-                    ? <span className='pagination__item current'>{item}</span>
-                    : <a href='' className='pagination__item'>{item}</a>
-                })}
-              </>
-            )}
-          {paginationItems.length > 3
-            && (
-              <>
-                <span className='pagination__item current'>1</span>
-                <a href='' className='pagination__item'>2</a>
-                <a href='' className='pagination__item'>3</a>
-                <div className='pagination__item dot'>
-                  <svg viewBox='0 0 31 4' xmlns='http://www.w3.org/2000/svg'>
-                    <circle cx='2' cy='2' r='2' fill='#D9D9D9' />
-                    <circle cx='11' cy='2' r='2' fill='#D9D9D9' />
-                    <circle cx='20' cy='2' r='2' fill='#D9D9D9' />
-                    <circle cx='29' cy='2' r='2' fill='#D9D9D9' />
-                  </svg>
-                </div>
-                <a href='' className='pagination__item'>{paginationItems[paginationItems.length - 1]}</a>
-              </>
-            )}
-        </nav>
+        <Pagination currentPage={currentPage} lastPage={lastPage} />
       </section>
     </>
   )
