@@ -1,6 +1,6 @@
 import { useAtomValue, useSetAtom } from 'jotai'
 import { useDebugValue, useEffect, useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
 import { projectSearchQueryAtom, resultCountAtom, totalAtom } from '../store/store'
@@ -51,13 +51,23 @@ const BioProjectList = () => {
   }, [data?.hits?.total, data?.hits?.hits])
 
   const lastPage = useMemo(() => {
+    console.log(data?.hits?.total?.value, data?.hits?.hits.length)
     if (!data?.hits?.total?.value || !data?.hits?.hits) {
       return 1
     }
+    if (data?.hits?.hits.length < 10) {
+      return Math.ceil(data?.hits?.total?.value / 10)
+    }
+
     return Math.ceil(data?.hits?.total?.value / data?.hits?.hits?.length)
   }, [data?.hits?.total, data?.hits?.hits])
 
   const [currentPage, setCurrentPage] = useState(1)
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  useEffect(() => {
+    setCurrentPage(parseInt(searchParams.get('page') ?? '1'))
+  }, [searchParams])
 
   const pSearchQuery = useAtomValue(projectSearchQueryAtom)
   useEffect(() => {
@@ -79,10 +89,12 @@ const BioProjectList = () => {
 
     trigger({
       query: { bool: { must: queries } },
-      from: 0,
+      from: (currentPage - 1) * 10,
       size: 10,
     })
-  }, [pSearchQuery])
+  }, [pSearchQuery, currentPage])
+
+  console.log(Array.from(searchParams.entries()), searchParams.get('page'))
 
   console.log(error)
 
