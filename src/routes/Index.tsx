@@ -2,10 +2,10 @@
 import '../css/index.css'
 import { useAtom, useAtomValue } from 'jotai'
 import { useEffect, useMemo } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import useSWRMutation from 'swr/mutation'
 import BioProjectList from '../components/BioProjectList'
-import GenomeList from '../components/GenomeList'
+import GenomeItems from '../components/GenomeItems'
 import { projectSearchQueryAtom, resultCountAtom, selectModeAtom, totalAtom } from '../store/store'
 
 function Index() {
@@ -15,19 +15,15 @@ function Index() {
 
   return (
     <main className='app-main'>
-      <nav className='tab-navigation'>
-        <button
-          className={`tab-navigation__link${selectMode === 'project' ? ' current' : ''}`}
-          onClick={() => setSelectMode('project')}
-        >
-          PROJECT
-        </button>
-        <button
-          className={`tab-navigation__link${selectMode === 'genome' ? ' current' : ''}`}
-          onClick={() => setSelectMode('genome')}
-        >
-          GENOME
-        </button>
+      <nav>
+        <ul className='tab-navigation'>
+          <li className={`tab-navigation__link${selectMode === 'project' ? ' current' : ''}`}>
+            {selectMode !== 'project' ? <Link to='/projects'>PROJECT</Link> : 'PROJECT'}
+          </li>
+          <li className={`tab-navigation__link${selectMode === 'genome' ? ' current' : ''}`}>
+            {selectMode !== 'genome' ? <Link to='/genomes'>GENOME</Link> : 'GENOME'}
+          </li>
+        </ul>
       </nav>
 
       <form action='' className='search'>
@@ -55,7 +51,7 @@ function Index() {
       </form>
 
       {selectMode === 'genome'
-        && <GenomeList />}
+        && <GenomeItems />}
       {selectMode === 'project'
         && <BioProjectList />}
     </main>
