@@ -2,7 +2,7 @@ import { atom, useAtomValue, useSetAtom } from 'jotai'
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import useSWRMutation from 'swr/mutation'
-import { projectSearchQueryAtom, resultsCountTotalAtom } from '../store/store'
+import { projectSearchQueryAtom, resultsCountTotalAtom, searchKeywordAtom } from '../store/store'
 import Pagination from './Pagination'
 
 interface GenomeListRequest {
@@ -69,6 +69,7 @@ const GenomeItems = () => {
   }, [searchParams])
 
   const pSearchQuery = useAtomValue(projectSearchQueryAtom)
+  const searchKeyword = useAtomValue(searchKeywordAtom)
   useEffect(() => {
     reset()
 
@@ -85,13 +86,29 @@ const GenomeItems = () => {
     if (pSearchQuery.sample_host_location) {
       queries.push({ match: { '_annotation.sample_host_location': pSearchQuery.sample_host_location } })
     }
+    if (searchKeyword) {
+      queries.push({
+        wildcard: {
+          id: {
+            value: `*${searchKeyword}*`,
+          },
+        },
+      })
+      queries.push({
+        wildcard: {
+          label: {
+            value: `*${searchKeyword}*`,
+          },
+        },
+      })
+    }
 
     trigger({
       query: { bool: { must: queries } },
       from: (currentPage - 1) * 10,
       size: 10,
     })
-  }, [pSearchQuery, currentPage])
+  }, [pSearchQuery, currentPage, searchKeyword])
 
   return (
     <>
