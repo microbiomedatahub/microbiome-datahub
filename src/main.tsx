@@ -7,6 +7,7 @@ import './css/index.css'
 import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom'
 import Root from './routes/Root'
 import SearchResults from './routes/SearchResults'
+import Show from './routes/Show'
 
 export interface MicrobiomeMode {
   type: 'project' | 'genome'
@@ -40,6 +41,11 @@ const router = createBrowserRouter([
         element: <SearchResults />,
         loader: genomeLoader,
       },
+      {
+        path: '/projects/:projectId',
+        element: <Show />,
+      },
+      { path: '/genomes/:genomeId', element: <Show /> },
     ],
   },
 ])
