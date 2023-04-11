@@ -14,10 +14,12 @@ export const selectModeAtom = atom(
   'project',
 )
 
-export const totalAtom = atom(
-  0,
-)
+export interface ResultsCountTotalState {
+  itemCount: number
+  total: number
+}
 
-export const resultCountAtom = atom(
-  0,
-)
+export const resultsCountTotalAtom = atom<ResultsCountTotalState>({
+  itemCount: 0,
+  total: 0,
+})
