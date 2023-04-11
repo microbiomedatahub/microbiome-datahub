@@ -10,6 +10,8 @@ export const projectSearchQueryAtom = atom(
   },
 )
 
+export const searchKeywordAtom = atom('')
+
 export const selectModeAtom = atom(
   'project',
 )

@@ -1,10 +1,10 @@
-import { useAtomValue } from 'jotai'
+import { useAtom, useAtomValue } from 'jotai'
 import { useEffect, useState } from 'react'
-import { resultsCountTotalAtom, selectModeAtom } from '../store/store'
+import { resultsCountTotalAtom, searchKeywordAtom, selectModeAtom } from '../store/store'
 
 const SearchForm = () => {
   const countTotal = useAtomValue(resultsCountTotalAtom)
-  const [keyword, setKeyword] = useState('')
+  const [keyword, setKeyword] = useAtom(searchKeywordAtom)
   const [orderBy, setOrderBy] = useState('projectId')
   const selectMode = useAtomValue(selectModeAtom)
   useEffect(() => {
