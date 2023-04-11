@@ -1,4 +1,4 @@
-import { atom, useAtom, useAtomValue } from 'jotai'
+import { useAtomValue } from 'jotai'
 import { useState } from 'react'
 import { resultsCountTotalAtom } from '../store/store'
 
