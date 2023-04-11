@@ -5,13 +5,9 @@ import './css/destyle.min.css'
 import './css/base.css'
 import './css/index.css'
 import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom'
-import Footer from './components/Footer'
-import Header from './components/Header'
-import SideMenu from './components/SideMenu'
 import GenomeList from './routes/GenomeList'
 import ProjectList from './routes/ProjectList'
 import Root from './routes/Root'
-import Show from './routes/Show'
 
 interface MicrobiomeMode {
   mode: 'project' | 'genome'

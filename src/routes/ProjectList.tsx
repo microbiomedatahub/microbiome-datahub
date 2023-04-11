@@ -1,4 +1,4 @@
-import { useAtom, useAtomValue } from 'jotai'
+import { useAtom } from 'jotai'
 import { useEffect } from 'react'
 import { Link, useLoaderData } from 'react-router-dom'
 import BioProjectList from '../components/BioProjectList'
