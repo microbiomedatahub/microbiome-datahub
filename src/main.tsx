@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import './css/destyle.min.css'
 import './css/base.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import './css/index.css'
+import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import SideMenu from './components/SideMenu'
@@ -15,7 +16,9 @@ import Show from './routes/Show'
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Index />,
+    loader: async () => {
+      return redirect('/projects')
+    },
   },
   {
     path: '/projects',
