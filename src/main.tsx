@@ -9,7 +9,6 @@ import Footer from './components/Footer'
 import Header from './components/Header'
 import SideMenu from './components/SideMenu'
 import GenomeList from './routes/GenomeList'
-import Index from './routes/Index'
 import ProjectList from './routes/ProjectList'
 import Show from './routes/Show'
 
