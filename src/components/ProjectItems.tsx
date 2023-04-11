@@ -11,7 +11,7 @@ interface BioProjectListRequest {
   size?: number
 }
 
-const BioProjectList = () => {
+const ProjectItems = () => {
   const retrieveBioProject = async (url: string, { arg }: { arg: BioProjectListRequest }) => {
     const res = await fetch(`https://mdatahub.org/api${url}`, {
       method: 'POST',
@@ -158,4 +158,4 @@ const BioProjectList = () => {
   )
 }
 
-export default BioProjectList
+export default ProjectItems

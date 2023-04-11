@@ -1,8 +1,8 @@
 import { useSetAtom } from 'jotai'
 import { useEffect } from 'react'
 import { Link, useLoaderData } from 'react-router-dom'
-import BioProjectList from '../components/BioProjectList'
 import GenomeItems from '../components/GenomeItems'
+import ProjectItems from '../components/ProjectItems'
 import SearchForm from '../components/SearchForm'
 import { MicrobiomeMode } from '../main'
 import { selectModeAtom } from '../store/store'
@@ -28,7 +28,7 @@ const SearchResults = () => {
 
       <SearchForm />
 
-      {type === 'project' && <BioProjectList />}
+      {type === 'project' && <ProjectItems />}
       {type === 'genome' && <GenomeItems />}
     </main>
   )
