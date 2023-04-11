@@ -10,40 +10,31 @@ import Header from './components/Header'
 import SideMenu from './components/SideMenu'
 import GenomeList from './routes/GenomeList'
 import ProjectList from './routes/ProjectList'
+import Root from './routes/Root'
 import Show from './routes/Show'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    loader: async () => {
+    element: <Root />,
+    /*loader: async () => {
       return redirect('/projects')
-    },
-  },
-  {
-    path: '/projects',
-    element: <ProjectList />,
-  },
-  {
-    path: '/genomes',
-    element: <GenomeList />,
-  },
-  {
-    path: '/projects/:projectId',
-    element: <Show />,
-  },
-  {
-    path: '/genomes/:genomeId',
-    element: <Show />,
+    },*/
+    children: [
+      {
+        path: 'projects',
+        element: <ProjectList />,
+      },
+      {
+        path: 'genomes',
+        element: <GenomeList />,
+      },
+    ],
   },
 ])
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <Header />
-    <div className='app-wrapper'>
-      <SideMenu />
-      <RouterProvider router={router} />
-    </div>
-    <Footer />
+    <RouterProvider router={router} />
   </React.StrictMode>,
 )
