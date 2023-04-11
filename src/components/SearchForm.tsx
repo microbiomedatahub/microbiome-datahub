@@ -1,11 +1,17 @@
 import { useAtomValue } from 'jotai'
-import { useState } from 'react'
-import { resultsCountTotalAtom } from '../store/store'
+import { useEffect, useState } from 'react'
+import { resultsCountTotalAtom, selectModeAtom } from '../store/store'
 
 const SearchForm = () => {
   const countTotal = useAtomValue(resultsCountTotalAtom)
   const [keyword, setKeyword] = useState('')
   const [orderBy, setOrderBy] = useState('projectId')
+  const selectMode = useAtomValue(selectModeAtom)
+  useEffect(() => {
+    setOrderBy(
+      selectMode + 'Id',
+    )
+  }, [selectMode])
 
   return (
     <form className='search'>
@@ -27,7 +33,8 @@ const SearchForm = () => {
         onChange={(e) => setOrderBy(e.currentTarget.value)}
         value={orderBy}
       >
-        <option value='projectId'>Project ID</option>
+        {selectMode === 'project' && <option value='projectId'>Project ID</option>}
+        {selectMode === 'genome' && <option value='genomeId'>Genome ID</option>}
       </select>
       <div className='search__order'>
         <button value='' className='search__order__button active'>
