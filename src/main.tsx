@@ -5,19 +5,18 @@ import './css/destyle.min.css'
 import './css/base.css'
 import './css/index.css'
 import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom'
-import GenomeList from './routes/GenomeList'
-import ProjectList from './routes/ProjectList'
 import Root from './routes/Root'
+import SearchResults from './routes/SearchResults'
 
-interface MicrobiomeMode {
-  mode: 'project' | 'genome'
+export interface MicrobiomeMode {
+  type: 'project' | 'genome'
 }
 
-export const projectLoader = (): MicrobiomeMode => {
-  return { mode: 'project' }
+const projectLoader = (): MicrobiomeMode => {
+  return { type: 'project' }
 }
-export const genomeLoader = (): MicrobiomeMode => {
-  return { mode: 'genome' }
+const genomeLoader = (): MicrobiomeMode => {
+  return { type: 'genome' }
 }
 
 const router = createBrowserRouter([
@@ -33,12 +32,12 @@ const router = createBrowserRouter([
       },
       {
         path: '/projects',
-        element: <ProjectList />,
+        element: <SearchResults />,
         loader: projectLoader,
       },
       {
         path: '/genomes',
-        element: <GenomeList />,
+        element: <SearchResults />,
         loader: genomeLoader,
       },
     ],
