@@ -17,16 +17,19 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
-    /*loader: async () => {
-      return redirect('/projects')
-    },*/
     children: [
       {
-        path: 'projects',
+        path: '/',
+        loader: () => {
+          return redirect('/projects')
+        },
+      },
+      {
+        path: '/projects',
         element: <ProjectList />,
       },
       {
-        path: 'genomes',
+        path: '/genomes',
         element: <GenomeList />,
       },
     ],
