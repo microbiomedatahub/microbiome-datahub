@@ -1,16 +1,18 @@
 import { useAtom, useAtomValue } from 'jotai'
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLoaderData } from 'react-router-dom'
 import BioProjectList from '../components/BioProjectList'
 import SearchForm from '../components/SearchForm'
+import { genomeLoader } from '../main'
 import { selectModeAtom } from '../store/store'
 
 const ProjectList = () => {
+  const { mode } = useLoaderData() as ReturnType<typeof genomeLoader>
   const [selectMode, setSelectMode] = useAtom(selectModeAtom)
 
   useEffect(() => {
-    setSelectMode('project')
-  }, [])
+    setSelectMode(mode)
+  }, [mode])
 
   return (
     <main className='app-main'>

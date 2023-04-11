@@ -13,6 +13,17 @@ import ProjectList from './routes/ProjectList'
 import Root from './routes/Root'
 import Show from './routes/Show'
 
+interface MicrobiomeMode {
+  mode: 'project' | 'genome'
+}
+
+export const projectLoader = (): MicrobiomeMode => {
+  return { mode: 'project' }
+}
+export const genomeLoader = (): MicrobiomeMode => {
+  return { mode: 'genome' }
+}
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -27,10 +38,12 @@ const router = createBrowserRouter([
       {
         path: '/projects',
         element: <ProjectList />,
+        loader: projectLoader,
       },
       {
         path: '/genomes',
         element: <GenomeList />,
+        loader: genomeLoader,
       },
     ],
   },
