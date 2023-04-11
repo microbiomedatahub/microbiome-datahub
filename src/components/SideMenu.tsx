@@ -1,5 +1,6 @@
-import { useAtom, useSetAtom } from 'jotai'
+import { useAtomValue, useSetAtom } from 'jotai'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { projectSearchQueryAtom, selectModeAtom } from '../store/store'
 
 const SideMenu = () => {
@@ -9,7 +10,7 @@ const SideMenu = () => {
   }
   const setProjectSearchQuery = useSetAtom(projectSearchQueryAtom)
 
-  const [selectMode, setSelectMode] = useAtom(selectModeAtom)
+  const selectMode = useAtomValue(selectModeAtom)
 
   const [environments, setEnvironments] = useState<Array<string>>([
     'soil',
@@ -75,18 +76,17 @@ const SideMenu = () => {
         <div tabIndex={0}></div>
         <nav>
           <nav className='side-menu__select-panel'>
-            <button
-              className={`side-menu__select-panel__button${selectMode === 'project' ? ' current' : ''}`}
-              onClick={() => setSelectMode('project')}
-            >
-              PROJECT
-            </button>
-            <button
-              className={`side-menu__select-panel__button${selectMode === 'genome' ? ' current' : ''}`}
-              onClick={() => setSelectMode('genome')}
-            >
-              GENOME
-            </button>
+            {['project', 'genome'].map((item, index) => {
+              return (
+                <Link
+                  key={index}
+                  className={`side-menu__select-panel__button${selectMode === item ? ' current' : ''}`}
+                  to={`${item}s`}
+                >
+                  {item.toUpperCase()}
+                </Link>
+              )
+            })}
           </nav>
           <nav id='projectMenu' className='side-menu__links'>
             <section className='side-menu__links__section'>
