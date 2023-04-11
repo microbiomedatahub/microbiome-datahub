@@ -1,9 +1,8 @@
-import { useAtomValue, useSetAtom } from 'jotai'
+import { atom, useAtomValue, useSetAtom } from 'jotai'
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
-import { projectSearchQueryAtom, resultCountAtom, totalAtom } from '../store/store'
+import { projectSearchQueryAtom, resultsCountTotalAtom } from '../store/store'
 import Pagination from './Pagination'
 
 interface GenomeListRequest {
@@ -13,8 +12,6 @@ interface GenomeListRequest {
 }
 
 const GenomeItems = () => {
-  const setTotal = useSetAtom(totalAtom)
-
   const retrieveGenome = async (url: string, { arg }: { arg: GenomeListRequest }) => {
     const res = await fetch(`https://mdatahub.org/api${url}`, {
       method: 'POST',
@@ -28,26 +25,31 @@ const GenomeItems = () => {
 
   const { data, error, isMutating, reset, trigger } = useSWRMutation('/genome', retrieveGenome)
 
+  const totalWritableAtom = atom(null, (get, set, newTotal: number) => {
+    const resultsCountTotal = get(resultsCountTotalAtom)
+    const newResultsCountTotal = {
+      itemCount: resultsCountTotal.itemCount,
+      total: newTotal,
+    }
+    set(resultsCountTotalAtom, newResultsCountTotal)
+  })
+  const setTotal = useSetAtom(totalWritableAtom)
   useEffect(() => {
     setTotal(data?.hits?.total?.value ?? 0)
   }, [data?.hits?.total])
 
-  const setResultCount = useSetAtom(resultCountAtom)
+  const itemCountWritableAtom = atom(null, (get, set, newItemCount: number) => {
+    const resultsCountTotal = get(resultsCountTotalAtom)
+    const newResultsCountTotal = {
+      itemCount: newItemCount,
+      total: resultsCountTotal.total,
+    }
+    set(resultsCountTotalAtom, newResultsCountTotal)
+  })
+  const setResultCount = useSetAtom(itemCountWritableAtom)
   useEffect(() => {
     setResultCount(data?.hits?.hits?.length ?? 0)
   }, [data?.hits?.hits])
-
-  const paginationItems = useMemo(() => {
-    if (!data?.hits?.total?.value || !data?.hits?.hits) {
-      return [1]
-    }
-    const paginationCount = Math.ceil(data?.hits?.total?.value / data?.hits?.hits?.length)
-    const paginationNumberList = []
-    for (let i = 1; i <= paginationCount; i++) {
-      paginationNumberList.push(i)
-    }
-    return paginationNumberList
-  }, [data?.hits?.total, data?.hits?.hits])
 
   const lastPage = useMemo(() => {
     if (!data?.hits?.total?.value || !data?.hits?.hits) {

@@ -1,9 +1,8 @@
-import { useAtomValue, useSetAtom } from 'jotai'
-import { useDebugValue, useEffect, useMemo, useState } from 'react'
+import { atom, useAtomValue, useSetAtom } from 'jotai'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
-import { projectSearchQueryAtom, resultCountAtom, totalAtom } from '../store/store'
+import { projectSearchQueryAtom, resultsCountTotalAtom } from '../store/store'
 import Pagination from './Pagination'
 
 interface BioProjectListRequest {
@@ -27,28 +26,31 @@ const BioProjectList = () => {
 
   const { data, error, isMutating, reset, trigger } = useSWRMutation('/bioproject', retrieveBioProject)
 
-  const setTotal = useSetAtom(totalAtom)
-
+  const totalWritableAtom = atom(null, (get, set, newTotal: number) => {
+    const resultsCountTotal = get(resultsCountTotalAtom)
+    const newResultsCountTotal = {
+      itemCount: resultsCountTotal.itemCount,
+      total: newTotal,
+    }
+    set(resultsCountTotalAtom, newResultsCountTotal)
+  })
+  const setTotal = useSetAtom(totalWritableAtom)
   useEffect(() => {
     setTotal(data?.hits?.total?.value ?? 0)
   }, [data?.hits?.total])
 
-  const setResultCount = useSetAtom(resultCountAtom)
+  const itemCountWritableAtom = atom(null, (get, set, newItemCount: number) => {
+    const resultsCountTotal = get(resultsCountTotalAtom)
+    const newResultsCountTotal = {
+      itemCount: newItemCount,
+      total: resultsCountTotal.total,
+    }
+    set(resultsCountTotalAtom, newResultsCountTotal)
+  })
+  const setResultCount = useSetAtom(itemCountWritableAtom)
   useEffect(() => {
     setResultCount(data?.hits?.hits?.length ?? 0)
   }, [data?.hits?.hits])
-
-  const paginationItems = useMemo(() => {
-    if (!data?.hits?.total?.value || !data?.hits?.hits) {
-      return [1]
-    }
-    const paginationCount = Math.ceil(data?.hits?.total?.value / data?.hits?.hits?.length)
-    const paginationNumberList = []
-    for (let i = 1; i <= paginationCount; i++) {
-      paginationNumberList.push(i)
-    }
-    return paginationNumberList
-  }, [data?.hits?.total, data?.hits?.hits])
 
   const lastPage = useMemo(() => {
     console.log(data?.hits?.total?.value, data?.hits?.hits.length)
@@ -63,7 +65,7 @@ const BioProjectList = () => {
   }, [data?.hits?.total, data?.hits?.hits])
 
   const [currentPage, setCurrentPage] = useState(1)
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams, _setSearchParams] = useSearchParams()
 
   useEffect(() => {
     setCurrentPage(parseInt(searchParams.get('page') ?? '1'))
