@@ -35,6 +35,10 @@ const GenomeResult = () => {
             <dt className='heading'>data type</dt>
             <dd className='content'>{data && data['data type']}</dd>
           </div>
+          <div className='data-id__data__item'>
+            <dt className='heading'>data source</dt>
+            <dd className='content'>{data && data['data source']}</dd>
+          </div>
         </dl>
 
         <p className='data-id__id'>{data?.identifier}</p>
