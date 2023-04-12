@@ -5,7 +5,7 @@ const GenomeCategory = () => {
         <label className='side-menu__links__heading'>Genome taxon</label>
         <input
           type='text'
-          placeholder='Genome taxon name'
+          placeholder='Genome taxon'
           className='side-menu__links__input'
         />
       </section>
