@@ -4,7 +4,7 @@ import useSWR from 'swr'
 import dummyChart from '../images/dummy-chart.png'
 import logo from '../images/site-logo.png'
 
-function Show() {
+const ProjectResult = () => {
   const params = useParams()
   console.log(params.projectId)
 
@@ -105,4 +105,4 @@ function Show() {
   )
 }
 
-export default Show
+export default ProjectResult
