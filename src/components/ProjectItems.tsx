@@ -20,7 +20,7 @@ const ProjectItems = () => {
       },
       body: JSON.stringify(arg),
     })
-    // console.log(await res.json())
+
     return await res.json()
   }
 
