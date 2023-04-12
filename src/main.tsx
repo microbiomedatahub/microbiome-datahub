@@ -5,6 +5,7 @@ import './css/destyle.min.css'
 import './css/base.css'
 import './css/index.css'
 import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom'
+import GenomeResult from './routes/GenomeResult'
 import Root from './routes/Root'
 import SearchResults from './routes/SearchResults'
 import Show from './routes/Show'
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
         path: '/projects/:projectId',
         element: <Show />,
       },
-      { path: '/genomes/:genomeId', element: <Show /> },
+      { path: '/genomes/:genomeId', element: <GenomeResult /> },
     ],
   },
 ])
