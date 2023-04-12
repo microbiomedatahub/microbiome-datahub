@@ -2,6 +2,7 @@ import { useAtomValue, useSetAtom } from 'jotai'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { projectSearchQueryAtom, selectModeAtom } from '../store/store'
+import GenomeCategory from './GenomeCategory'
 
 const SideMenu = () => {
   const [isShow, setIsShow] = useState(false)
@@ -104,6 +105,8 @@ const SideMenu = () => {
                 )
               })}
             </section>
+
+            <GenomeCategory />
 
             <section className='side-menu__links__section'>
               <label className='side-menu__links__heading'>Host taxon</label>
