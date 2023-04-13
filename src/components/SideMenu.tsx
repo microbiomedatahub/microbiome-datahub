@@ -1,6 +1,6 @@
 import { useAtomValue, useSetAtom } from 'jotai'
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useMemo, useState } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 import { projectSearchQueryAtom, selectModeAtom } from '../store/store'
 import GenomeCategory from './GenomeCategory'
 
@@ -28,6 +28,10 @@ const SideMenu = () => {
   ])
 
   const [selectedEnv, setSelectedEnv] = useState('soil')
+  const handleEnv = (env: string) => {
+    setSelectedEnv(selectedEnv === env ? '' : env)
+  }
+
   const [hostTaxon, setHostTaxon] = useState('')
   const [hostDisease, setHostDisease] = useState('')
   const [hostLocation, setHostLocation] = useState('')
@@ -42,7 +46,41 @@ const SideMenu = () => {
       sample_host_location: hostLocation,
       sample_temperature_range: temperature,
     })
+
+    const queries: {[key:string]: string} = {}
+    if (selectedEnv) {
+      queries['env'] = selectedEnv
+    }
+    if (hostTaxon) {
+      queries['hostTaxon'] = hostTaxon
+    }
+    if (hostDisease) {
+      queries['hostDisease'] = hostDisease
+    }
+    if (hostLocation) {
+      queries['hostLoc'] = hostLocation
+    }
+    if (temperature) {
+      queries['temp'] = temperature.toString()
+    }
+    if (ph) {
+      queries['ph'] = ph.toString()
+    }
+
+    if (searchParams.get('q')) {
+      queries['q'] = searchParams.get('q') as string
+    }
+
+    setSearchParams({
+      ...queries,
+    })
   }
+
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const urlQuery = useMemo(() => {
+    return `?${searchParams.toString()}`
+  }, [searchParams])
 
   return (
     <div className={`side-menu ${isShow ? 'open' : ''}`}>
@@ -82,7 +120,7 @@ const SideMenu = () => {
                 <Link
                   key={index}
                   className={`side-menu__select-panel__button${selectMode === item ? ' current' : ''}`}
-                  to={`${item}s`}
+                  to={`${item}s${urlQuery}`}
                 >
                   {item.toUpperCase()}
                 </Link>
@@ -98,7 +136,7 @@ const SideMenu = () => {
                     key={index}
                     title={item}
                     className={`side-menu__links__item ${item === selectedEnv ? ' current' : ''}`}
-                    onClick={() => setSelectedEnv(item)}
+                    onClick={() => handleEnv(item)}
                   >
                     {item}
                   </p>
@@ -106,7 +144,7 @@ const SideMenu = () => {
               })}
             </section>
 
-            <GenomeCategory />
+            { selectMode === 'genome' && <GenomeCategory /> }
 
             <section className='side-menu__links__section'>
               <label className='side-menu__links__heading'>Host taxon</label>
