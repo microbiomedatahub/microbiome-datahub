@@ -28,8 +28,12 @@ const SearchForm = () => {
     setSearchParams(queries)
   }
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+  }
+
   return (
-    <form className='search'>
+    <form className='search' onSubmit={(e) => handleSubmit(e)}>
       <p className='search__results-number'>
         {countTotal.itemCount + ' / ' + countTotal.total}
       </p>
