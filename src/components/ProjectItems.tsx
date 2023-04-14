@@ -53,7 +53,6 @@ const ProjectItems = () => {
   }, [data?.hits?.hits])
 
   const lastPage = useMemo(() => {
-    console.log(data?.hits?.total?.value, data?.hits?.hits.length)
     if (!data?.hits?.total?.value || !data?.hits?.hits) {
       return 1
     }
