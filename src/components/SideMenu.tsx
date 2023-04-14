@@ -37,6 +37,11 @@ const SideMenu = () => {
   const [temperature, setTemperature] = useState(50)
   const [ph, setPh] = useState(0)
 
+  const [genomeTaxon, setGenomeTaxon] = useState('')
+  const [genomeCategory, setGenomeCategory] = useState('')
+  const [magSource, setMagSource] = useState('')
+  const [magCompleteness, setMagCompleteness] = useState(50)
+
   const searchProject = () => {
     const queries: {[key:string]: string} = {}
     if (selectedEnv) {
@@ -56,6 +61,18 @@ const SideMenu = () => {
     }
     if (ph) {
       queries['ph'] = ph.toString()
+    }
+    if (genomeTaxon) {
+      queries['genomeTaxon'] = genomeTaxon
+    }
+    if (genomeCategory) {
+      queries['genomeCategory'] = genomeCategory
+    }
+    if (magSource) {
+      queries['magSource'] = magSource
+    }
+    if (magCompleteness) {
+      queries['magCompleteness'] = magCompleteness.toString()
     }
 
     if (searchParams.get('q')) {
@@ -91,6 +108,18 @@ const SideMenu = () => {
     }
     if (searchParams.get('ph')) {
       setPh(parseInt(searchParams.get('ph') ?? ''))
+    }
+    if (searchParams.get('genomeTaxon')) {
+      setGenomeTaxon(searchParams.get('genomeTaxon') ?? '')
+    }
+    if (searchParams.get('genomeCategory')) {
+      setGenomeCategory(searchParams.get('genomeCategory') ?? '')
+    }
+    if (searchParams.get('magSource')) {
+      setMagSource(searchParams.get('magSource') ?? '')
+    }
+    if (searchParams.get('magCompleteness')) {
+      setMagCompleteness(parseInt(searchParams.get('magCompleteness') ?? ''))
     }
   }, [searchParams])
 
@@ -156,7 +185,16 @@ const SideMenu = () => {
               })}
             </section>
 
-            { selectMode === 'genome' && <GenomeCategory /> }
+            { selectMode === 'genome' && <GenomeCategory 
+              genomeTaxon={genomeTaxon} 
+              setGenomeTaxon={setGenomeTaxon}
+              magCompleteness={magCompleteness}
+              setMagCompleteness={setMagCompleteness} 
+              genomeCategory={genomeCategory}
+              setGenomeCategory={setGenomeCategory}
+              magSource={magSource}
+              setMagSource={setMagSource}
+            /> }
 
             <section className='side-menu__links__section'>
               <label className='side-menu__links__heading'>Host taxon</label>
