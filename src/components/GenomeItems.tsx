@@ -2,7 +2,7 @@ import { atom, useAtomValue, useSetAtom } from 'jotai'
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import useSWRMutation from 'swr/mutation'
-import { projectSearchQueryAtom, resultsCountTotalAtom, searchKeywordAtom } from '../store/store'
+import { projectSearchQueryAtom, resultsCountTotalAtom } from '../store/store'
 import Pagination from './Pagination'
 
 interface GenomeListRequest {
@@ -69,7 +69,6 @@ const GenomeItems = () => {
   }, [searchParams])
 
   const pSearchQuery = useAtomValue(projectSearchQueryAtom)
-  const searchKeyword = useAtomValue(searchKeywordAtom)
   useEffect(() => {
     reset()
 
@@ -86,29 +85,31 @@ const GenomeItems = () => {
     if (pSearchQuery.sample_host_location) {
       queries.push({ match: { '_annotation.sample_host_location': pSearchQuery.sample_host_location } })
     }
-    if (searchKeyword) {
-      queries.push({
+
+    const qQueries = []
+    if (searchParams.get('q')) {
+      qQueries.push({
         wildcard: {
-          id: {
-            value: `*${searchKeyword}*`,
+          identifier: {
+            value: `*${searchParams.get('q') ?? ''}*`,
           },
         },
       })
-      queries.push({
+      qQueries.push({
         wildcard: {
-          label: {
-            value: `*${searchKeyword}*`,
+          title: {
+            value: `*${searchParams.get('q') ?? ''}*`,
           },
         },
       })
     }
 
     trigger({
-      query: { bool: { must: queries } },
+      query: { bool: { must: queries, should: qQueries } },
       from: (currentPage - 1) * 10,
       size: 10,
     })
-  }, [pSearchQuery, currentPage, searchKeyword])
+  }, [pSearchQuery, currentPage, searchParams])
 
   return (
     <>

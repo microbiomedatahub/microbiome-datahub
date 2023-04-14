@@ -1,10 +1,10 @@
 import { useAtom, useAtomValue } from 'jotai'
 import { useEffect, useState } from 'react'
-import { resultsCountTotalAtom, searchKeywordAtom, selectModeAtom } from '../store/store'
+import { resultsCountTotalAtom, selectModeAtom } from '../store/store'
+import { useSearchParams } from 'react-router-dom'
 
 const SearchForm = () => {
   const countTotal = useAtomValue(resultsCountTotalAtom)
-  const [keyword, setKeyword] = useAtom(searchKeywordAtom)
   const [orderBy, setOrderBy] = useState('projectId')
   const selectMode = useAtomValue(selectModeAtom)
   useEffect(() => {
@@ -12,6 +12,21 @@ const SearchForm = () => {
       selectMode + 'Id',
     )
   }, [selectMode])
+
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const handleKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const queries: {[key: string]: string} = {}
+    searchParams.delete('q')
+    for (const [key, value] of searchParams.entries()) {      
+      queries[key] = value
+    }
+    console.log(e.currentTarget.value)
+    if (e.currentTarget.value) {
+      queries['q'] = e.currentTarget.value
+    }
+    setSearchParams(queries)
+  }
 
   return (
     <form className='search'>
@@ -22,8 +37,8 @@ const SearchForm = () => {
         type='search'
         className='search__input'
         placeholder='Search Keyword'
-        onChange={(e) => setKeyword(e.currentTarget.value)}
-        value={keyword}
+        onChange={(e) => handleKeyword(e)}
+        value={searchParams.get('q') ?? ''}
       />
       <label htmlFor='sort' className='search__sort-label'>order by</label>
       <select
