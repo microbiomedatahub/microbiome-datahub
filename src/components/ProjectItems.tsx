@@ -114,10 +114,6 @@ const ProjectItems = () => {
     })
   }, [pSearchQuery, currentPage, searchParams])
 
-  console.log(Array.from(searchParams.entries()), searchParams.get('page'))
-
-  console.log(error)
-
   return (
     <>
       {isMutating && <h1>Now Loading.....</h1>}
