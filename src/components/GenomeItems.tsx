@@ -1,8 +1,8 @@
-import { atom, useAtomValue, useSetAtom } from 'jotai'
+import { atom, useSetAtom } from 'jotai'
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import useSWRMutation from 'swr/mutation'
-import { projectSearchQueryAtom, resultsCountTotalAtom } from '../store/store'
+import { resultsCountTotalAtom } from '../store/store'
 import Pagination from './Pagination'
 
 interface GenomeListRequest {
@@ -68,23 +68,34 @@ const GenomeItems = () => {
     setCurrentPage(parseInt(searchParams.get('page') ?? '1'))
   }, [searchParams])
 
-  const pSearchQuery = useAtomValue(projectSearchQueryAtom)
   useEffect(() => {
     reset()
 
     const queries = []
-    if (pSearchQuery.sample_organism) {
-      queries.push({ 'match': { '_annotation.sample_organism': pSearchQuery.sample_organism } })
+    if (searchParams.get('env')) {
+      queries.push({match: {'_annotation.sample_organism': searchParams.get('env')}})
     }
-    if (pSearchQuery.sample_host_organism) {
-      queries.push({ match: { '_annotation.sample_host_organism': pSearchQuery.sample_host_organism } })
+    //if (pSearchQuery.sample_organism) {
+    //  queries.push({ 'match': { '_annotation.sample_organism': pSearchQuery.sample_organism } })
+    //}
+    if (searchParams.get('hostTaxon')) {
+      queries.push({ match: { '_annotation.sample_host_organism': searchParams.get('hostTaxon')}})
     }
-    if (pSearchQuery.sample_host_disease) {
-      queries.push({ match: { '_annotation.sample_host_disease': pSearchQuery.sample_host_disease } })
+    //if (pSearchQuery.sample_host_organism) {
+    //  queries.push({ match: { '_annotation.sample_host_organism': pSearchQuery.sample_host_organism } })
+    //}
+    if (searchParams.get('hostDisease')) {
+      queries.push({ match: { '_annotation.sample_host_disease': searchParams.get('hostDisease')}})
     }
-    if (pSearchQuery.sample_host_location) {
-      queries.push({ match: { '_annotation.sample_host_location': pSearchQuery.sample_host_location } })
+    //if (pSearchQuery.sample_host_disease) {
+    //  queries.push({ match: { '_annotation.sample_host_disease': pSearchQuery.sample_host_disease } })
+    //}
+    if (searchParams.get('hostLoc')) {
+      queries.push({match: {'_annotation.sample_host_location': searchParams.get('hostLoc')}})
     }
+    //if (pSearchQuery.sample_host_location) {
+    //  queries.push({ match: { '_annotation.sample_host_location': pSearchQuery.sample_host_location } })
+    //}
 
     const qQueries = []
     if (searchParams.get('q')) {
@@ -109,7 +120,7 @@ const GenomeItems = () => {
       from: (currentPage - 1) * 10,
       size: 10,
     })
-  }, [pSearchQuery, currentPage, searchParams])
+  }, [currentPage, searchParams])
 
   return (
     <>

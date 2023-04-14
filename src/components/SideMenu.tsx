@@ -1,7 +1,7 @@
-import { useAtomValue, useSetAtom } from 'jotai'
-import { useMemo, useState } from 'react'
+import { useAtomValue } from 'jotai'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { projectSearchQueryAtom, selectModeAtom } from '../store/store'
+import { selectModeAtom } from '../store/store'
 import GenomeCategory from './GenomeCategory'
 
 const SideMenu = () => {
@@ -9,7 +9,6 @@ const SideMenu = () => {
   const handleToggleButtonClick = () => {
     setIsShow(!isShow)
   }
-  const setProjectSearchQuery = useSetAtom(projectSearchQueryAtom)
 
   const selectMode = useAtomValue(selectModeAtom)
 
@@ -39,14 +38,6 @@ const SideMenu = () => {
   const [ph, setPh] = useState(0)
 
   const searchProject = () => {
-    setProjectSearchQuery({
-      sample_organism: selectedEnv,
-      sample_host_organism: hostTaxon,
-      sample_host_disease: hostDisease,
-      sample_host_location: hostLocation,
-      sample_temperature_range: temperature,
-    })
-
     const queries: {[key:string]: string} = {}
     if (selectedEnv) {
       queries['env'] = selectedEnv
@@ -80,6 +71,27 @@ const SideMenu = () => {
 
   const urlQuery = useMemo(() => {
     return `?${searchParams.toString()}`
+  }, [searchParams])
+
+  useEffect(() => {
+    if (searchParams.get('env')) {
+      setSelectedEnv(searchParams.get('env') ?? '')
+    }
+    if (searchParams.get('hostTaxon')) {
+      setHostTaxon(searchParams.get('hostTaxon') ?? '')
+    }
+    if (searchParams.get('hostDisease')) {
+      setHostDisease(searchParams.get('hostDisease') ?? '')
+    }
+    if (searchParams.get('hostLoc')) {
+      setHostLocation(searchParams.get('hostLoc') ?? '')
+    }
+    if (searchParams.get('temp')) {
+      setTemperature(parseInt(searchParams.get('temp') ?? ''))
+    }
+    if (searchParams.get('ph')) {
+      setPh(parseInt(searchParams.get('ph') ?? ''))
+    }
   }, [searchParams])
 
   return (
