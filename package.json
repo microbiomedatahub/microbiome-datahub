@@ -12,14 +12,18 @@
   },
   "dependencies": {
     "jotai": "^2.0.2",
+    "plotly.js": "^2.21.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-plotly.js": "^2.6.0",
     "react-router-dom": "^6.8.1",
     "swr": "^2.0.4"
   },
   "devDependencies": {
+    "@types/plotly.js": "^2.12.18",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
+    "@types/react-plotly.js": "^2.6.0",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
     "@vitejs/plugin-react": "^3.1.0",
