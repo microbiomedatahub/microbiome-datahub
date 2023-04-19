@@ -75,27 +75,15 @@ const GenomeItems = () => {
     if (searchParams.get('env')) {
       queries.push({match: {'_annotation.sample_organism': searchParams.get('env')}})
     }
-    //if (pSearchQuery.sample_organism) {
-    //  queries.push({ 'match': { '_annotation.sample_organism': pSearchQuery.sample_organism } })
-    //}
     if (searchParams.get('hostTaxon')) {
       queries.push({ match: { '_annotation.sample_host_organism': searchParams.get('hostTaxon')}})
     }
-    //if (pSearchQuery.sample_host_organism) {
-    //  queries.push({ match: { '_annotation.sample_host_organism': pSearchQuery.sample_host_organism } })
-    //}
     if (searchParams.get('hostDisease')) {
       queries.push({ match: { '_annotation.sample_host_disease': searchParams.get('hostDisease')}})
     }
-    //if (pSearchQuery.sample_host_disease) {
-    //  queries.push({ match: { '_annotation.sample_host_disease': pSearchQuery.sample_host_disease } })
-    //}
     if (searchParams.get('hostLoc')) {
       queries.push({match: {'_annotation.sample_host_location': searchParams.get('hostLoc')}})
     }
-    //if (pSearchQuery.sample_host_location) {
-    //  queries.push({ match: { '_annotation.sample_host_location': pSearchQuery.sample_host_location } })
-    //}
 
     const qQueries = []
     if (searchParams.get('q')) {
