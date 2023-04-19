@@ -1,7 +1,8 @@
 import { useParams } from 'react-router-dom'
 import '../css/show.css'
 import useSWR from 'swr'
-import dummyChart from '../images/dummy-chart.png'
+import Plot from 'react-plotly.js'
+import { PlotData } from 'plotly.js'
 
 const ProjectResult = () => {
   const params = useParams()
@@ -11,6 +12,19 @@ const ProjectResult = () => {
   const { data: projData, error, isLoading } = useSWR(params.projectId, projectFetcher)
   const data = projData?.index?._source
   console.log(projData)
+  const data1: Partial<PlotData> = {
+    x: [1, 2, 3],
+    y: [2, 6, 3],
+    type: 'scatter',
+    mode: 'lines+markers',
+    marker: {color: 'red'},
+  }
+  const data2: Partial<PlotData> = {type: 'bar', x: [1, 2, 3], y: [2, 5, 3]}
+  const allData: Partial<PlotData>[] = [
+    data1,
+    data2,
+  ]
+  const layout1 = {width: 320, height: 240, title: 'A Fancy Plot'}
 
   return (
     <main className='app-main'>
@@ -96,7 +110,7 @@ const ProjectResult = () => {
           <h3 className='chart__title'>SUBJECT of This Chart</h3>
           <p className='chart__description'>なにか、チャートに関する説明などがあれば表示する</p>
           <div className='chart__item'>
-            <img src={dummyChart} alt='Dummy Chart' />
+            <Plot data={allData} layout={layout1} />
           </div>
         </article>
       </section>
