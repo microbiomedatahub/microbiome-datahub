@@ -15,6 +15,12 @@ const SearchForm = () => {
 
   const [searchParams, setSearchParams] = useSearchParams()
 
+  useEffect(() => {
+    if (searchParams.get('sort')) {
+      setOrderBy(searchParams.get('sort') ?? '')
+    }
+  }, [searchParams])
+
   const handleKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
     const queries: {[key: string]: string} = {}
     searchParams.delete('q')
@@ -25,6 +31,19 @@ const SearchForm = () => {
     if (e.currentTarget.value) {
       queries['q'] = e.currentTarget.value
     }
+    setSearchParams(queries)
+  }
+
+  const handleSort = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const queries: {[key: string]: string} = {}
+    searchParams.delete('sort')
+    for (const [key, value] of searchParams.entries()) {      
+      queries[key] = value
+    }
+    if (e.currentTarget.value) {
+      queries['sort'] = e.currentTarget.value
+    }
+    setOrderBy(e.currentTarget.value)
     setSearchParams(queries)
   }
 
@@ -49,7 +68,7 @@ const SearchForm = () => {
         name='sortType'
         id='sort'
         className='search__sort-select'
-        onChange={(e) => setOrderBy(e.currentTarget.value)}
+        onChange={(e) => handleSort(e)}
         value={orderBy}
       >
         {selectMode === 'project' && <option value='projectId'>Project ID</option>}

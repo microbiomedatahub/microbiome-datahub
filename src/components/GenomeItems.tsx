@@ -9,6 +9,7 @@ interface GenomeListRequest {
   query: any
   from: number
   size?: number
+  sort: any
 }
 
 const GenomeItems = () => {
@@ -103,10 +104,15 @@ const GenomeItems = () => {
       })
     }
 
+    const sortQuery = {
+      'identifier.keyword': {order: 'asc'}
+    }
+
     trigger({
       query: { bool: { must: queries, should: qQueries } },
       from: (currentPage - 1) * 10,
       size: 10,
+      sort: sortQuery,
     })
   }, [currentPage, searchParams])
 
