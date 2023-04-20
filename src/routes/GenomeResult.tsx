@@ -3,6 +3,7 @@ import '../css/show.css'
 import useSWR from 'swr'
 import Plot from 'react-plotly.js'
 import { PlotData } from 'plotly.js'
+import dataForPlotly from '../test.json'
 
 const GenomeResult = () => {
   const params = useParams()
@@ -10,19 +11,22 @@ const GenomeResult = () => {
   const genomeFetcher = (args: string) =>
     fetch(`https://mdatahub.org/api/genome/_doc/${args}`).then((res) => res.json())
   const { data, error, isLoading } = useSWR(params.genomeId, genomeFetcher)
-  const data1: Partial<PlotData> = {
-    x: [1, 2, 3],
-    y: [2, 6, 3],
-    type: 'scatter',
-    mode: 'lines+markers',
-    marker: {color: 'red'},
-  }
-  const data2: Partial<PlotData> = {type: 'bar', x: [1, 2, 3], y: [2, 5, 3]}
-  const allData: Partial<PlotData>[] = [
-    data1,
-    data2,
-  ]
-  const layout1 = {width: 320, height: 240, title: 'A Fancy Plot'}
+  // const data1: Partial<PlotData> = {
+  //   x: [1, 2, 3],
+  //   y: [2, 6, 3],
+  //   type: 'scatter',
+  //   mode: 'lines+markers',
+  //   marker: {color: 'red'},
+  // }
+  // const data2: Partial<PlotData> = {type: 'bar', x: [1, 2, 3], y: [2, 5, 3]}
+  // const allData: Partial<PlotData>[] = [
+  //   data1,
+  //   data2,
+  // ]
+  // const layout1 = {width: 320, height: 240, title: 'A Fancy Plot'}
+  const layout1 = {width: 640, height: 480, title: 'A Fancy Plot'}
+  console.log(dataForPlotly)
+  const allData: Partial<PlotData>[] = dataForPlotly
 
   return (
     <main className='app-main'>
