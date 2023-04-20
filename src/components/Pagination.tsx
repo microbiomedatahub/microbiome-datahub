@@ -11,7 +11,7 @@ const Pagination = ({ currentPage, lastPage }: { currentPage: number; lastPage: 
       paginationList.push(i)
     }
     return paginationList
-  }, [lastPage, currentPage])
+  }, [lastPage])
 
   return (
     <ol className='pagination' aria-label='ページャー'>
