@@ -85,6 +85,15 @@ const GenomeItems = () => {
     if (searchParams.get('hostLoc')) {
       queries.push({match: {'_annotation.sample_host_location': searchParams.get('hostLoc')}})
     }
+    if (searchParams.get('magCompleteness')) {
+      queries.push({ 
+        range: {
+          '_annotation.completeness': { 
+            gte: parseInt(searchParams.get('magCompleteness') ?? '')
+          }
+        }
+      })
+    }
 
     const qQueries = []
     if (searchParams.get('q')) {
