@@ -161,6 +161,11 @@ const GenomeItems = () => {
                     <dt className='heading'>Data size (GB)</dt>
                     <dd className='content'>{item._source._annotation.data_size}</dd>
                   </div>
+
+                  <div className='results__item__data__item'>
+                    <dt className='heading'>Date Created</dt>
+                    <dd className='content'>{item._source.dateCreated}</dd>
+                  </div>
                 </dl>
               </article>
             )
