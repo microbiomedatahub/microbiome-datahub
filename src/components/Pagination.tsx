@@ -49,9 +49,9 @@ const Pagination = ({ currentPage, lastPage }: { currentPage: number; lastPage: 
           </div>
         </>
       )}
-      <li className={paginationCurrentPage(lastPage)}>
+      {lastPage !== 1 && <li className={paginationCurrentPage(lastPage)}>
         {currentPage !== lastPage ? <Link to={`?page=${lastPage}`}>{lastPage}</Link> : lastPage}
-      </li>
+      </li>}
     </ol>
   )
 }
