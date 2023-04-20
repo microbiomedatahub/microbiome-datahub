@@ -25,8 +25,9 @@ const GenomeResult = () => {
   // ]
   // const layout1 = {width: 320, height: 240, title: 'A Fancy Plot'}
   const layout1 = {width: 640, height: 480, title: 'A Fancy Plot'}
-  console.log(dataForPlotly)
-  const allData: Partial<PlotData>[] = dataForPlotly
+  const allData: Partial<PlotData>[] = dataForPlotly.map((record) => {
+    return record as Partial<PlotData>
+  })
 
   return (
     <main className='app-main'>
