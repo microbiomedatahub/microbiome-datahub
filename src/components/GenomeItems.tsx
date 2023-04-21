@@ -9,7 +9,13 @@ interface GenomeListRequest {
   query: any
   from: number
   size?: number
-  sort: any
+  sort: SortQueriesInterface
+}
+
+interface SortQueriesInterface {
+  [key: string]: {
+    order: 'asc'|'desc'
+  }
 }
 
 const GenomeItems = () => {
@@ -113,15 +119,23 @@ const GenomeItems = () => {
       })
     }
 
-    const sortQuery = {
-      'identifier.keyword': {order: 'asc'}
+    const sortQueries: SortQueriesInterface = {}
+    if (searchParams.get('sort')) {
+      const sortBy = searchParams.get('sort')?.slice(0, -1) ?? ''
+      const sortOrder = searchParams.get('sort')?.slice(-1)
+
+      sortQueries[sortBy] = {
+        order: (sortOrder === '+' ? 'asc' : 'desc')
+      }
+    } else {
+      sortQueries['dateCreated'] = { order: 'desc'}
     }
 
     trigger({
       query: { bool: { must: queries, should: qQueries } },
       from: (currentPage - 1) * 10,
       size: 10,
-      sort: sortQuery,
+      sort: sortQueries,
     })
   }, [currentPage, searchParams])
 

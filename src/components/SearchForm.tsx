@@ -1,25 +1,36 @@
 import { useAtom, useAtomValue } from 'jotai'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { resultsCountTotalAtom, selectModeAtom } from '../store/store'
 import { useSearchParams } from 'react-router-dom'
 
 const SearchForm = () => {
   const countTotal = useAtomValue(resultsCountTotalAtom)
-  const [orderBy, setOrderBy] = useState('projectId')
+  const [orderBy, setOrderBy] = useState('dateCreated')
   const selectMode = useAtomValue(selectModeAtom)
   useEffect(() => {
-    setOrderBy(
-      selectMode + 'Id',
-    )
+    setOrderBy('dateCreated')
   }, [selectMode])
 
+  const [order, setOrder] = useState<'asc'|'desc'>('desc')
   const [searchParams, setSearchParams] = useSearchParams()
 
   useEffect(() => {
-    if (searchParams.get('sort')) {
-      setOrderBy(searchParams.get('sort') ?? '')
+    const searchParamsOrder = searchParams.get('sort')?.slice(-1)
+    let sortOrder = ''
+    if (searchParamsOrder === '+') {
+      sortOrder = 'asc'
+    } else if (searchParamsOrder === '-') {
+      sortOrder = 'desc'
     }
-  }, [searchParams])
+    if (sortOrder !== '' && sortOrder !== order) {
+      setOrder(sortOrder as 'asc'|'desc')
+    }
+
+    const sortBy = searchParams.get('sort')?.slice(0, -1)
+    if (sortBy && sortBy !== orderBy) {
+      setOrderBy(sortBy)
+    }
+  }, [order, orderBy, searchParams])
 
   const handleKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
     const queries: {[key: string]: string} = {}
@@ -34,18 +45,31 @@ const SearchForm = () => {
     setSearchParams(queries)
   }
 
+  const sortKeyValues = useMemo(() => {
+    const sorts = [
+      {key: 'dateCreated', value: 'Date Created'}
+    ]
+    if (selectMode === 'project') {
+      sorts.push({key: 'identifier.keyword', value: 'Project ID'})
+    } else if (selectMode === 'genome') {
+      sorts.push({key: 'identifier.keyword', value: 'Genome ID'})
+    }
+    return sorts
+  }, [selectMode])
+
   const handleSort = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setOrderBy(e.currentTarget.value)
+  }
+
+  useEffect(()  => {
     const queries: {[key: string]: string} = {}
     searchParams.delete('sort')
     for (const [key, value] of searchParams.entries()) {      
       queries[key] = value
     }
-    if (e.currentTarget.value) {
-      queries['sort'] = e.currentTarget.value
-    }
-    setOrderBy(e.currentTarget.value)
+    queries['sort'] = `${orderBy}${order === 'desc' ? '-' : '+'}`
     setSearchParams(queries)
-  }
+  }, [orderBy, order, searchParams])
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -71,16 +95,17 @@ const SearchForm = () => {
         onChange={(e) => handleSort(e)}
         value={orderBy}
       >
-        {selectMode === 'project' && <option value='projectId'>Project ID</option>}
-        {selectMode === 'genome' && <option value='genomeId'>Genome ID</option>}
+        {sortKeyValues.map((record, index) => {
+          return <option key={index} value={record.key}>{record.value}</option>
+        })}
       </select>
       <div className='search__order'>
-        <button value='' className='search__order__button active'>
+        <button onClick={(_e) => setOrder('asc')} className={`search__order__button${(order === 'asc' ? ' active' : '')}`}>
           <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'>
             <path d='M10.59 7.42L6 2.83L1.41 7.42L0 6L6 -1.90735e-06L12 6L10.59 7.42Z' fill='#D9D9D9' />
           </svg>
         </button>
-        <button value='' className='search__order__button'>
+        <button onClick={(_e) => setOrder('desc')} className={`search__order__button${(order === 'desc' ? ' active' : '')}`}>
           <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'>
             <path d='M1.41 0.580002L6 5.17L10.59 0.580002L12 2L6 8L0 2L1.41 0.580002Z' fill='#D9D9D9' />
           </svg>
