@@ -181,6 +181,14 @@ img {
         margin: -5px 0 0;
         background-color: g.$colFFF;
       }
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        inline-size: 11px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        border: 2px solid g.$colFFF;
+        background-color: g.$colD9E016;
+      }
     }
   }
 

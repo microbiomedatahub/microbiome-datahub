@@ -213,6 +213,15 @@ img {
   background-color: #FFF;
 }
 
+.side-menu__links__range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  inline-size: 11px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 2px solid #FFF;
+  background-color: #D9E016;
+}
+
 .side-menu__submit {
   display: block;
   width: 100%;
