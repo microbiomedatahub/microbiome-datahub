@@ -57,7 +57,7 @@ img {
 
 .header {
   position: relative;
-  padding: 10px 16px 9px;
+  padding: 11px 13px;
   text-align: left;
   z-index: 1;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
@@ -65,7 +65,7 @@ img {
 }
 
 .header__title__logo {
-  width: 132px;
+  width: 290px;
   height: auto;
 }
 
