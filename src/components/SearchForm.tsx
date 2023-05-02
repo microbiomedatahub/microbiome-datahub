@@ -47,7 +47,10 @@ const SearchForm = () => {
 
   const sortKeyValues = useMemo(() => {
     const sorts = [
-      {key: 'dateCreated', value: 'Date Created'}
+      {key: 'dateCreated', value: 'Date Created'},
+      {key: 'dateModified', value: 'Date Modified'},
+      {key: 'datePublished', value: 'Date Published'},
+      // {key: '_annotation.date_size', value: 'Data Size'},→→ ElasticSearchで数値に変更しないと対応できない
     ]
     if (selectMode === 'project') {
       sorts.push({key: 'identifier.keyword', value: 'Project ID'})
