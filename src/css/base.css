@@ -57,15 +57,15 @@ img {
 
 .header {
   position: relative;
-  padding: 10px 16px 9px;
+  padding: 11px 13px;
   text-align: left;
-  z-index: 1;
+  z-index: 20;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   background: #D9E016;
 }
 
 .header__title__logo {
-  width: 132px;
+  width: 290px;
   height: auto;
 }
 
@@ -109,6 +109,7 @@ img {
   display: grid;
   grid-template-columns: 320px 50px 1fr;
   width: 100%;
+  z-index: 10;
   background-color: rgba(0, 0, 0, 0.73);
 }
 
@@ -210,6 +211,15 @@ img {
   content: "";
   margin: -5px 0 0;
   background-color: #FFF;
+}
+
+.side-menu__links__range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  inline-size: 11px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 2px solid #FFF;
+  background-color: #D9E016;
 }
 
 .side-menu__submit {

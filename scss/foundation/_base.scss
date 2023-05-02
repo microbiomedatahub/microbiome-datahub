@@ -36,14 +36,14 @@ img {
 // Header
 .header {
   position: relative;
-  padding: 10px 16px 9px;
+  padding: 11px 13px;
   text-align: left;
-  z-index: 1;
+  z-index: 20;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   background: g.$colD9E016;
   &__title {
     &__logo {
-      width: 132px;
+      width: 290px;
       height: auto;
     }
   }
@@ -91,6 +91,7 @@ img {
     display: grid;
     grid-template-columns: 320px 50px 1fr;
     width: 100%;
+    z-index: 10;
     background-color: rgb(g.$col000, 0.73);
     .side-menu__switch {
       grid-column: 2/3;
@@ -179,6 +180,14 @@ img {
         content: "";
         margin: -5px 0 0;
         background-color: g.$colFFF;
+      }
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        inline-size: 11px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        border: 2px solid g.$colFFF;
+        background-color: g.$colD9E016;
       }
     }
   }
