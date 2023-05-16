@@ -123,6 +123,7 @@ const SideMenu = () => {
     }
   }, [searchParams])
 
+  // @ts-ignore
   return (
     <div className={`side-menu ${isShow ? 'open' : ''}`}>
       <button
@@ -185,11 +186,11 @@ const SideMenu = () => {
               })}
             </section>
 
-            { selectMode === 'genome' && <GenomeCategory 
-              genomeTaxon={genomeTaxon} 
+            { selectMode === 'genome' && <GenomeCategory
+              genomeTaxon={genomeTaxon}
               setGenomeTaxon={setGenomeTaxon}
               magCompleteness={magCompleteness}
-              setMagCompleteness={setMagCompleteness} 
+              setMagCompleteness={setMagCompleteness}
               genomeCategory={genomeCategory}
               setGenomeCategory={setGenomeCategory}
               magSource={magSource}
@@ -229,26 +230,32 @@ const SideMenu = () => {
 
             <section className='side-menu__links__section'>
               <label className='side-menu__links__heading'>Temperature</label>
-              <input
-                type='range'
-                className='side-menu__links__range'
-                value={temperature}
-                min='-30'
-                max='130'
-                onChange={(e) => setTemperature(Number(e.currentTarget.value))}
-              />
+              <div className="side-menu__links__range-wrapper">
+                <input
+                  type='range'
+                  className='side-menu__links__range'
+                  value={temperature}
+                  min='-30'
+                  max='130'
+                  onChange={(e) => setTemperature(Number(e.currentTarget.value))}
+                />
+                <input type="number" min="-30" max="130" readOnly className="side-menu__links__range__value" value={temperature}/>
+              </div>
             </section>
 
             <section className='side-menu__links__section'>
               <label className='side-menu__links__heading'>pH</label>
-              <input
-                type='range'
-                className='side-menu__links__range'
-                value={ph}
-                min='0'
-                max='15'
-                onChange={(e) => setPh(Number(e.currentTarget.value))}
-              />
+              <div className="side-menu__links__range-wrapper">
+                <input
+                  type='range'
+                  className='side-menu__links__range'
+                  value={ph}
+                  min='0'
+                  max='15'
+                  onChange={(e) => setPh(Number(e.currentTarget.value))}
+                />
+                <input type="number" min="0" max="15" readOnly value={ph} className="side-menu__links__range__value"/>
+              </div>
             </section>
 
             <button type='submit' className='side-menu__submit' onClick={() => searchProject()}>SUBMIT</button>

@@ -198,8 +198,14 @@ img {
   background-color: #FFF;
 }
 
+.side-menu__links__range-wrapper {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
 .side-menu__links__range {
-  width: 100%;
+  width: calc(100% - 54px);
   height: 1px;
   background-color: #FFF;
 }
@@ -220,6 +226,24 @@ img {
   border-radius: 50%;
   border: 2px solid #FFF;
   background-color: #D9E016;
+}
+
+.side-menu__links__range__value {
+  -moz-appearance: textfield;
+  width: 44px;
+  height: 20px;
+  font-family: "Oswald", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #575757;
+  text-align: center;
+  border-radius: 12px;
+  background-color: #D9D9D9;
+}
+
+.side-menu__links__range__value::-webkit-outer-spin-button, .side-menu__links__range__value::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .side-menu__submit {

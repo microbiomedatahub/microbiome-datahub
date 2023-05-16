@@ -168,8 +168,14 @@ img {
       border-radius: 30px;
       background-color: g.$colFFF;
     }
+
+    &__range-wrapper {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
     &__range {
-      width: 100%;
+      width: calc(100% - 54px);
       height: 1px;
       background-color: g.$colFFF;
       &::before,
@@ -188,6 +194,25 @@ img {
         border-radius: 50%;
         border: 2px solid g.$colFFF;
         background-color: g.$colD9E016;
+      }
+      &__value {
+        -moz-appearance: textfield;
+        width: 44px;
+        height: 20px;
+        font: {
+          family: g.$fontOswald;
+          size: 1.4rem;
+          weight: 400;
+        }
+        color: g.$col575757;
+        text-align: center;
+        border-radius: 12px;
+        background-color: g.$colD9D9D9;
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
       }
     }
   }
