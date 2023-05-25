@@ -79,19 +79,21 @@ img {
 
 // App Wrapper
 .app-wrapper {
-  position: relative;
+  //position: relative;
 }
 
 // Side Menu
 .side-menu {
   position: absolute;
-  top: 0;
+  top: 80px;
   left: 0;
   &.open {
     display: grid;
     grid-template-columns: 320px 50px 1fr;
     width: 100%;
+    height: calc(100% - 80px);
     z-index: 10;
+    overflow-y: auto;
     background-color: rgb(g.$col000, 0.73);
     .side-menu__switch {
       grid-column: 2/3;
@@ -136,9 +138,7 @@ img {
   }
 
   &__links {
-    max-height: calc(100vh - 160px);
     padding: 23px 36px;
-    overflow-y: scroll;
     &__section {
       font-family: g.$fontGillSans;
       margin: 0 0 30px;

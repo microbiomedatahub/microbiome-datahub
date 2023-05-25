@@ -95,13 +95,9 @@ img {
   text-align: center;
 }
 
-.app-wrapper {
-  position: relative;
-}
-
 .side-menu {
   position: absolute;
-  top: 0;
+  top: 80px;
   left: 0;
 }
 
@@ -109,7 +105,9 @@ img {
   display: grid;
   grid-template-columns: 320px 50px 1fr;
   width: 100%;
+  height: calc(100% - 80px);
   z-index: 10;
+  overflow-y: auto;
   background-color: rgba(0, 0, 0, 0.73);
 }
 
@@ -159,9 +157,7 @@ img {
 }
 
 .side-menu__links {
-  max-height: calc(100vh - 160px);
   padding: 23px 36px;
-  overflow-y: scroll;
 }
 
 .side-menu__links__section {
