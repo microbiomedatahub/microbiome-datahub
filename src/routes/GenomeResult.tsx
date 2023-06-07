@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom'
 import '../css/show.css'
-import useSWR from 'swr'
-import Plot from 'react-plotly.js'
 import { PlotData } from 'plotly.js'
+import Plot from 'react-plotly.js'
+import useSWR from 'swr'
 import dataForPlotly from '../test.json'
 
 const GenomeResult = () => {
@@ -24,7 +24,7 @@ const GenomeResult = () => {
   //   data2,
   // ]
   // const layout1 = {width: 320, height: 240, title: 'A Fancy Plot'}
-  const layout1 = {width: 640, height: 480, title: 'A Fancy Plot'}
+  const layout1 = { width: 640, height: 480, title: 'A Fancy Plot' }
   const allData: Partial<PlotData>[] = dataForPlotly.map((record) => {
     return record as Partial<PlotData>
   })
@@ -75,7 +75,7 @@ const GenomeResult = () => {
           <dt className='heading'>Publication</dt>
           {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            data?.publication.map((p: any, i: any) => {
+            (data?.publication ?? []).map((p: any, i: any) => {
               return (
                 <dd className='content' key={i}>
                   <p className='id'>{p.id}</p>
