@@ -32,19 +32,6 @@ const SearchForm = () => {
     }
   }, [order, orderBy, searchParams])
 
-  const handleKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const queries: {[key: string]: string} = {}
-    searchParams.delete('q')
-    for (const [key, value] of searchParams.entries()) {      
-      queries[key] = value
-    }
-    console.log(e.currentTarget.value)
-    if (e.currentTarget.value) {
-      queries['q'] = e.currentTarget.value
-    }
-    setSearchParams(queries)
-  }
-
   const sortKeyValues = useMemo(() => {
     const sorts = [
       {key: 'dateCreated', value: 'Date Created'},
@@ -67,7 +54,7 @@ const SearchForm = () => {
   useEffect(()  => {
     const queries: {[key: string]: string} = {}
     searchParams.delete('sort')
-    for (const [key, value] of searchParams.entries()) {      
+    for (const [key, value] of searchParams.entries()) {
       queries[key] = value
     }
     queries['sort'] = `${orderBy}${order === 'desc' ? '-' : '+'}`
@@ -83,13 +70,6 @@ const SearchForm = () => {
       <p className='search__results-number'>
         {countTotal.itemCount + ' / ' + countTotal.total}
       </p>
-      <input
-        type='search'
-        className='search__input'
-        placeholder='Search Keyword'
-        onChange={(e) => handleKeyword(e)}
-        value={searchParams.get('q') ?? ''}
-      />
       <label htmlFor='sort' className='search__sort-label'>order by</label>
       <select
         name='sortType'

@@ -1,6 +1,8 @@
+import logo from '../images/site-logo-bk.png'
 const Footer = () => {
   return (
     <footer className='footer'>
+      <img src={logo} alt="Logo:Microbiome Datahub" className="footer__logo"/>
       <nav className='footer__navigation'>
         <a href='' title='About us' className='footer__navigation__link'>About us</a>
         <a href='' title='FAQ' className='footer__navigation__link'>FAQ</a>
@@ -8,8 +10,7 @@ const Footer = () => {
         <a href='' title='Contact us' className='footer__navigation__link'>Contact us</a>
       </nav>
       <p className='footer__copyright'>
-        © MicrobeDB.JP project team 2019 | Except where otherwise noted, content on this site is licensed under a
-        Creative Commons Attribution 4.0 International license (CC-BY-4.0)
+        © MicrobeDB.JP project team 2019 | Except where otherwise noted, content on this site is licensed under a Creative Commons Attribution 4.0 International license (CC-BY-4.0)
       </p>
     </footer>
   )
