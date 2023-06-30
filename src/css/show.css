@@ -23,6 +23,44 @@
  * @param $fs
  * @param $lh
  */
+.g-switch {
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  margin: -1px;
+}
+.g-switch + .g-switch__button {
+  position: relative;
+  display: block;
+  width: 55px;
+  height: 30px;
+  cursor: pointer;
+  padding: 3px;
+  border-radius: 15px;
+  background-color: #8F8E8E;
+}
+.g-switch + .g-switch__button::after {
+  display: block;
+  width: 24px;
+  height: 24px;
+  content: "";
+  border-radius: 50%;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
+  background-color: #FFF;
+}
+.g-switch:checked + .g-switch__button {
+  background-color: #D9E016;
+}
+.g-switch:checked + .g-switch__button::after {
+  margin: 0 0 0 auto;
+}
+
 .current-type {
   width: fit-content;
   font-family: "Oswald", sans-serif;

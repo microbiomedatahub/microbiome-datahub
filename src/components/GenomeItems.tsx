@@ -10,11 +10,12 @@ interface GenomeListRequest {
   from: number
   size?: number
   sort: SortQueriesInterface
+  track_total_hits: boolean
 }
 
 interface SortQueriesInterface {
   [key: string]: {
-    order: 'asc'|'desc'
+    order: 'asc' | 'desc'
   }
 }
 
@@ -80,24 +81,24 @@ const GenomeItems = () => {
 
     const queries = []
     if (searchParams.get('env')) {
-      queries.push({match: {'_annotation.sample_organism': searchParams.get('env')}})
+      queries.push({ match: { '_annotation.sample_organism': searchParams.get('env') } })
     }
     if (searchParams.get('hostTaxon')) {
-      queries.push({ match: { '_annotation.sample_host_organism': searchParams.get('hostTaxon')}})
+      queries.push({ match: { '_annotation.sample_host_organism': searchParams.get('hostTaxon') } })
     }
     if (searchParams.get('hostDisease')) {
-      queries.push({ match: { '_annotation.sample_host_disease': searchParams.get('hostDisease')}})
+      queries.push({ match: { '_annotation.sample_host_disease': searchParams.get('hostDisease') } })
     }
     if (searchParams.get('hostLoc')) {
-      queries.push({match: {'_annotation.sample_host_location': searchParams.get('hostLoc')}})
+      queries.push({ match: { '_annotation.sample_host_location': searchParams.get('hostLoc') } })
     }
     if (searchParams.get('magCompleteness')) {
-      queries.push({ 
+      queries.push({
         range: {
-          '_annotation.completeness': { 
-            gte: parseInt(searchParams.get('magCompleteness') ?? '')
-          }
-        }
+          '_annotation.completeness': {
+            gte: parseInt(searchParams.get('magCompleteness') ?? ''),
+          },
+        },
       })
     }
 
@@ -125,10 +126,10 @@ const GenomeItems = () => {
       const sortOrder = searchParams.get('sort')?.slice(-1)
 
       sortQueries[sortBy] = {
-        order: (sortOrder === '+' ? 'asc' : 'desc')
+        order: (sortOrder === '+' ? 'asc' : 'desc'),
       }
     } else {
-      sortQueries['dateCreated'] = { order: 'desc'}
+      sortQueries['dateCreated'] = { order: 'desc' }
     }
 
     trigger({
@@ -136,6 +137,7 @@ const GenomeItems = () => {
       from: (currentPage - 1) * 10,
       size: 10,
       sort: sortQueries,
+      track_total_hits: true,
     })
   }, [currentPage, searchParams])
 

@@ -84,6 +84,19 @@ const SideMenu = () => {
     })
   }
 
+  const handleKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const queries: {[key: string]: string} = {}
+    searchParams.delete('q')
+    for (const [key, value] of searchParams.entries()) {
+      queries[key] = value
+    }
+    console.log(e.currentTarget.value)
+    if (e.currentTarget.value) {
+      queries['q'] = e.currentTarget.value
+    }
+    setSearchParams(queries)
+  }
+
   const [searchParams, setSearchParams] = useSearchParams()
 
   const urlQuery = useMemo(() => {
@@ -156,19 +169,16 @@ const SideMenu = () => {
       <div id='sideMenu' className='side-menu__navigation' aria-label='サイドメニュー'>
         <div tabIndex={0}></div>
         <nav>
-          <nav className='side-menu__select-panel'>
-            {['project', 'genome'].map((item, index) => {
-              return (
-                <Link
-                  key={index}
-                  className={`side-menu__select-panel__button${selectMode === item ? ' current' : ''}`}
-                  to={`${item}s${urlQuery}`}
-                >
-                  {item.toUpperCase()}
-                </Link>
-              )
-            })}
-          </nav>
+          <div className="side-menu__keyword">
+            <input
+              type='search'
+              className='side-menu__keyword__input'
+              placeholder='Search Keyword'
+              onChange={(e) => handleKeyword(e)}
+              value={searchParams.get('q') ?? ''}
+            />
+          </div>
+
           <nav id='projectMenu' className='side-menu__links'>
             <section className='side-menu__links__section'>
               <h2 className='side-menu__links__heading'>Environment</h2>
@@ -198,63 +208,106 @@ const SideMenu = () => {
             /> }
 
             <section className='side-menu__links__section'>
-              <label className='side-menu__links__heading'>Host taxon</label>
+              <div className="side-menu__links__section__header">
+                <label htmlFor="hostTaxon" className='side-menu__links__heading'>Host taxon</label>
+                <input id="hostTaxonSwitch" type="checkbox" className="g-switch"/>
+                <label htmlFor="hostTaxonSwitch" className="g-switch__button"/>
+              </div>
               <input
                 type='text'
+                id="hostTaxon"
                 placeholder='Host taxon name'
                 className='side-menu__links__input'
                 value={hostTaxon}
+                disabled={true}
                 onChange={(e) => setHostTaxon(e.currentTarget.value)}
               />
             </section>
 
             <section className='side-menu__links__section'>
-              <label className='side-menu__links__heading'>Host disease</label>
+              <div className="side-menu__links__section__header">
+                <label htmlFor="hostDisease" className='side-menu__links__heading'>Host disease</label>
+                <input id="hostDiseaseSwitch" type="checkbox" className="g-switch"/>
+                <label htmlFor="hostDiseaseSwitch" className="g-switch__button"/>
+              </div>
               <input
                 type='text'
+                id="hostDisease"
                 className='side-menu__links__input'
                 value={hostDisease}
+                disabled={true}
                 onChange={(e) => setHostDisease(e.currentTarget.value)}
               />
             </section>
 
             <section className='side-menu__links__section'>
-              <label className='side-menu__links__heading'>Host location</label>
+              <div className="side-menu__links__section__header">
+                <label htmlFor="hostLocation" className='side-menu__links__heading'>Host location</label>
+                <input id="hostLocationSwitch" type="checkbox" className="g-switch"/>
+                <label htmlFor="hostLocationSwitch" className="g-switch__button"/>
+              </div>
               <input
                 type='text'
+                id="hostLocation"
                 className='side-menu__links__input'
                 value={hostLocation}
+                disabled={true}
                 onChange={(e) => setHostLocation(e.currentTarget.value)}
               />
             </section>
 
             <section className='side-menu__links__section'>
-              <label className='side-menu__links__heading'>Temperature</label>
+              <div className="side-menu__links__section__header">
+                <label htmlFor="temperature" className='side-menu__links__heading'>Temperature</label>
+                <input id="temperatureSwitch" type="checkbox" className="g-switch"/>
+                <label htmlFor="temperatureSwitch" className="g-switch__button"/>
+              </div>
               <div className="side-menu__links__range-wrapper">
                 <input
                   type='range'
+                  id="temperature"
                   className='side-menu__links__range'
                   value={temperature}
                   min='-30'
                   max='130'
+                  disabled={true}
                   onChange={(e) => setTemperature(Number(e.currentTarget.value))}
                 />
-                <input type="number" min="-30" max="130" readOnly className="side-menu__links__range__value" value={temperature}/>
+                <input
+                  type="number"
+                  min="-30"
+                  max="130"
+                  readOnly
+                  disabled={true}
+                  className="side-menu__links__range__value" value={temperature}/>
               </div>
             </section>
 
             <section className='side-menu__links__section'>
-              <label className='side-menu__links__heading'>pH</label>
+              <div className="side-menu__links__section__header">
+                <label htmlFor="ph" className='side-menu__links__heading'>pH</label>
+                <input id="phSwitch" type="checkbox" className="g-switch"/>
+                <label htmlFor="phSwitch" className="g-switch__button"/>
+              </div>
               <div className="side-menu__links__range-wrapper">
                 <input
                   type='range'
+                  id="ph"
                   className='side-menu__links__range'
                   value={ph}
                   min='0'
                   max='15'
+                  disabled={true}
                   onChange={(e) => setPh(Number(e.currentTarget.value))}
                 />
-                <input type="number" min="0" max="15" readOnly value={ph} className="side-menu__links__range__value"/>
+                <input
+                  type="number"
+                  min="0"
+                  max="15"
+                  readOnly
+                  value={ph}
+                  disabled={true}
+                  className="side-menu__links__range__value"/>
               </div>
             </section>
 
