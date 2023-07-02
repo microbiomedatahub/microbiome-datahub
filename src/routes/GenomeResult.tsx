@@ -11,6 +11,7 @@ const GenomeResult = () => {
   const genomeFetcher = (args: string) =>
     fetch(`https://mdatahub.org/api/genome/_doc/${args}`).then((res) => res.json())
   const { data, error, isLoading } = useSWR(params.genomeId, genomeFetcher)
+  const source = data?._source
   // const data1: Partial<PlotData> = {
   //   x: [1, 2, 3],
   //   y: [2, 6, 3],
@@ -33,15 +34,15 @@ const GenomeResult = () => {
     <main className='app-main'>
       {error && <h1>Hi</h1>}
       {isLoading && <h1>Now Loading....</h1>}
-      <p className='current-type'>{data?.type.toUpperCase()}</p>
-      <h2 className='page-title'>{data?.identifier}</h2>
-      <p className='facility-name'>{data?.organization}</p>
+      <p className='current-type'>{source?.type?.toUpperCase()}</p>
+      <h2 className='page-title'>{source?.identifier}</h2>
+      <p className='facility-name'>{source?.organization}</p>
       <div className='data-id'>
         <dl className='data-id__data'>
           <div className='data-id__data__item'>
             <dt className='heading'>organism</dt>
 
-            {data?._annotation.sample_organism.map((envItem: string, envIndex: number) => {
+            {source?._annotation.sample_organism.map((envItem: string, envIndex: number) => {
               return (
                 <dd className='content' key={envIndex}>
                   <button className='content__button'>{envItem}</button>
@@ -52,22 +53,22 @@ const GenomeResult = () => {
 
           <div className='data-id__data__item'>
             <dt className='heading'>data type</dt>
-            <dd className='content'>{data && data['data type']}</dd>
+            <dd className='content'>{source?.data_type}</dd>
           </div>
           <div className='data-id__data__item'>
             <dt className='heading'>data source</dt>
-            <dd className='content'>{data && data['data source']}</dd>
+            <dd className='content'>{source?.data_source}</dd>
           </div>
         </dl>
 
-        <p className='data-id__id'>{data?.identifier}</p>
+        <p className='data-id__id'>{source?.identifier}</p>
       </div>
 
       <dl className='data-list'>
         <div className='data-list__item'>
           <dt className='heading'>Description</dt>
           <dd className='content'>
-            {data?.description}
+            {source?.description}
           </dd>
         </div>
 
@@ -75,7 +76,7 @@ const GenomeResult = () => {
           <dt className='heading'>Publication</dt>
           {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            (data?.publication ?? []).map((p: any, i: any) => {
+            (source?.publication ?? []).map((p: any, i: number) => {
               return (
                 <dd className='content' key={i}>
                   <p className='id'>{p.id}</p>
@@ -89,7 +90,7 @@ const GenomeResult = () => {
         <div className='data-list__item'>
           <dt className='heading'>Properties</dt>
           <dd className='content'>
-            <p className='null'>{data?.properties ?? 'NULL'}</p>
+            <p className='null'>{source?.properties?.submitter ?? 'NULL'}</p>
           </dd>
         </div>
       </dl>
@@ -97,15 +98,15 @@ const GenomeResult = () => {
       <dl className='date'>
         <div className='date__item'>
           <dt className='heading'>dateModified:</dt>
-          <dd className='content'>{data?.dateModified}</dd>
+          <dd className='content'>{source?.dateModified}</dd>
         </div>
         <div className='date__item'>
           <dt className='heading'>dateCreated:</dt>
-          <dd className='content'>{data?.dateCreated}</dd>
+          <dd className='content'>{source?.dateCreated}</dd>
         </div>
         <div className='date__item'>
           <dt className='heading'>datePublished:</dt>
-          <dd className='content'>{data?.datePublished}</dd>
+          <dd className='content'>{source?.datePublished}</dd>
         </div>
       </dl>
 
