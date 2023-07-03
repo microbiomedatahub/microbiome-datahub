@@ -1,14 +1,14 @@
 import { Outlet } from 'react-router-dom'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
-import SideMenu from '../components/SideMenu'
+import Search from '../features/search/Search'
 
 const Root = () => {
   return (
     <>
       <Header />
       <div className='app-wrapper'>
-        <SideMenu />
+        <Search />
         <Outlet />
       </div>
       <Footer />
