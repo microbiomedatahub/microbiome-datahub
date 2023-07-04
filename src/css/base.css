@@ -285,7 +285,7 @@ img {
 }
 
 .side-menu__links__item:disabled + label {
-  cursor: wait;
+  cursor: not-allowed;
 }
 
 .side-menu__links__input {
