@@ -1,10 +1,10 @@
 import { useAtomValue } from 'jotai'
 import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import GenomeCategory from '../../components/GenomeCategory'
 import { selectModeAtom } from '../../store/store'
 import SearchKeyword from './components/SearchKeyword'
 import SearchRange from './components/SearchRange'
+import SearchSelect from './components/SearchSelect'
 import SearchText from './components/SearchText'
 import SearchToggleButton from './components/SearchToggleButton'
 
@@ -30,9 +30,7 @@ const Search = () => {
   ])
 
   const [selectedEnv, setSelectedEnv] = useState('soil')
-  const handleEnv = (env: string) => {
-    setSelectedEnv(selectedEnv === env ? '' : env)
-  }
+  const [isEnabledEnv, setIsEnabledEnv] = useState(true)
 
   const [hostTaxon, setHostTaxon] = useState('')
   const [isEnabledHostTaxon, setIsEnabledHostTaxon] = useState(true)
@@ -46,16 +44,22 @@ const Search = () => {
   const [isEnabledPh, setIsEnabledPh] = useState(true)
 
   const [genomeTaxon, setGenomeTaxon] = useState('')
+  const [isEnabledGenomeTaxon, setIsEnabledGenomeTaxon] = useState(true)
+  const genomeCategories = ['Isolate complete', 'Isolate draft', 'MAG high quality', 'MAG low quality']
   const [genomeCategory, setGenomeCategory] = useState('')
+  const [isEnabledGenomeCategory, setIsEnabledGenomeCategory] = useState(true)
+  const magSources = ['INSDC', 'MGnify', 'Other DBs', 'Original']
   const [magSource, setMagSource] = useState('')
+  const [isEnabledMagSource, setIsEnabledMagSource] = useState(true)
   const [magCompleteness, setMagCompleteness] = useState(50)
+  const [isEnabledMagCompleteness, setIsEnabledMagCompleteness] = useState(true)
 
   const searchProject = () => {
     const queries: { [key: string]: string } = {}
     if (keyword) {
       queries['q'] = keyword
     }
-    if (selectedEnv) {
+    if (isEnabledEnv) {
       queries['env'] = selectedEnv
     }
     if (isEnabledHostTaxon) {
@@ -73,16 +77,16 @@ const Search = () => {
     if (isEnabledPh) {
       queries['ph'] = ph.toString()
     }
-    if (genomeTaxon) {
+    if (isEnabledGenomeTaxon) {
       queries['genomeTaxon'] = genomeTaxon
     }
-    if (genomeCategory) {
+    if (isEnabledGenomeCategory) {
       queries['genomeCategory'] = genomeCategory
     }
-    if (magSource) {
+    if (isEnabledMagSource) {
       queries['magSource'] = magSource
     }
-    if (magCompleteness) {
+    if (isEnabledMagCompleteness) {
       queries['magCompleteness'] = magCompleteness.toString()
     }
 
@@ -145,32 +149,56 @@ const Search = () => {
           />
 
           <nav id='projectMenu' className='side-menu__links'>
-            <section className='side-menu__links__section'>
-              <h2 className='side-menu__links__heading'>Environment</h2>
-              {environments.map((item, index) => {
-                return (
-                  <p
-                    key={index}
-                    title={item}
-                    className={`side-menu__links__item ${item === selectedEnv ? ' current' : ''}`}
-                    onClick={() => handleEnv(item)}
-                  >
-                    {item}
-                  </p>
-                )
-              })}
-            </section>
+            <SearchSelect
+              heading='Environment'
+              value={selectedEnv}
+              setValue={setSelectedEnv}
+              isEnabled={isEnabledEnv}
+              setIsEnabled={setIsEnabledEnv}
+              selectItems={environments}
+            />
 
             {selectMode === 'genome' && (
-              <GenomeCategory
-                genomeTaxon={genomeTaxon}
-                setGenomeTaxon={setGenomeTaxon}
-                magCompleteness={magCompleteness}
-                setMagCompleteness={setMagCompleteness}
-                genomeCategory={genomeCategory}
-                setGenomeCategory={setGenomeCategory}
-                magSource={magSource}
-                setMagSource={setMagSource}
+              <SearchText
+                heading='Genome taxon'
+                value={genomeTaxon}
+                setValue={setGenomeTaxon}
+                isEnabled={isEnabledGenomeTaxon}
+                setIsEnabled={setIsEnabledGenomeTaxon}
+              />
+            )}
+
+            {selectMode === 'genome' && (
+              <SearchSelect
+                heading='Genome Category'
+                value={genomeCategory}
+                setValue={setGenomeCategory}
+                isEnabled={isEnabledGenomeCategory}
+                setIsEnabled={setIsEnabledGenomeCategory}
+                selectItems={genomeCategories}
+              />
+            )}
+
+            {selectMode === 'genome' && (
+              <SearchSelect
+                heading='MAG source'
+                value={magSource}
+                setValue={setMagSource}
+                isEnabled={isEnabledMagSource}
+                setIsEnabled={setIsEnabledMagSource}
+                selectItems={magSources}
+              />
+            )}
+
+            {selectMode === 'genome' && (
+              <SearchRange
+                heading='MAG completeness'
+                value={magCompleteness}
+                setValue={setMagCompleteness}
+                isEnabled={isEnabledMagCompleteness}
+                setIsEnabled={setIsEnabledMagCompleteness}
+                min={40}
+                max={100}
               />
             )}
 
