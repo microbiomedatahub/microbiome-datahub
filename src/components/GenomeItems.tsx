@@ -83,6 +83,24 @@ const GenomeItems = () => {
     if (searchParams.get('env')) {
       queries.push({ match: { '_annotation.sample_organism': searchParams.get('env') } })
     }
+    if (searchParams.get('genomeTaxon')) {
+      // queries.push({match: {''}})
+    }
+    if (searchParams.get('genomeCategory')) {
+      // queries.push({})
+    }
+    if (searchParams.get('magSource')) {
+      // queries.push({})
+    }
+    if (searchParams.get('magCompleteness')) {
+      queries.push({
+        range: {
+          '_annotation.completeness': {
+            gte: parseInt(searchParams.get('magCompleteness') ?? ''),
+          },
+        },
+      })
+    }
     if (searchParams.get('hostTaxon')) {
       queries.push({ match: { '_annotation.sample_host_organism': searchParams.get('hostTaxon') } })
     }
@@ -92,11 +110,36 @@ const GenomeItems = () => {
     if (searchParams.get('hostLoc')) {
       queries.push({ match: { '_annotation.sample_host_location': searchParams.get('hostLoc') } })
     }
-    if (searchParams.get('magCompleteness')) {
+
+    if (searchParams.get('temp')) {
       queries.push({
         range: {
-          '_annotation.completeness': {
-            gte: parseInt(searchParams.get('magCompleteness') ?? ''),
+          '_annnotation.sample_temperature_range.min': {
+            lt: parseInt(searchParams.get('temp') ?? ''),
+          },
+        },
+      })
+      queries.push({
+        range: {
+          '_annotation.sample_temperature_range.max': {
+            gt: parseInt(searchParams.get('temp') ?? ''),
+          },
+        },
+      })
+    }
+
+    if (searchParams.get('ph')) {
+      queries.push({
+        range: {
+          '_annnotation.sample_ph_range.min': {
+            lt: parseInt(searchParams.get('ph') ?? ''),
+          },
+        },
+      })
+      queries.push({
+        range: {
+          '_annotation.sample_ph_range.max': {
+            gt: parseInt(searchParams.get('ph') ?? ''),
           },
         },
       })
