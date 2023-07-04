@@ -32,7 +32,7 @@ const ProjectItems = () => {
     return await res.json()
   }
 
-  const { data, error, isMutating, reset, trigger } = useSWRMutation('/bioproject', retrieveBioProject)
+  const { data, error, isMutating, reset, trigger } = useSWRMutation('/project', retrieveBioProject)
 
   const totalWritableAtom = atom(null, (get, set, newTotal: number) => {
     const resultsCountTotal = get(resultsCountTotalAtom)

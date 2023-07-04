@@ -9,7 +9,7 @@ const ProjectResult = () => {
   const params = useParams()
 
   const projectFetcher = (args: string) =>
-    fetch(`https://mdatahub.org/api/bioproject/_doc/${args}`).then((res) => res.json())
+    fetch(`https://mdatahub.org/api/project/_doc/${args}`).then((res) => res.json())
   const { data: projData, error, isLoading } = useSWR(params.projectId, projectFetcher)
   const data = projData?.index?._source
 
