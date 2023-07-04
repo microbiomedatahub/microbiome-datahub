@@ -168,6 +168,7 @@ img {
   }
 
   &__links {
+    padding: 0 0 32px;
     &__section {
       font-family: g.$fontGillSans;
       padding: 20px 21px 21px;
@@ -193,15 +194,34 @@ img {
       margin: 0 0 10px;
     }
     &__item {
-      display: block;
-      font-size: 1.6rem;
-      cursor: pointer;
-      line-height: g.lineHeight(16, 26);
-      padding: 0 0 0 54px;
-      margin: 0 -21px;
+      position: absolute;
+      white-space: nowrap;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      border: 0;
+      padding: 0;
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      margin: -1px;
+      & + label {
+        display: block;
+        font-size: 1.6rem;
+        cursor: pointer;
+        line-height: g.lineHeight(16, 27);
+        padding: 0 0 0 54px;
+        margin: 0 -21px;
+      }
       &.current {
-        font-weight: 700;
-        background-color: g.$colB9A0A0;
+        & + label {
+          font-weight: 700;
+          background-color: g.$colB9A0A0;
+        }
+      }
+      &:disabled {
+        & + label {
+          cursor: wait;
+        }
       }
     }
     &__input {

@@ -228,6 +228,10 @@ img {
   background-color: #9F9F9F;
 }
 
+.side-menu__links {
+  padding: 0 0 32px;
+}
+
 .side-menu__links__section {
   font-family: "Lato", sans-serif;
   padding: 20px 21px 21px;
@@ -254,17 +258,34 @@ img {
 }
 
 .side-menu__links__item {
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  margin: -1px;
+}
+
+.side-menu__links__item + label {
   display: block;
   font-size: 1.6rem;
   cursor: pointer;
-  line-height: 1.625;
+  line-height: 1.6875;
   padding: 0 0 0 54px;
   margin: 0 -21px;
 }
 
-.side-menu__links__item.current {
+.side-menu__links__item.current + label {
   font-weight: 700;
   background-color: #B9A0A0;
+}
+
+.side-menu__links__item:disabled + label {
+  cursor: wait;
 }
 
 .side-menu__links__input {
