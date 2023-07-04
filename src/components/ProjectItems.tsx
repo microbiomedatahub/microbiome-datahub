@@ -95,6 +95,40 @@ const ProjectItems = () => {
       queries.push({ match: { '_annotation.sample_host_location': searchParams.get('hostLoc') } })
     }
 
+    if (searchParams.get('temp')) {
+      queries.push({
+        range: {
+          '_annnotation.sample_temperature_range.min': {
+            lt: parseInt(searchParams.get('temp') ?? ''),
+          },
+        },
+      })
+      queries.push({
+        range: {
+          '_annotation.sample_temperature_range.max': {
+            gt: parseInt(searchParams.get('temp') ?? ''),
+          },
+        },
+      })
+    }
+
+    if (searchParams.get('ph')) {
+      queries.push({
+        range: {
+          '_annnotation.sample_ph_range.min': {
+            lt: parseInt(searchParams.get('ph') ?? ''),
+          },
+        },
+      })
+      queries.push({
+        range: {
+          '_annotation.sample_ph_range.max': {
+            gt: parseInt(searchParams.get('ph') ?? ''),
+          },
+        },
+      })
+    }
+
     const qQueries = []
     if (searchParams.get('q')) {
       qQueries.push({
