@@ -8,6 +8,7 @@ import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom'
 import Root from './routes/Root'
 import SearchResults from './routes/SearchResults'
 import Show, { loadShow } from './routes/Show'
+import Document from './routes/Document'
 
 export interface MicrobiomeMode {
   type: 'project' | 'genome'
@@ -50,6 +51,11 @@ const router = createBrowserRouter([
         path: '/genomes/:genomeId',
         element: <Show />,
         loader: loadShow,
+      },
+      {
+        path: '/document',
+        element: <Document />,
+        loader: projectLoader,
       },
     ],
   },

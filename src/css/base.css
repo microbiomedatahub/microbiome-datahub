@@ -99,16 +99,25 @@ img {
 
 .header {
   position: relative;
-  padding: 11px 13px;
-  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 36px 20px 22px;
   z-index: 20;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   background: #D9E016;
 }
 
 .header__title__logo {
-  width: 290px;
+  width: 200px;
   height: auto;
+}
+
+.header__link {
+  font-family: "Lato", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 20.67px;
 }
 
 .footer {
