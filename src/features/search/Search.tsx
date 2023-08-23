@@ -9,7 +9,7 @@ import SearchText from './components/SearchText'
 import SearchToggleButton from './components/SearchToggleButton'
 
 const Search = () => {
-  const [isShow, setIsShow] = useState(false)
+  const [isShow, setIsShow] = useState(true)
 
   const selectMode = useAtomValue(selectModeAtom)
 

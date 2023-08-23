@@ -10,8 +10,8 @@ const Root = () => {
       <div className='app-wrapper'>
         <Search />
         <Outlet />
+        <Footer />
       </div>
-      <Footer />
     </>
   )
 }
