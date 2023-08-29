@@ -1,8 +1,9 @@
-import { PlotData } from 'plotly.js'
+// import { PlotData } from 'plotly.js'
 import Plot from 'react-plotly.js'
 import '../css/show.css'
 import { LoaderFunction, LoaderFunctionArgs, useLoaderData } from 'react-router-dom'
-import dataForPlotly from '../test.json'
+import Chart from '../components/Chart'
+// import dataForPlotly from '../test.json'
 
 interface MDataHubDocSource {
   Download: null
@@ -70,11 +71,11 @@ const Show = () => {
   //   data1,
   //   data2,
   // ]
-  // const layout1 = {width: 320, height: 240, title: 'A Fancy Plot'}
-  const layout1 = { width: 640, height: 480, title: 'A Fancy Plot' }
-  const allData: Partial<PlotData>[] = dataForPlotly.map((record) => {
-    return record as Partial<PlotData>
-  })
+  //
+  // const layout1 = { width: 640, height: 480, title: 'A Fancy Plot' }
+  // const allData: Partial<PlotData>[] = dataForPlotly.map((record) => {
+  //   return record as Partial<PlotData>
+  // })
 
   return (
     <main className='app-main'>
@@ -154,22 +155,7 @@ const Show = () => {
         </div>
       </dl>
 
-      <section className='cart'>
-        <nav className='chart__navigation'>
-          <a href='' className='chart__navigation__link current'>CHART 01</a>
-          <a href='' className='chart__navigation__link'>CHART 02</a>
-          <a href='' className='chart__navigation__link'>CHART 03</a>
-          <a href='' className='chart__navigation__link'>CHART 04</a>
-        </nav>
-
-        <article className='cart__content'>
-          <h3 className='chart__title'>SUBJECT of This Chart</h3>
-          <p className='chart__description'>なにか、チャートに関する説明などがあれば表示する</p>
-          <div className='chart__item'>
-            <Plot data={allData} layout={layout1} />
-          </div>
-        </article>
-      </section>
+      <Chart />
     </main>
   )
 }
