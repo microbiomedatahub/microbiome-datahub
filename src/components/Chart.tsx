@@ -1,12 +1,11 @@
 import { PlotData } from 'plotly.js'
 import { useEffect, useState } from 'react'
 import Plot from 'react-plotly.js'
-import dataForPlotly from '../test.json'
 
 type ChartMode = 'Species' | 'Genus' | 'Family' | 'Phylum'
 const layout = { width: 640, height: 480, title: 'A Fancy Plot' }
 
-const Chart = () => {
+const Chart = ({ id }: { id: string }) => {
   const [chartMode, setChartMode] = useState<ChartMode>('Species')
   const chartClassName = (inputChartMode: ChartMode) => {
     return chartMode === inputChartMode
@@ -14,21 +13,30 @@ const Chart = () => {
       : 'chart__navigation__link'
   }
 
-  const [graphData, setGraphData] = useState(dataForPlotly)
+  const [graphData, setGraphData] = useState<Partial<PlotData>[] | null>(null)
   const fetchPlotData = async (chartMode: string) => {
-    const bpid = 'PRJEB2054'
+    const bpid = id
     const idStrings = bpid.match(/^([A-Z]{5})([0-9]+)$/)
     const numPart = idStrings[2]
     const dirName = idStrings[1] + numPart.padStart(6, '0')
 
-    const res = await fetch(`https://mdatahub.org/data/project/${dirName}/analysis_${chartMode.toLowerCase()}.json`)
-    const content = await res.json()
+    try {
+      const res = await fetch(`https://mdatahub.org/data/project/${dirName}/analysis_${chartMode.toLowerCase()}.json`)
+      if (!res.ok) {
+        setGraphData(null)
+        return
+      }
 
-    const plotData = content.data.map((record) => {
-      return record as Partial<PlotData>
-    }) as Partial<PlotData>[]
+      const content = await res.json()
 
-    setGraphData(plotData)
+      const plotData = content.data.map((record) => {
+        return record as Partial<PlotData>
+      }) as Partial<PlotData>[]
+
+      setGraphData(plotData)
+    } catch {
+      setGraphData(null)
+    }
   }
   useEffect(() => {
     fetchPlotData(chartMode)
@@ -52,10 +60,13 @@ const Chart = () => {
 
       <article className='cart__content'>
         <h3 className='chart__title'>{chartMode}</h3>
-        <p className='chart__description'>なにか、チャートに関する説明などがあれば表示する</p>
-        <div className='chart__item'>
-          <Plot data={graphData} layout={layout} />
-        </div>
+        {graphData
+          ? (
+            <div className='chart__item'>
+              <Plot data={graphData} layout={layout} />
+            </div>
+          )
+          : <p className='chart__description'>表示するグラフのデータがありません</p>}
       </article>
     </section>
   )

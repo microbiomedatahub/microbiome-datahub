@@ -155,7 +155,7 @@ const Show = () => {
         </div>
       </dl>
 
-      <Chart />
+      {data._source?.type === 'bioproject' && <Chart id={data._id} />}
     </main>
   )
 }
