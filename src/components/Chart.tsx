@@ -17,8 +17,8 @@ const Chart = ({ id }: { id: string }) => {
   const fetchPlotData = async (chartMode: string) => {
     const bpid = id
     const idStrings = bpid.match(/^([A-Z]{5})([0-9]+)$/)
-    const numPart = idStrings[2]
-    const dirName = idStrings[1] + numPart.padStart(6, '0')
+    const numPart = (idStrings as RegExpMatchArray)[2]
+    const dirName = (idStrings as RegExpMatchArray)[1] + numPart.padStart(6, '0')
 
     try {
       const res = await fetch(`https://mdatahub.org/data/project/${dirName}/analysis_${chartMode.toLowerCase()}.json`)
@@ -29,7 +29,7 @@ const Chart = ({ id }: { id: string }) => {
 
       const content = await res.json()
 
-      const plotData = content.data.map((record) => {
+      const plotData = content.data.map((record: any) => {
         return record as Partial<PlotData>
       }) as Partial<PlotData>[]
 
