@@ -1,9 +1,15 @@
-import { PlotData } from 'plotly.js'
+import { Layout, PlotData } from 'plotly.js'
 import { useEffect, useState } from 'react'
 import Plot from 'react-plotly.js'
 
 type ChartMode = 'Species' | 'Genus' | 'Family' | 'Phylum'
-const layout = { width: 900, height: 480, title: 'A Fancy Plot', barmode: 'stack', legend: { traceorder: 'normal' } }
+const layout: Partial<Layout> = {
+  width: 900,
+  height: 480,
+  title: 'A Fancy Plot',
+  barmode: 'stack',
+  legend: { traceorder: 'normal' },
+}
 
 const Chart = ({ id }: { id: string }) => {
   const [chartMode, setChartMode] = useState<ChartMode>('Species')
