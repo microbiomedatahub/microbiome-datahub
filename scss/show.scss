@@ -133,6 +133,52 @@
   }
 }
 
+.data-section {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  margin: 53px 0 72px;
+  &__box {
+    display: flex;
+    gap: 23px;
+    &__heading {
+      min-width: 100px;
+      font: {
+        family: g.$fontOswald;
+        weight: 400;
+        size: 2rem;
+      }
+      color: g.$col575757;
+      line-height: g.lineHeight(20, 29.64);
+      padding: 11px 15px;
+      text-align: center;
+      background-color: g.$colF2F2EF;
+    }
+
+    &__item {
+      display: flex;
+      gap: 42px;
+      padding: 13px 0 18px;
+      border-bottom: 1px solid g.$colE0E0E0;
+      &__label {
+        font: {
+          family: g.$fontOswald;
+          size: 1.4rem;
+        }
+        color: g.$col575757;
+      }
+      &__content {
+        font: {
+          family: g.$fontGillSans;
+          weight: 300;
+          size: 1.8rem;
+        }
+        line-height: g.lineHeight(18, 20.45);
+      }
+    }
+  }
+}
+
 .chart {
   &__navigation {
     position: relative;

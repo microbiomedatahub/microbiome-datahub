@@ -155,6 +155,51 @@ const Show = () => {
         </div>
       </dl>
 
+      <div className="data-section">
+        <div className="data-section__box">
+          <h3 className="data-section__box__heading">Metadata</h3>
+          <div className="data-section__box__inner">
+            <div className="data-section__box__item">
+              <p className="data-section__box__item__label">Description</p>
+              <p className="data-section__box__item__content">Raw sequence reads of the V6 hypervariable region of 16S rDNA from microbial communities within the Mississippi River.</p>
+            </div>
+            <div className="data-section__box__item">
+              <p className="data-section__box__item__label">Publication</p>
+              <p className="data-section__box__item__content">Bacterial community structure is indicative of chemical inputs in the Upper Mississippi River.</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="data-section__box">
+          <h3 className="data-section__box__heading">DFAST</h3>
+          <div className="data-section__box__inner">
+            <div className="data-section__box__item">
+              <p className="data-section__box__item__label">Description</p>
+              <p className="data-section__box__item__content">Raw sequence reads of the V6 hypervariable region of 16S rDNA from microbial communities within the Mississippi River.</p>
+            </div>
+            <div className="data-section__box__item">
+              <p className="data-section__box__item__label">Publication</p>
+              <p className="data-section__box__item__content">Bacterial community structure is indicative of chemical inputs in the Upper Mississippi River.</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="data-section__box">
+          <h3 className="data-section__box__heading">DFASTQC</h3>
+          <div className="data-section__box__inner">
+            <div className="data-section__box__item">
+              <p className="data-section__box__item__label">Description</p>
+              <p className="data-section__box__item__content">Raw sequence reads of the V6 hypervariable region of 16S rDNA from microbial communities within the Mississippi River.</p>
+            </div>
+            <div className="data-section__box__item">
+              <p className="data-section__box__item__label">Publication</p>
+              <p className="data-section__box__item__content">Bacterial community structure is indicative of chemical inputs in the Upper Mississippi River.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
       {data._source?.type === 'bioproject' && <Chart id={data._id} />}
     </main>
   )
