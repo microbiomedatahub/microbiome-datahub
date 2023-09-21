@@ -368,6 +368,13 @@ img {
   color: #8F8E8E;
 }
 
+.side-menu__radio-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 21px 0 0;
+}
+
 .side-menu__submit {
   display: block;
   width: calc(100% - 42px);
@@ -389,6 +396,52 @@ img {
   padding: 80px 0;
   margin: 0 auto;
   background: #FFF;
+}
+
+.radio--square {
+  position: absolute;
+  display: inline-block;
+  width: 1px;
+  height: 1px;
+  white-space: nowrap;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+}
+
+.radio--square + .label {
+  position: relative;
+  display: flex;
+  gap: 9px;
+}
+
+.radio--square + .label::before, .radio--square + .label::after {
+  display: block;
+  content: "";
+}
+
+.radio--square + .label::before {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  background-color: #FFF;
+}
+
+.radio--square + .label::after {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  opacity: 0;
+  border-radius: 2px;
+  background-color: #D9E016;
+}
+
+.radio--square:checked + .label::after {
+  opacity: 1;
 }
 
 /*# sourceMappingURL=base.css.map */

@@ -7,6 +7,7 @@ import SearchRange from './components/SearchRange'
 import SearchSelect from './components/SearchSelect'
 import SearchText from './components/SearchText'
 import SearchToggleButton from './components/SearchToggleButton'
+import SearchStar from "./components/SearchStar";
 
 const Search = () => {
   const [isShow, setIsShow] = useState(true)
@@ -245,6 +246,8 @@ const Search = () => {
               min={0}
               max={15}
             />
+
+            <SearchStar />
 
             <button type='submit' className='side-menu__submit' onClick={() => searchProject()}>SUBMIT</button>
           </nav>
