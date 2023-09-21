@@ -74,13 +74,30 @@
 .page-title {
   font-family: "Marcellus", serif;
   font-size: 2.8rem;
-  margin: 0 0 26px;
+  margin: 0 0 11px;
+}
+
+.quality {
+  display: flex;
+  gap: 10px;
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  font-size: 1.8rem;
+  line-height: 1.1361111111;
+  margin: 0 0 11px;
+}
+.quality__star {
+  color: #91951E;
+}
+.quality__num {
+  color: #000;
 }
 
 .facility-name {
   font-family: "Oswald", sans-serif;
   font-size: 1.8rem;
   font-weight: 400;
+  color: #575757;
   margin: 0 0 15px;
 }
 
@@ -89,7 +106,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 30px;
-  margin: 0 0 72px;
+  margin: 0 0 52px;
 }
 .data-id__data {
   display: flex;
@@ -162,6 +179,7 @@
   font-family: "Oswald", sans-serif;
   font-size: 1.4rem;
   font-weight: 300;
+  color: #8C8C8C;
   margin: 0 0 5px;
 }
 .date__item .heading {

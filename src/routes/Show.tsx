@@ -81,6 +81,10 @@ const Show = () => {
     <main className='app-main'>
       <p className='current-type'>{data?._index === 'bioproject' ? 'PROJECT' : data?._index.toUpperCase()}</p>
       <h2 className='page-title'>{data?._source.title}</h2>
+      <p className="quality">
+        <span className="quality__star">★★✩✩✩</span>
+        <span className="quality__num">(2)</span>
+      </p>
       <p className='facility-name'>{data?._source.organization}</p>
       <div className='data-id'>
         <dl className='data-id__data'>

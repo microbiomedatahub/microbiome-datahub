@@ -16,7 +16,25 @@
     family: g.$fontOptima;
     size: 2.8rem;
   }
-  margin: 0 0 26px;
+  margin: 0 0 11px;
+}
+
+.quality {
+  display: flex;
+  gap: 10px;
+  font: {
+    family: g.$fontGillSans;
+    weight: 300;
+    size: 1.8rem;
+  }
+  line-height: g.lineHeight(18, 20.45);
+  margin: 0 0 11px;
+  &__star {
+    color: g.$col91951E;
+  }
+  &__num {
+    color: g.$col000;
+  }
 }
 
 .facility-name {
@@ -25,6 +43,7 @@
     size: 1.8rem;
     weight: 400;
   }
+  color: g.$col575757;
   margin: 0 0 15px;
 }
 
@@ -33,7 +52,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 30px;
-  margin: 0 0 72px;
+  margin: 0 0 52px;
   &__data {
     display: flex;
     flex-wrap: wrap;
@@ -126,6 +145,7 @@
       size: 1.4rem;
       weight: 300;
     }
+    color: g.$col8C8C8C;
     margin: 0 0 5px;
     .heading {
       font-weight: 300;
