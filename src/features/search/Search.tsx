@@ -5,9 +5,9 @@ import { selectModeAtom } from '../../store/store'
 import SearchKeyword from './components/SearchKeyword'
 import SearchRange from './components/SearchRange'
 import SearchSelect from './components/SearchSelect'
+import SearchStar from './components/SearchStar'
 import SearchText from './components/SearchText'
 import SearchToggleButton from './components/SearchToggleButton'
-import SearchStar from "./components/SearchStar";
 
 const Search = () => {
   const [isShow, setIsShow] = useState(true)
@@ -31,29 +31,29 @@ const Search = () => {
   ])
 
   const [selectedEnv, setSelectedEnv] = useState('soil')
-  const [isEnabledEnv, setIsEnabledEnv] = useState(true)
+  const [isEnabledEnv, setIsEnabledEnv] = useState(false)
 
   const [hostTaxon, setHostTaxon] = useState('')
-  const [isEnabledHostTaxon, setIsEnabledHostTaxon] = useState(true)
+  const [isEnabledHostTaxon, setIsEnabledHostTaxon] = useState(false)
   const [hostDisease, setHostDisease] = useState('')
-  const [isEnabledHostDisease, setIsEnabledHostDisease] = useState(true)
+  const [isEnabledHostDisease, setIsEnabledHostDisease] = useState(false)
   const [hostLocation, setHostLocation] = useState('')
-  const [isEnabledHostLocation, setIsEnabledHostLocation] = useState(true)
+  const [isEnabledHostLocation, setIsEnabledHostLocation] = useState(false)
   const [temperature, setTemperature] = useState(50)
-  const [isEnabledTemp, setIsEnabledTemp] = useState(true)
+  const [isEnabledTemp, setIsEnabledTemp] = useState(false)
   const [ph, setPh] = useState(0)
-  const [isEnabledPh, setIsEnabledPh] = useState(true)
+  const [isEnabledPh, setIsEnabledPh] = useState(false)
 
   const [genomeTaxon, setGenomeTaxon] = useState('')
-  const [isEnabledGenomeTaxon, setIsEnabledGenomeTaxon] = useState(true)
+  const [isEnabledGenomeTaxon, setIsEnabledGenomeTaxon] = useState(false)
   const genomeCategories = ['Isolate complete', 'Isolate draft', 'MAG high quality', 'MAG low quality']
   const [genomeCategory, setGenomeCategory] = useState('')
-  const [isEnabledGenomeCategory, setIsEnabledGenomeCategory] = useState(true)
+  const [isEnabledGenomeCategory, setIsEnabledGenomeCategory] = useState(false)
   const magSources = ['INSDC', 'MGnify', 'Other DBs', 'Original']
   const [magSource, setMagSource] = useState('')
-  const [isEnabledMagSource, setIsEnabledMagSource] = useState(true)
+  const [isEnabledMagSource, setIsEnabledMagSource] = useState(false)
   const [magCompleteness, setMagCompleteness] = useState(50)
-  const [isEnabledMagCompleteness, setIsEnabledMagCompleteness] = useState(true)
+  const [isEnabledMagCompleteness, setIsEnabledMagCompleteness] = useState(false)
 
   const searchProject = () => {
     const queries: { [key: string]: string } = {}
