@@ -255,12 +255,15 @@ const Search = () => {
               max={15}
             />
 
-            <SearchStar
-              value={quality}
-              setValue={setQuality}
-              isEnabled={isEnabledQuality}
-              setIsEnabled={setIsEnabledQuality}
-            />
+            {selectMode === 'genome'
+              && (
+                <SearchStar
+                  value={quality}
+                  setValue={setQuality}
+                  isEnabled={isEnabledQuality}
+                  setIsEnabled={setIsEnabledQuality}
+                />
+              )}
 
             <button type='submit' className='side-menu__submit' onClick={() => searchProject()}>SUBMIT</button>
           </nav>
