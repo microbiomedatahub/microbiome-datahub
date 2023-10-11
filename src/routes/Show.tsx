@@ -7,7 +7,30 @@ import Chart from '../components/Chart'
 
 interface MDataHubDocSource {
   Download: null
-  _annotation: any
+  _annotation: {
+    sample_count: number
+    sample_organism: string[]
+    sample_taxid: string[]
+    sample_host_organism: string[]
+    sample_host_organism_id: number[]
+    sample_host_disease: string[]
+    sample_host_disease_id: number[]
+    sample_host_location: string[]
+    sample_host_location_id: number[]
+    data_size: string
+    sample_ph_range: {
+      min: number | null
+      max: number | null
+    }
+    sample_temperature_range: {
+      min: number | null
+      max: number | null
+    }
+    completeness: number
+    contamination: number
+    strain_heterogeneity: number
+    genome_count: number
+  } | null
   'data type': null
   dateCreated: string
   dateModified: string
@@ -15,12 +38,33 @@ interface MDataHubDocSource {
   dbXrefs: []
   description: string
   distribution: null
-  has_analysis: boolean
   identifier: string
   organism: string
   organization: string
   properties: {
+    assembly_accession: string
+    bioproject: string
+    biosample: string
+    wgs_master: string
+    refseq_category: string
+    taxid: string
+    species_taxid: string
+    organism_name: string
+    infraspecific_name: string
+    isolate: string
+    version_status: string
+    assembly_level: string
+    release_type: string
+    genome_rep: string
+    seq_rel_date: string
+    asm_name: string
     submitter: string
+    gbrs_paired_asm: string
+    paired_asm_comp: string
+    ftp_path: string
+    excluded_from_reqseq: string
+    relation_to_type_material: string
+    asm_not_live_date: string
   } | null
   publication: []
   status: string
@@ -28,6 +72,32 @@ interface MDataHubDocSource {
   type: 'bioproject' | 'genome'
   visibility: null
   data_source?: string
+  _dfast: {
+    'Total Sequence Length (bp)': string
+    'Number of Sequences': string
+    'Longest Sequences (bp)': string
+    'N50 (bp)': string
+    'Gap Ratio (%)': string
+    'GCcontent (%)': string
+    'Number of CDSs': string
+    'Average Protein Length': string
+    'Coding Ratio (%)': string
+    'Number of rRNAs': string
+    'Number of tRNAs': string
+    'Number of CRISPRs': string
+  } | null
+  has_analysis: boolean
+  _dfastqc: {
+    tc_result: string[]
+    cc_result: {
+      completeness: number
+      contamination: number
+      strain_heterogeneity: number
+    }
+    gtdb_result: string[]
+  } | null
+  quality: number
+  quality_label: string
 }
 
 interface MDataHubDoc {
@@ -81,9 +151,12 @@ const Show = () => {
     <main className='app-main'>
       <p className='current-type'>{data?._index === 'bioproject' ? 'PROJECT' : data?._index.toUpperCase()}</p>
       <h2 className='page-title'>{data?._source.title}</h2>
-      <p className="quality">
-        <span className="quality__star">★★✩✩✩</span>
-        <span className="quality__num">(2)</span>
+      <p className='quality'>
+        <span className='quality__star'>
+          {[...Array(data?._source.quality ?? 0)].map(() => '★').join('')
+            + [...Array(5 - (data?._source.quality ?? 0))].map(() => '✩').join('')}
+        </span>
+        <span className='quality__num'>{data?._source.quality}</span>
       </p>
       <p className='facility-name'>{data?._source.organization}</p>
       <div className='data-id'>
@@ -91,7 +164,7 @@ const Show = () => {
           <div className='data-id__data__item'>
             <dt className='heading'>organism</dt>
 
-            {data?._source._annotation.sample_organism.map((envItem: string, envIndex: number) => {
+            {data?._source?._annotation?.sample_organism.map((envItem: string, envIndex: number) => {
               return (
                 <dd className='content' key={envIndex}>
                   <button className='content__button'>{envItem}</button>
@@ -159,49 +232,230 @@ const Show = () => {
         </div>
       </dl>
 
-      <div className="data-section">
-        <div className="data-section__box">
-          <h3 className="data-section__box__heading">Metadata</h3>
-          <div className="data-section__box__inner">
-            <div className="data-section__box__item">
-              <p className="data-section__box__item__label">Description</p>
-              <p className="data-section__box__item__content">Raw sequence reads of the V6 hypervariable region of 16S rDNA from microbial communities within the Mississippi River.</p>
+      <div className='data-section'>
+        <div className='data-section__box'>
+          <h3 className='data-section__box__heading'>Metadata</h3>
+          <div className='data-section__box__inner'>
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>identifier</p>
+              <p className='data-section__box__item__content'>{data._source?.identifier}</p>
             </div>
-            <div className="data-section__box__item">
-              <p className="data-section__box__item__label">Publication</p>
-              <p className="data-section__box__item__content">Bacterial community structure is indicative of chemical inputs in the Upper Mississippi River.</p>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>organism</p>
+              <p className='data-section__box__item__content'>{data._source?.organism}</p>
+            </div>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>organization</p>
+              <p className='data-section__box__item__content'>{data._source?.organization}</p>
+            </div>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>assembly_accession</p>
+              <p className='data-section__box__item__content'>{data._source?.properties?.assembly_accession}</p>
+            </div>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>bioproject</p>
+              <p className='data-section__box__item__content'>
+                {data._source?.properties?.bioproject}
+              </p>
+            </div>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>biosample</p>
+              <p className='data-section__box__item__content'>
+                {data._source?.properties?.biosample}
+              </p>
+            </div>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>specires_taxid</p>
+              <p className='data-section__box__item__content'>
+                {data._source?.properties?.species_taxid}
+              </p>
+            </div>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>organism_name</p>
+              <p className='data-section__box__item__content'>
+                {data._source?.properties?.organism_name}
+              </p>
+            </div>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>seq_rel_date</p>
+              <p className='data-section__box__item__content'>
+                {data._source?.properties?.seq_rel_date}
+              </p>
+            </div>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>sample_organism</p>
+              <p className='data-section__box__item__content'>
+                {data._source?._annotation?.sample_organism}
+              </p>
+            </div>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>sample_taxid</p>
+              <p className='data-section__box__item__content'>
+                {data._source?._annotation?.sample_taxid}
+              </p>
+            </div>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>sample_host_organism</p>
+              <p className='data-section__box__item__content'>
+                {data._source?._annotation?.sample_host_organism}
+              </p>
+            </div>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>sample_host_organism_id</p>
+              <p className='data-section__box__item__content'>
+                {data._source?._annotation?.sample_host_organism_id}
+              </p>
+            </div>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>sample_host_disease</p>
+              <p className='data-section__box__item__content'>
+                {data._source?._annotation?.sample_host_disease}
+              </p>
+            </div>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>sample_host_disease_id</p>
+              <p className='data-section__box__item__content'>
+                {data._source?._annotation?.sample_host_disease_id}
+              </p>
+            </div>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>sample_host_location</p>
+              <p className='data-section__box__item__content'>
+                {data._source?._annotation?.sample_host_location}
+              </p>
+            </div>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>sample_ph_range</p>
+              <p className='data-section__box__item__content'>
+                {data._source?._annotation?.sample_ph_range.min + ' < '
+                  + data._source?._annotation?.sample_ph_range.max}
+              </p>
+            </div>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>sample_temperature_range</p>
+              <p className='data-section__box__item__content'>
+                {data._source?._annotation?.sample_temperature_range.min + ' < '
+                  + data._source?._annotation?.sample_temperature_range.max}
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="data-section__box">
-          <h3 className="data-section__box__heading">DFAST</h3>
-          <div className="data-section__box__inner">
-            <div className="data-section__box__item">
-              <p className="data-section__box__item__label">Description</p>
-              <p className="data-section__box__item__content">Raw sequence reads of the V6 hypervariable region of 16S rDNA from microbial communities within the Mississippi River.</p>
+        <div className='data-section__box'>
+          <h3 className='data-section__box__heading'>DFAST</h3>
+          <div className='data-section__box__inner'>
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>Total Sequence Length (bp)</p>
+              <p className='data-section__box__item__content'>
+                {data._source._dfast?.['Total Sequence Length (bp)']}
+              </p>
             </div>
-            <div className="data-section__box__item">
-              <p className="data-section__box__item__label">Publication</p>
-              <p className="data-section__box__item__content">Bacterial community structure is indicative of chemical inputs in the Upper Mississippi River.</p>
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>Number of Sequences</p>
+              <p className='data-section__box__item__content'>
+                {data._source._dfast?.['Number of Sequences']}
+              </p>
+            </div>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>Longest Sequences (bp)</p>
+              <p className='data-section__box__item__content'>
+                {data._source._dfast?.['Longest Sequences (bp)']}
+              </p>
+            </div>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>N50 (bp)</p>
+              <p className='data-section__box__item__content'>
+                {data._source._dfast?.['N50 (bp)']}
+              </p>
+            </div>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>GCcontent (%)</p>
+              <p className='data-section__box__item__content'>
+                {data._source._dfast?.['GCcontent (%)']}
+              </p>
+            </div>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>Number of CDSs</p>
+              <p className='data-section__box__item__content'>
+                {data._source._dfast?.['Number of CDSs']}
+              </p>
+            </div>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>Coding Ratio (%)</p>
+              <p className='data-section__box__item__content'>
+                {data._source._dfast?.['Coding Ratio (%)']}
+              </p>
+            </div>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>Number of rRNAs</p>
+              <p className='data-section__box__item__content'>
+                {data._source._dfast?.['Number of rRNAs']}
+              </p>
+            </div>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>Number of tRNAs</p>
+              <p className='data-section__box__item__content'>
+                {data._source._dfast?.['Number of tRNAs']}
+              </p>
+            </div>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>quality_label</p>
+              <p className='data-section__box__item__content'>
+                {data._source.quality_label}
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="data-section__box">
-          <h3 className="data-section__box__heading">DFASTQC</h3>
-          <div className="data-section__box__inner">
-            <div className="data-section__box__item">
-              <p className="data-section__box__item__label">Description</p>
-              <p className="data-section__box__item__content">Raw sequence reads of the V6 hypervariable region of 16S rDNA from microbial communities within the Mississippi River.</p>
+        <div className='data-section__box'>
+          <h3 className='data-section__box__heading'>DFASTQC</h3>
+          <div className='data-section__box__inner'>
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>completeness</p>
+              <p className='data-section__box__item__content'>
+                {data._source._dfastqc?.cc_result.completeness}
+              </p>
             </div>
-            <div className="data-section__box__item">
-              <p className="data-section__box__item__label">Publication</p>
-              <p className="data-section__box__item__content">Bacterial community structure is indicative of chemical inputs in the Upper Mississippi River.</p>
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>contamination</p>
+              <p className='data-section__box__item__content'>
+                {data._source._dfastqc?.cc_result.contamination}
+              </p>
+            </div>
+
+            <div className='data-section__box__item'>
+              <p className='data-section__box__item__label'>strain_heterogeneity</p>
+              <p className='data-section__box__item__content'>
+                {data._source._dfastqc?.cc_result.strain_heterogeneity}
+              </p>
             </div>
           </div>
         </div>
-
       </div>
 
       {data._source?.type === 'bioproject' && <Chart id={data._id} />}
