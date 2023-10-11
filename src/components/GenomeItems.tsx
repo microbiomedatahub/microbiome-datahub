@@ -84,13 +84,7 @@ const GenomeItems = () => {
       queries.push({ match: { '_annotation.sample_organism': searchParams.get('env') } })
     }
     if (searchParams.get('genomeTaxon')) {
-      // queries.push({match: {''}})
-    }
-    if (searchParams.get('genomeCategory')) {
-      // queries.push({})
-    }
-    if (searchParams.get('magSource')) {
-      // queries.push({})
+      queries.push({ match: { 'properties.organism_name': searchParams.get('genomeTaxon') } })
     }
     if (searchParams.get('magCompleteness')) {
       queries.push({
