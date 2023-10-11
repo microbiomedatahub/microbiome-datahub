@@ -178,28 +178,6 @@ const Search = () => {
             )}
 
             {selectMode === 'genome' && (
-              <SearchSelect
-                heading='Genome Category'
-                value={genomeCategory}
-                setValue={setGenomeCategory}
-                isEnabled={isEnabledGenomeCategory}
-                setIsEnabled={setIsEnabledGenomeCategory}
-                selectItems={genomeCategories}
-              />
-            )}
-
-            {selectMode === 'genome' && (
-              <SearchSelect
-                heading='MAG source'
-                value={magSource}
-                setValue={setMagSource}
-                isEnabled={isEnabledMagSource}
-                setIsEnabled={setIsEnabledMagSource}
-                selectItems={magSources}
-              />
-            )}
-
-            {selectMode === 'genome' && (
               <SearchRange
                 heading='MAG completeness'
                 value={magCompleteness}
