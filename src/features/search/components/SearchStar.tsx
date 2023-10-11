@@ -1,25 +1,46 @@
-const SearchStar = () => {
+import { Dispatch, SetStateAction } from 'react'
+
+const switchId = 'star_form_switch'
+
+const qualityStars = [
+  ['star5', 'quality_5star', '★★★★★ (5)'],
+  ['star4', 'quality_4star', '★★★★✩ (4)'],
+  ['star3', 'quality_3star', '★★★✩✩ (3)'],
+  ['star2', 'quality_2star', '★★✩✩✩ (2)'],
+  ['star1', 'quality_1star', '★✩✩✩✩ (1)'],
+  ['notReviewed', 'quality_notReviewed', 'not reviewed'],
+]
+
+const SearchStar = (
+  { value, setValue, isEnabled, setIsEnabled }: {
+    value: number[]
+    setValue: Dispatch<SetStateAction<number[]>>
+    isEnabled: boolean
+    setIsEnabled: Dispatch<SetStateAction<boolean>>
+  },
+) => {
   return (
     <div className='side-menu__links__section'>
-      <p className="side-menu__links__heading">Quality</p>
-      <div className="side-menu__radio-wrapper">
-        <input id="star5" name="quality" type="radio" className="radio--square"/>
-        <label htmlFor="star5" className="label">★★★★★ (5)</label>
-
-        <input id="star4" name="quality" type="radio" className="radio--square"/>
-        <label htmlFor="star4" className="label">★★★★✩ (4)</label>
-
-        <input id="star3" name="quality" type="radio" className="radio--square"/>
-        <label htmlFor="star3" className="label">★★★✩✩ (3)</label>
-
-        <input id="star2" name="quality" type="radio" className="radio--square"/>
-        <label htmlFor="star2" className="label">★★✩✩✩ (2)</label>
-
-        <input id="star1" name="quality" type="radio" className="radio--square"/>
-        <label htmlFor="star1" className="label">★✩✩✩✩ (1)</label>
-
-        <input id="notReview" name="quality" type="radio" className="radio--square"/>
-        <label htmlFor="notReview" className="label">not review</label>
+      <div className='side-menu__links__section__header'>
+        <label htmlFor='star_form' className='side-menu__links__heading'>Quality</label>
+        <input
+          id={switchId}
+          type='checkbox'
+          className='g-switch'
+          onChange={() => setIsEnabled(!isEnabled)}
+          checked={isEnabled}
+        />
+        <label htmlFor={switchId} className='g-switch__button' />
+      </div>
+      <div className='side-menu__radio-wrapper'>
+        {qualityStars.map((qs) => {
+          return (
+            <>
+              <input id={qs[0]} name={qs[1]} type='checkbox' className='radio--square' />
+              <label htmlFor={qs[0]} className='label'>{qs[2]}</label>
+            </>
+          )
+        })}
       </div>
     </div>
   )

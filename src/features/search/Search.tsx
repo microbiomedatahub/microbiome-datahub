@@ -43,6 +43,8 @@ const Search = () => {
   const [isEnabledTemp, setIsEnabledTemp] = useState(false)
   const [ph, setPh] = useState(0)
   const [isEnabledPh, setIsEnabledPh] = useState(false)
+  const [quality, setQuality] = useState([0])
+  const [isEnabledQuality, setIsEnabledQuality] = useState(false)
 
   const [genomeTaxon, setGenomeTaxon] = useState('')
   const [isEnabledGenomeTaxon, setIsEnabledGenomeTaxon] = useState(false)
@@ -77,6 +79,9 @@ const Search = () => {
     }
     if (isEnabledPh) {
       queries['ph'] = ph.toString()
+    }
+    if (isEnabledQuality) {
+      queries['quality'] = quality.join(',')
     }
     if (isEnabledGenomeTaxon) {
       queries['genomeTaxon'] = genomeTaxon
@@ -123,6 +128,9 @@ const Search = () => {
     }
     if (searchParams.get('ph')) {
       setPh(parseInt(searchParams.get('ph') ?? ''))
+    }
+    if (searchParams.get('quality')) {
+      setQuality((searchParams.get('quality') ?? '0').split(',').map((item) => parseInt(item)))
     }
     if (searchParams.get('genomeTaxon')) {
       setGenomeTaxon(searchParams.get('genomeTaxon') ?? '')
@@ -247,7 +255,12 @@ const Search = () => {
               max={15}
             />
 
-            <SearchStar />
+            <SearchStar
+              value={quality}
+              setValue={setQuality}
+              isEnabled={isEnabledQuality}
+              setIsEnabled={setIsEnabledQuality}
+            />
 
             <button type='submit' className='side-menu__submit' onClick={() => searchProject()}>SUBMIT</button>
           </nav>
