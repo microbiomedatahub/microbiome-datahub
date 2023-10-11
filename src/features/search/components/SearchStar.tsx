@@ -2,13 +2,20 @@ import { Dispatch, SetStateAction } from 'react'
 
 const switchId = 'star_form_switch'
 
-const qualityStars = [
-  ['star5', 'quality_5star', '★★★★★ (5)'],
-  ['star4', 'quality_4star', '★★★★✩ (4)'],
-  ['star3', 'quality_3star', '★★★✩✩ (3)'],
-  ['star2', 'quality_2star', '★★✩✩✩ (2)'],
-  ['star1', 'quality_1star', '★✩✩✩✩ (1)'],
-  ['notReviewed', 'quality_notReviewed', 'not reviewed'],
+interface QualityStar {
+  id: string
+  name: string
+  displayValue: string
+  value: number
+}
+
+const qualityStars: QualityStar[] = [
+  { id: 'star5', name: 'quality_5star', displayValue: '★★★★★ (5)', value: 5 },
+  { id: 'star4', name: 'quality_4star', displayValue: '★★★★✩ (4)', value: 4 },
+  { id: 'star3', name: 'quality_3star', displayValue: '★★★✩✩ (3)', value: 3 },
+  { id: 'star2', name: 'quality_2star', displayValue: '★★✩✩✩ (2)', value: 2 },
+  { id: 'star1', name: 'quality_1star', displayValue: '★✩✩✩✩ (1)', value: 1 },
+  { id: 'notReviewed', name: 'quality_notReviewed', displayValue: 'not reviewed', value: 0 },
 ]
 
 const SearchStar = (
@@ -33,12 +40,27 @@ const SearchStar = (
         <label htmlFor={switchId} className='g-switch__button' />
       </div>
       <div className='side-menu__radio-wrapper'>
-        {qualityStars.map((qs) => {
+        {qualityStars.map((qs, i) => {
           return (
-            <>
-              <input id={qs[0]} name={qs[1]} type='checkbox' className='radio--square' />
-              <label htmlFor={qs[0]} className='label'>{qs[2]}</label>
-            </>
+            <div key={'star_form_selectbox_' + i}>
+              <input
+                id={qs.id}
+                name={qs.name}
+                type='checkbox'
+                className='radio--square'
+                checked={value.some((el) => el === qs.value)}
+                onChange={() => {
+                  if (value.some((el) => el === qs.value)) {
+                    const deletedValues = value.filter((el) => el !== qs.value)
+                    setValue(deletedValues)
+                    return
+                  }
+                  setValue([...value, qs.value])
+                  console.log(value)
+                }}
+              />
+              <label htmlFor={qs.id} className='label'>{qs.displayValue}</label>
+            </div>
           )
         })}
       </div>

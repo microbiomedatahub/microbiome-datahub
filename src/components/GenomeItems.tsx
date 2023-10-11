@@ -145,6 +145,20 @@ const GenomeItems = () => {
       })
     }
 
+    if (searchParams.get('quality')) {
+      const qualities = (searchParams.get('quality') ?? '0').split(',').map((item) => parseInt(item))
+      const qualityQueries = qualities.map((q) => {
+        return {
+          match: { 'quality': q },
+        }
+      })
+      queries.push({
+        bool: {
+          should: qualityQueries,
+        },
+      })
+    }
+
     const qQueries = []
     if (searchParams.get('q')) {
       qQueries.push({
