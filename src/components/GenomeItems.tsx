@@ -84,7 +84,7 @@ const GenomeItems = () => {
       queries.push({ match: { '_annotation.sample_organism': searchParams.get('env') } })
     }
     if (searchParams.get('genomeTaxon')) {
-      queries.push({ match: { 'properties.organism_name': searchParams.get('genomeTaxon') } })
+      queries.push({ wildcard: { 'properties.organism_name.keyword': `*${searchParams.get('genomeTaxon')}*` } })
     }
     if (searchParams.get('magCompleteness')) {
       queries.push({
