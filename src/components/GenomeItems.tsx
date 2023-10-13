@@ -157,13 +157,6 @@ const GenomeItems = () => {
     if (searchParams.get('q')) {
       qQueries.push({
         wildcard: {
-          identifier: {
-            value: `*${searchParams.get('q') ?? ''}*`,
-          },
-        },
-      })
-      qQueries.push({
-        wildcard: {
           title: {
             value: `*${searchParams.get('q') ?? ''}*`,
           },
