@@ -145,6 +145,27 @@ const ProjectItems = () => {
           },
         },
       })
+      qQueries.push({
+        wildcard: {
+          'properties.assembly_accession.keyword': {
+            value: `*${searchParams.get('q') ?? ''}*`,
+          },
+        },
+      })
+      qQueries.push({
+        wildcard: {
+          'properties.bioproject.keyword': {
+            value: `*${searchParams.get('q') ?? ''}*`,
+          },
+        },
+      })
+      qQueries.push({
+        wildcard: {
+          'properties.biosample.keyword': {
+            value: `*${searchParams.get('q') ?? ''}*`,
+          },
+        },
+      })
     }
 
     const sortQueries: SortQueriesInterface = {}
