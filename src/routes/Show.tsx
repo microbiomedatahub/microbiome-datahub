@@ -120,7 +120,7 @@ export const loadShow = async ({ params }: LoaderFunctionArgs): Promise<LoaderFu
   } else {
     return Promise.reject()
   }
-  const res = await fetch(`https://localhost:8080/api/${path}`)
+  const res = await fetch(`http://localhost:8080/api/${path}`)
   const data = await res.json()
 
   return data?.index ?? data

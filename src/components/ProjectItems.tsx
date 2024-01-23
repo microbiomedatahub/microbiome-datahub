@@ -21,7 +21,7 @@ interface SortQueriesInterface {
 
 const ProjectItems = () => {
   const retrieveBioProject = async (url: string, { arg }: { arg: BioProjectListRequest }) => {
-    const res = await fetch(`https://localhost:8080/api${url}`, {
+    const res = await fetch(`http://localhost:8080/api${url}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
