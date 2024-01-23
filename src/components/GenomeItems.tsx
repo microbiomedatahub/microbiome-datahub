@@ -21,7 +21,7 @@ interface SortQueriesInterface {
 
 const GenomeItems = () => {
   const retrieveGenome = async (url: string, { arg }: { arg: GenomeListRequest }) => {
-    const res = await fetch(`https://mdatahub.org/api${url}`, {
+    const res = await fetch(`https://localhost:8080/api${url}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
