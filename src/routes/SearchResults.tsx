@@ -6,6 +6,7 @@ import ProjectItems from '../components/ProjectItems'
 import SearchForm from '../components/SearchForm'
 import { MicrobiomeMode } from '../main'
 import { selectModeAtom } from '../store/store'
+import DownloadSelect from "../components/DownloadSelect";
 
 const SearchResults = () => {
   const { type } = useLoaderData() as MicrobiomeMode
@@ -27,6 +28,8 @@ const SearchResults = () => {
       </nav>
 
       <SearchForm />
+
+      <DownloadSelect />
 
       {type === 'project' && <ProjectItems />}
       {type === 'genome' && <GenomeItems />}

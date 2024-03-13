@@ -1,15 +1,9 @@
 @use "variables" as v;
+@use "mixin" as m;
+
 .g-switch {
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  border: 0;
-  padding: 0;
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  margin: -1px;
+  @include m.visuallyHidden;
+
   & + .g-switch__button {
     position: relative;
     display: block;
@@ -35,6 +29,78 @@
       background-color: v.$colD9E016;
       &::after {
         margin: 0 0 0 auto;
+      }
+    }
+  }
+}
+
+.g-checkbox {
+  @include m.visuallyHidden;
+
+  & + label {
+    position: relative;
+    display: flex;
+    font: {
+      family: v.$fontOswald;
+      size: 1.8rem;
+    }
+
+    color: v.$col575757;
+    padding: 0 0 0 35px;
+
+    &::before,
+    &::after {
+      position: absolute;
+      content: "";
+    }
+
+    &::before {
+      top: 0;
+      left: 0;
+      width: 25px;
+      height: 25px;
+      border-radius: 5px;
+      border: 1px solid v.$col9F9F9F;
+      background-color: v.$colFFF;
+    }
+
+    &::after {
+      top: 4px;
+      left: 4px;
+      opacity: 0;
+      width: 17px;
+      height: 17px;
+      transition: opacity 0.3s ease-in-out;
+      border-radius: 3px;
+      background-color: v.$colD9E016;
+    }
+  }
+
+  &:checked {
+    & + label {
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+
+  &.border {
+    & + label {
+      &::before {
+        background: {
+          image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 13 2"><path fill="%239F9F9F" d="M.5,1A.5.5,0,0,1,1,.5H12a.5.5,0,0,1,0,1H1A.5.5,0,0,1,.5,1Z" /></svg>');
+          repeat: no-repeat;
+          position: center;
+          size: 13px 2px;
+        }
+      }
+
+      &:checked {
+        & + label {
+          &::before {
+            background-image: unset;
+          }
+        }
       }
     }
   }

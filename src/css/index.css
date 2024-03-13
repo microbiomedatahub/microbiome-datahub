@@ -25,15 +25,14 @@
  */
 .g-switch {
   position: absolute;
-  white-space: nowrap;
   width: 1px;
   height: 1px;
-  overflow: hidden;
-  border: 0;
   padding: 0;
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
   margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 .g-switch + .g-switch__button {
   position: relative;
@@ -59,6 +58,61 @@
 }
 .g-switch:checked + .g-switch__button::after {
   margin: 0 0 0 auto;
+}
+
+.g-checkbox {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+.g-checkbox + label {
+  position: relative;
+  display: flex;
+  font-family: "Oswald", sans-serif;
+  font-size: 1.8rem;
+  color: #575757;
+  padding: 0 0 0 35px;
+}
+.g-checkbox + label::before, .g-checkbox + label::after {
+  position: absolute;
+  content: "";
+}
+.g-checkbox + label::before {
+  top: 0;
+  left: 0;
+  width: 25px;
+  height: 25px;
+  border-radius: 5px;
+  border: 1px solid #9F9F9F;
+  background-color: #FFF;
+}
+.g-checkbox + label::after {
+  top: 4px;
+  left: 4px;
+  opacity: 0;
+  width: 17px;
+  height: 17px;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 3px;
+  background-color: #D9E016;
+}
+.g-checkbox:checked + label::after {
+  opacity: 1;
+}
+.g-checkbox.border + label::before {
+  background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 13 2"><path fill="%239F9F9F" d="M.5,1A.5.5,0,0,1,1,.5H12a.5.5,0,0,1,0,1H1A.5.5,0,0,1,.5,1Z" /></svg>');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 13px 2px;
+}
+.g-checkbox.border + label:checked + label::before {
+  background-image: unset;
 }
 
 .tab-navigation {
@@ -164,16 +218,31 @@
 }
 
 .results__item {
-  padding: 17px 0 18px;
+  display: grid;
+  gap: 12px 20px;
+  grid-template-columns: 25px 1fr 24px;
+  grid-template-rows: repeat(2, auto);
+  padding: 17px 10px 18px;
+  background-color: #FFF;
 }
 .results__item:not(:last-of-type) {
   border-bottom: 1px solid #B9A0A0;
 }
+.results__item:has(.g-checkbox:checked) {
+  background-color: #F5F5F5;
+}
+.results__item .g-checkbox + label {
+  grid-column: 1/2;
+  grid-row: 1/3;
+  align-self: center;
+  height: 35px;
+}
 .results__item__header {
+  grid-column: 2/3;
+  grid-row: 1/2;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin: 0 0 20px;
 }
 .results__item__header .title {
   font-family: "Lucida Grande", sans-serif;
@@ -185,6 +254,8 @@
   font-size: 1.4rem;
 }
 .results__item__data {
+  grid-column: 2/3;
+  grid-row: 2/3;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -215,6 +286,52 @@
   padding: 0 10px;
   border-radius: 12px;
   background-color: #D9D9D9;
+}
+.results__item__menu {
+  grid-column: 4/5;
+  grid-row: 1/3;
+  position: relative;
+}
+.results__item__menu[open] .summary {
+  background-color: #D9D9D9;
+}
+.results__item__menu .summary {
+  display: block;
+  width: 24px;
+  padding: 10px 0;
+  cursor: pointer;
+  line-height: 0;
+  text-align: center;
+}
+.results__item__menu .downloads-type {
+  position: absolute;
+  top: 20px;
+  left: 4px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  width: 134px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  background-color: #FFF;
+}
+.results__item__menu .downloads-type__item {
+  height: 36px;
+  font-family: "Oswald", sans-serif;
+  font-size: 1.4rem;
+  color: #575757;
+  padding: 0 14px 0 12px;
+  transition: background-color 0.3s ease-in-out;
+  background-color: #FFF;
+  background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 12 11"><path fill="%23575757" d="M5.99996 8.16675L2.66663 4.83341L3.59996 3.86675L5.33329 5.60008V0.166748H6.66662V5.60008L8.39996 3.86675L9.33329 4.83341L5.99996 8.16675ZM1.99996 10.8334C1.63329 10.8334 1.31951 10.703 1.05863 10.4421C0.797737 10.1812 0.66707 9.86719 0.666626 9.50008V7.50008H1.99996V9.50008H9.99996V7.50008H11.3333V9.50008C11.3333 9.86675 11.2028 10.1807 10.942 10.4421C10.6811 10.7034 10.3671 10.8339 9.99996 10.8334H1.99996Z" /></svg>');
+  background-repeat: no-repeat;
+  background-size: 11px auto;
+  background-position: calc(100% - 14px) center;
+}
+.results__item__menu .downloads-type__item:hover {
+  background-color: #F5F5F5;
+}
+.results__item__menu .downloads-type__item:not(:last-of-type) {
+  border-bottom: 1px dotted #E0E0E0;
 }
 
 .pagination {

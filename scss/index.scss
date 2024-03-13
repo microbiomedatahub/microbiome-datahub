@@ -119,15 +119,35 @@
 
 .results {
   &__item {
-    padding: 17px 0 18px;
+    display: grid;
+    gap: 12px 20px;
+    grid-template-columns: 25px 1fr 24px;
+    grid-template-rows: repeat(2, auto);
+    padding: 17px 10px 18px;
+    background-color: g.$colFFF;
+
     &:not(:last-of-type) {
       border-bottom: 1px solid g.$colB9A0A0;
     }
+
+    &:has(.g-checkbox:checked) {
+      background-color: g.$colF5F5F5;
+    }
+
+    .g-checkbox + label {
+      grid-column: 1/2;
+      grid-row: 1/3;
+      align-self: center;
+      height: 35px;
+    }
+
     &__header {
+      grid-column: 2/3;
+      grid-row: 1/2;
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin: 0 0 20px;
+
       .title {
         font: {
           family: g.$fontLucidaGrande;
@@ -145,14 +165,18 @@
     }
 
     &__data {
+      grid-column: 2/3;
+      grid-row: 2/3;
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
       font-family: g.$fontOswald;
+
       &__item {
         display: flex;
         align-items: flex-start;
       }
+
       .heading {
         font: {
           size: 1.4rem;
@@ -160,16 +184,19 @@
         }
         margin: 0 9px 0 0;
       }
+
       .content {
         font: {
           size: 1.4rem;
           weight: 700;
         }
+
         &.buttons {
           display: flex;
           flex-wrap: wrap;
           gap: 5px;
         }
+
         &__button {
           height: 20px;
           font-weight: 400;
@@ -177,6 +204,66 @@
           padding: 0 10px;
           border-radius: 12px;
           background-color: g.$colD9D9D9;
+        }
+      }
+    }
+
+    &__menu {
+      grid-column: 4/5;
+      grid-row: 1/3;
+      position: relative;
+
+      &[open] {
+        .summary {
+          background-color: g.$colD9D9D9;
+        }
+      }
+
+      .summary {
+        display: block;
+        width: 24px;
+        padding: 10px 0;
+        cursor: pointer;
+        line-height: 0;
+        text-align: center;
+      }
+
+      .downloads-type {
+        position: absolute;
+        top: 20px;
+        left: 4px;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        width: 134px;
+        box-shadow: 0 0 10px rgb(g.$col000, 0.25);
+        background-color: g.$colFFF;
+
+        &__item {
+          height: 36px;
+          font: {
+            family: g.$fontOswald;
+            size: 1.4rem;
+          }
+
+          color: g.$col575757;
+          padding: 0 14px 0 12px;
+          transition: background-color 0.3s ease-in-out;
+          background: {
+            color: g.$colFFF;
+            image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 12 11"><path fill="%23575757" d="M5.99996 8.16675L2.66663 4.83341L3.59996 3.86675L5.33329 5.60008V0.166748H6.66662V5.60008L8.39996 3.86675L9.33329 4.83341L5.99996 8.16675ZM1.99996 10.8334C1.63329 10.8334 1.31951 10.703 1.05863 10.4421C0.797737 10.1812 0.66707 9.86719 0.666626 9.50008V7.50008H1.99996V9.50008H9.99996V7.50008H11.3333V9.50008C11.3333 9.86675 11.2028 10.1807 10.942 10.4421C10.6811 10.7034 10.3671 10.8339 9.99996 10.8334H1.99996Z" /></svg>');
+            repeat: no-repeat;
+            size: 11px auto;
+            position: calc(100% - 14px) center;
+          }
+
+          &:hover {
+            background-color: g.$colF5F5F5;
+          }
+
+          &:not(:last-of-type) {
+            border-bottom: 1px dotted g.$colE0E0E0;
+          }
         }
       }
     }

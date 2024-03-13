@@ -25,15 +25,14 @@
  */
 .g-switch {
   position: absolute;
-  white-space: nowrap;
   width: 1px;
   height: 1px;
-  overflow: hidden;
-  border: 0;
   padding: 0;
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
   margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 .g-switch + .g-switch__button {
   position: relative;
@@ -59,6 +58,61 @@
 }
 .g-switch:checked + .g-switch__button::after {
   margin: 0 0 0 auto;
+}
+
+.g-checkbox {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+.g-checkbox + label {
+  position: relative;
+  display: flex;
+  font-family: "Oswald", sans-serif;
+  font-size: 1.8rem;
+  color: #575757;
+  padding: 0 0 0 35px;
+}
+.g-checkbox + label::before, .g-checkbox + label::after {
+  position: absolute;
+  content: "";
+}
+.g-checkbox + label::before {
+  top: 0;
+  left: 0;
+  width: 25px;
+  height: 25px;
+  border-radius: 5px;
+  border: 1px solid #9F9F9F;
+  background-color: #FFF;
+}
+.g-checkbox + label::after {
+  top: 4px;
+  left: 4px;
+  opacity: 0;
+  width: 17px;
+  height: 17px;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 3px;
+  background-color: #D9E016;
+}
+.g-checkbox:checked + label::after {
+  opacity: 1;
+}
+.g-checkbox.border + label::before {
+  background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 13 2"><path fill="%239F9F9F" d="M.5,1A.5.5,0,0,1,1,.5H12a.5.5,0,0,1,0,1H1A.5.5,0,0,1,.5,1Z" /></svg>');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 13px 2px;
+}
+.g-checkbox.border + label:checked + label::before {
+  background-image: unset;
 }
 
 .title--h1 {
