@@ -1,4 +1,35 @@
-const DownloadSelect = () => {
+import React from 'react'
+
+const DownloadSelect = ({ type, selectedData } : { type: string; selectedData: string }) => {
+  let downloadItems: JSX.Element | null = null
+
+  switch (type) {
+  case 'project':
+    downloadItems = (
+      <>
+        <a href={`https://mdatahub.org/api/dl/project/metadata/${selectedData}`} download className="downloads__item">
+          metadata
+        </a>
+        <a download className="downloads__item">taxonomic composition</a>
+      </>
+    )
+    break
+  case 'genome':
+    downloadItems = (
+      <>
+        <a href={`https://mdatahub.org/api/dl/genome/metadata/${selectedData}`} download className="downloads__item">
+          metadata
+        </a>
+        <a download className="downloads__item">genome sequence</a>
+        <a download className="downloads__item">gene sequence</a>
+        <a download className="downloads__item">protein sequence</a>
+      </>
+    )
+    break
+  default:
+    break
+  }
+
   return (
     <div className="downloads">
       <input type="checkbox" id="allCheck" className="g-checkbox border"/>
@@ -7,10 +38,7 @@ const DownloadSelect = () => {
       <details className="downlods__select">
         <summary className="downloads__button">Download</summary>
         <div className="downloads__type">
-          <button className="downloads__item">metadata</button>
-          <button className="downloads__item">genome sequence</button>
-          <button className="downloads__item">gene sequence</button>
-          <button className="downloads__item">protein sequence</button>
+          {downloadItems}
         </div>
       </details>
     </div>

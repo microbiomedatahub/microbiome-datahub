@@ -1,8 +1,8 @@
-import { atom, useSetAtom } from 'jotai'
-import { useEffect, useMemo, useState } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import {atom, useSetAtom} from 'jotai'
+import React, {Dispatch, SetStateAction, useEffect, useMemo, useState} from 'react'
+import {Link, useSearchParams} from 'react-router-dom'
 import useSWRMutation from 'swr/mutation'
-import { resultsCountTotalAtom } from '../store/store'
+import {resultsCountTotalAtom} from '../store/store'
 import Pagination from './Pagination'
 
 interface BioProjectListRequest {
@@ -19,8 +19,8 @@ interface SortQueriesInterface {
   }
 }
 
-const ProjectItems = () => {
-  const retrieveBioProject = async (url: string, { arg }: { arg: BioProjectListRequest }) => {
+const ProjectItems = ({ checkedValues, setCheckedValues }: { checkedValues: string[]; setCheckedValues: Dispatch<SetStateAction<string[]>> }) => {
+  const retrieveBioProject = async (url: string, {arg}: { arg: BioProjectListRequest }) => {
     const res = await fetch(`https://mdatahub.org/api${url}`, {
       method: 'POST',
       headers: {
@@ -32,7 +32,7 @@ const ProjectItems = () => {
     return await res.json()
   }
 
-  const { data, error, isMutating, reset, trigger } = useSWRMutation('/project', retrieveBioProject)
+  const {data, error, isMutating, reset, trigger} = useSWRMutation('/project', retrieveBioProject)
 
   const totalWritableAtom = atom(null, (get, set, newTotal: number) => {
     const resultsCountTotal = get(resultsCountTotalAtom)
@@ -83,16 +83,16 @@ const ProjectItems = () => {
 
     const queries = []
     if (searchParams.get('env')) {
-      queries.push({ match: { '_annotation.sample_organism': searchParams.get('env') } })
+      queries.push({match: {'_annotation.sample_organism': searchParams.get('env')}})
     }
     if (searchParams.get('hostTaxon')) {
-      queries.push({ match: { '_annotation.sample_host_organism': searchParams.get('hostTaxon') } })
+      queries.push({match: {'_annotation.sample_host_organism': searchParams.get('hostTaxon')}})
     }
     if (searchParams.get('hostDisease')) {
-      queries.push({ match: { '_annotation.sample_host_disease': searchParams.get('hostDisease') } })
+      queries.push({match: {'_annotation.sample_host_disease': searchParams.get('hostDisease')}})
     }
     if (searchParams.get('hostLoc')) {
-      queries.push({ match: { '_annotation.sample_host_location': searchParams.get('hostLoc') } })
+      queries.push({match: {'_annotation.sample_host_location': searchParams.get('hostLoc')}})
     }
 
     if (searchParams.get('temp')) {
@@ -177,17 +177,26 @@ const ProjectItems = () => {
         order: (sortOrder === '+' ? 'asc' : 'desc'),
       }
     } else {
-      sortQueries['dateCreated'] = { order: 'desc' }
+      sortQueries['dateCreated'] = {order: 'desc'}
     }
 
     trigger({
-      query: { bool: { must: queries, should: qQueries } },
+      query: {bool: {must: queries, should: qQueries}},
       from: (currentPage - 1) * 10,
       size: 10,
       sort: sortQueries,
       track_total_hits: true,
     })
   }, [currentPage, searchParams])
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value
+    if (checkedValues.includes(inputValue)) {
+      setCheckedValues(checkedValues.filter((value) => value !== inputValue))
+    } else {
+      setCheckedValues([...checkedValues, inputValue])
+    }
+  }
 
   return (
     <>
@@ -199,8 +208,15 @@ const ProjectItems = () => {
           data?.hits?.hits && data.hits.hits.map((item: any, index: number) => {
             return (
               <article className='results__item' key={index}>
-                <input type="checkbox" id={item._id} className="g-checkbox"/>
-                <label htmlFor={item._id} />
+                <input
+                  type="checkbox"
+                  value={item._id}
+                  checked={ checkedValues.includes(item._id) }
+                  onChange={ handleChange }
+                  id={item._id}
+                  className="g-checkbox"
+                />
+                <label htmlFor={item._id}/>
                 <div className='results__item__header'>
                   <h2 className='title'>
                     <Link to={`/projects/${item._id}`} title={item._source.title}>{item._source.title}</Link>
@@ -253,10 +269,15 @@ const ProjectItems = () => {
                     </svg>
                   </summary>
                   <div className="downloads-type">
-                    <button className="downloads-type__item">metadata</button>
-                    <button className="downloads-type__item">genome sequence</button>
-                    <button className="downloads-type__item">gene sequence</button>
-                    <button className="downloads-type__item">protein sequence</button>
+                    <a href={`https://mdatahub.org/api/dl/project/metadata/${item._id}`} download
+                      className="downloads-type__item">
+                      metadata
+                    </a>
+                    <a className="downloads-type__item">
+                      genome sequence
+                    </a>
+                    <a className="downloads-type__item">gene sequence</a>
+                    <a className="downloads-type__item">protein sequence</a>
                   </div>
                 </details>
               </article>

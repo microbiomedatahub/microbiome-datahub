@@ -674,6 +674,8 @@ img {
 }
 
 .downloads__item {
+  display: flex;
+  align-items: center;
   height: 36px;
   font-family: "Oswald", sans-serif;
   font-size: 1.4rem;

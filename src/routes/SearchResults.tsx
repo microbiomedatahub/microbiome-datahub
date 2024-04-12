@@ -1,16 +1,19 @@
 import { useSetAtom } from 'jotai'
-import { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useLoaderData } from 'react-router-dom'
 import GenomeItems from '../components/GenomeItems'
 import ProjectItems from '../components/ProjectItems'
 import SearchForm from '../components/SearchForm'
 import { MicrobiomeMode } from '../main'
 import { selectModeAtom } from '../store/store'
-import DownloadSelect from "../components/DownloadSelect";
+import DownloadSelect from '../components/DownloadSelect'
 
 const SearchResults = () => {
   const { type } = useLoaderData() as MicrobiomeMode
   const setSelectMode = useSetAtom(selectModeAtom)
+
+  const [checkedValues, setCheckedValues] = useState<string[]>([])
+  const selectedData = checkedValues.join()
 
   useEffect(() => setSelectMode(type), [type])
 
@@ -29,10 +32,12 @@ const SearchResults = () => {
 
       <SearchForm />
 
-      <DownloadSelect />
+      <DownloadSelect
+        type={type}
+        selectedData={selectedData} />
 
-      {type === 'project' && <ProjectItems />}
-      {type === 'genome' && <GenomeItems />}
+      {type === 'project' && <ProjectItems checkedValues={checkedValues} setCheckedValues={setCheckedValues} />}
+      {type === 'genome' && <GenomeItems/>}
     </main>
   )
 }

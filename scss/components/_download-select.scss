@@ -44,6 +44,8 @@
   }
 
   &__item {
+    display: flex;
+    align-items: center;
     height: 36px;
     font: {
       family: g.$fontOswald;
