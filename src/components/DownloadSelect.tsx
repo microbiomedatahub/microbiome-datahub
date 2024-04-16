@@ -1,6 +1,12 @@
 import React from 'react'
 
-const DownloadSelect = ({ type, selectedData } : { type: string; selectedData: string }) => {
+const DownloadSelect = (
+  { type, selectedData, handleCheckedAll, checkedAll }:
+    { type: string;
+      selectedData: string;
+      handleCheckedAll: () => void;
+      checkedAll: boolean }
+) => {
   let downloadItems: JSX.Element | null = null
 
   switch (type) {
@@ -32,7 +38,7 @@ const DownloadSelect = ({ type, selectedData } : { type: string; selectedData: s
 
   return (
     <div className="downloads">
-      <input type="checkbox" id="allCheck" className="g-checkbox border"/>
+      <input type="checkbox" onChange={ handleCheckedAll } checked={checkedAll} id="allCheck" className="g-checkbox border"/>
       <label htmlFor="allCheck">Select</label>
 
       <details className="downlods__select">

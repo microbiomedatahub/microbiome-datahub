@@ -1,37 +1,17 @@
 import { atom, useSetAtom } from 'jotai'
-import { useEffect, useMemo, useState } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
-import useSWRMutation from 'swr/mutation'
+import React, { useEffect, useMemo } from 'react'
+import { Link } from 'react-router-dom'
 import { resultsCountTotalAtom } from '../store/store'
 import Pagination from './Pagination'
 
-interface GenomeListRequest {
-  query: any
-  from: number
-  size?: number
-  sort: SortQueriesInterface
-  track_total_hits: boolean
-}
-
-interface SortQueriesInterface {
-  [key: string]: {
-    order: 'asc' | 'desc'
-  }
-}
-
-const GenomeItems = () => {
-  const retrieveGenome = async (url: string, { arg }: { arg: GenomeListRequest }) => {
-    const res = await fetch(`https://mdatahub.org/api${url}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(arg),
-    })
-    return await res.json()
-  }
-
-  const { data, error, isMutating, reset, trigger } = useSWRMutation('/genome', retrieveGenome)
+const GenomeItems = (
+  { checkedValues, handleChange, data, currentPage, isMutating }:
+    { checkedValues: string[],
+      handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+      data: object,
+      currentPage: number,
+      isMutating: boolean
+    }) => {
 
   const totalWritableAtom = atom(null, (get, set, newTotal: number) => {
     const resultsCountTotal = get(resultsCountTotalAtom)
@@ -43,8 +23,8 @@ const GenomeItems = () => {
   })
   const setTotal = useSetAtom(totalWritableAtom)
   useEffect(() => {
-    setTotal(data?.hits?.total?.value ?? 0)
-  }, [data?.hits?.total])
+    setTotal((data as {hits?: any})?.hits?.total?.value ?? 0)
+  }, [(data as {hits?: any})?.hits?.total])
 
   const itemCountWritableAtom = atom(null, (get, set, newItemCount: number) => {
     const resultsCountTotal = get(resultsCountTotalAtom)
@@ -56,162 +36,18 @@ const GenomeItems = () => {
   })
   const setResultCount = useSetAtom(itemCountWritableAtom)
   useEffect(() => {
-    setResultCount(data?.hits?.hits?.length ?? 0)
-  }, [data?.hits?.hits])
+    setResultCount((data as {hits?: any})?.hits?.hits?.length ?? 0)
+  }, [(data as {hits?: any})?.hits?.hits])
 
   const lastPage = useMemo(() => {
-    if (!data?.hits?.total?.value || !data?.hits?.hits) {
+    if (!(data as {hits?: any})?.hits?.total?.value || !(data as {hits?: any})?.hits?.hits) {
       return 1
     }
-    if (data?.hits?.hits.length < 10) {
-      return Math.ceil(data?.hits?.total?.value / 10)
+    if ((data as {hits?: any})?.hits?.hits.length < 10) {
+      return Math.ceil((data as {hits?: any})?.hits?.total?.value / 10)
     }
-    return Math.ceil(data?.hits?.total?.value / data?.hits?.hits?.length)
-  }, [data?.hits?.total, data?.hits?.hits])
-
-  const [currentPage, setCurrentPage] = useState(1)
-  const [searchParams, setSearchParams] = useSearchParams()
-
-  useEffect(() => {
-    setCurrentPage(parseInt(searchParams.get('page') ?? '1'))
-  }, [searchParams])
-
-  useEffect(() => {
-    reset()
-
-    const queries = []
-    if (searchParams.get('env')) {
-      queries.push({ match: { '_annotation.sample_organism': searchParams.get('env') } })
-    }
-    if (searchParams.get('genomeTaxon')) {
-      queries.push({ wildcard: { 'properties.organism_name.keyword': `*${searchParams.get('genomeTaxon')}*` } })
-    }
-    if (searchParams.get('magCompleteness')) {
-      queries.push({
-        range: {
-          '_annotation.completeness': {
-            gte: parseInt(searchParams.get('magCompleteness') ?? ''),
-          },
-        },
-      })
-    }
-    if (searchParams.get('hostTaxon')) {
-      queries.push({ match: { '_annotation.sample_host_organism': searchParams.get('hostTaxon') } })
-    }
-    if (searchParams.get('hostDisease')) {
-      queries.push({ match: { '_annotation.sample_host_disease': searchParams.get('hostDisease') } })
-    }
-    if (searchParams.get('hostLoc')) {
-      queries.push({ match: { '_annotation.sample_host_location': searchParams.get('hostLoc') } })
-    }
-
-    if (searchParams.get('temp')) {
-      queries.push({
-        range: {
-          '_annnotation.sample_temperature_range.min': {
-            lt: parseInt(searchParams.get('temp') ?? ''),
-          },
-        },
-      })
-      queries.push({
-        range: {
-          '_annotation.sample_temperature_range.max': {
-            gt: parseInt(searchParams.get('temp') ?? ''),
-          },
-        },
-      })
-    }
-
-    if (searchParams.get('ph')) {
-      queries.push({
-        range: {
-          '_annnotation.sample_ph_range.min': {
-            lt: parseInt(searchParams.get('ph') ?? ''),
-          },
-        },
-      })
-      queries.push({
-        range: {
-          '_annotation.sample_ph_range.max': {
-            gt: parseInt(searchParams.get('ph') ?? ''),
-          },
-        },
-      })
-    }
-
-    if (searchParams.get('quality')) {
-      const qualities = (searchParams.get('quality') ?? '0').split(',').map((item) => parseInt(item))
-      const qualityQueries = qualities.map((q) => {
-        return {
-          match: { 'quality': q },
-        }
-      })
-      queries.push({
-        bool: {
-          should: qualityQueries,
-        },
-      })
-    }
-
-    const qQueries = []
-    if (searchParams.get('q')) {
-      qQueries.push({
-        wildcard: {
-          'identifier.keyword': {
-            value: `*${searchParams.get('q') ?? ''}*`,
-          },
-        },
-      })
-      qQueries.push({
-        wildcard: {
-          'title.keyword': {
-            value: `*${searchParams.get('q') ?? ''}*`,
-          },
-        },
-      })
-      qQueries.push({
-        wildcard: {
-          'properties.assembly_accession.keyword': {
-            value: `*${searchParams.get('q') ?? ''}*`,
-          },
-        },
-      })
-      qQueries.push({
-        wildcard: {
-          'properties.bioproject.keyword': {
-            value: `*${searchParams.get('q') ?? ''}*`,
-          },
-        },
-      })
-      qQueries.push({
-        wildcard: {
-          'properties.biosample.keyword': {
-            value: `*${searchParams.get('q') ?? ''}*`,
-          },
-        },
-      })
-    }
-
-    const sortQueries: SortQueriesInterface = {}
-    if (searchParams.get('sort')) {
-      const sortBy = searchParams.get('sort')?.slice(0, -1) ?? ''
-      const sortOrder = searchParams.get('sort')?.slice(-1)
-
-      sortQueries[sortBy] = {
-        order: (sortOrder === '+' ? 'asc' : 'desc'),
-      }
-    } else {
-      sortQueries['dateCreated'] = { order: 'desc' }
-    }
-
-    trigger({
-      query: { bool: { must: queries, should: qQueries } },
-      from: (currentPage - 1) * 10,
-      size: 10,
-      sort: sortQueries,
-      track_total_hits: true,
-    })
-  }, [currentPage, searchParams])
+    return Math.ceil((data as {hits?: any})?.hits?.total?.value / (data as {hits?: any})?.hits?.hits?.length)
+  }, [(data as {hits?: any})?.hits?.total, (data as {hits?: any})?.hits?.hits])
 
   return (
     <>
@@ -219,10 +55,16 @@ const GenomeItems = () => {
       <section className='results'>
         {
           // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-          data?.hits?.hits && data.hits.hits.map((item: any, index: number) => {
+          (data as {hits?: any})?.hits?.hits && (data as {hits?: any}).hits.hits.map((item: any, index: number) => {
             return (
               <article className='results__item' key={index}>
-                <input type="checkbox" id={item._id} className="g-checkbox"/>
+                <input
+                  type="checkbox"
+                  value={item._id}
+                  checked={ checkedValues.includes(item._id) }
+                  onChange={ handleChange }
+                  id={item._id}
+                  className="g-checkbox"/>
                 <label htmlFor={item._id}/>
                 <div className='results__item__header'>
                   <h2 className='title'>
@@ -276,10 +118,10 @@ const GenomeItems = () => {
                     </svg>
                   </summary>
                   <div className="downloads-type">
-                    <button className="downloads-type__item">metadata</button>
-                    <button className="downloads-type__item">genome sequence</button>
-                    <button className="downloads-type__item">gene sequence</button>
-                    <button className="downloads-type__item">protein sequence</button>
+                    <a download className="downloads-type__item">metadata</a>
+                    <a download className="downloads-type__item">genome sequence</a>
+                    <a download className="downloads-type__item">gene sequence</a>
+                    <a download className="downloads-type__item">protein sequence</a>
                   </div>
                 </details>
               </article>
