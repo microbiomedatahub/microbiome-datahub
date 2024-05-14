@@ -8,5 +8,9 @@ Datasets last updated: 2024-04-2X
 - The Microbiome Datahub development team is led by Dr Hiroshi Mori at the National Institute of Genetics, Japan. If you have a question about Microbiome Datahub, please contact Dr Mori (hmori @ nig.ac.jp, please remove the space before and after the @).
 - The Microbiome Datahub is supported by the Database Integration Coordination Program (DICP) at the National Bioscience Database Center (NBDC) of the Japan Science and Technology Agency (JST).
 
+## Microbiome Datahub contents
+- Projects
+- Genomes (MAGs)
+
 ## API
-- 
+- You can download 
