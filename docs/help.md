@@ -12,5 +12,9 @@ Datasets last updated: 2024-04-2X
 - Projects
 - Genomes (MAGs)
 
+## Statistics
+- Number of Projects:
+- Number of MAGs: 
+
 ## API
 - You can download 
