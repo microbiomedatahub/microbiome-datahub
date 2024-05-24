@@ -16,7 +16,7 @@ const DownloadSelect = (
         <a href={`https://mdatahub.org/api/dl/project/metadata/${selectedData}`} download className="downloads__item">
           metadata
         </a>
-        <a download className="downloads__item">taxonomic composition</a>
+        {/* <a download className="downloads__item">taxonomic composition</a> */}
       </>
     )
     break
