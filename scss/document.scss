@@ -1,7 +1,8 @@
 @use "./global/index" as g;
 
-.title {
-  &--h1 {
+.documents{
+
+  h1 {
     font: {
       family: g.$fontOptima;
       size: 6.4rem;
@@ -13,7 +14,7 @@
     border-bottom: 1px solid g.$col000;
   }
 
-  &--h2 {
+  h2 {
     font: {
       family: g.$fontGillSans;
       size: 3.2rem;
@@ -23,7 +24,7 @@
     margin: 51px 0;
   }
 
-  &--h3 {
+  h3 {
     font: {
       family: g.$fontGillSans;
       size: 2.4rem;
@@ -32,60 +33,14 @@
     line-height: 27.56px;
     margin: 30px 0;
   }
-}
 
-.text {
-  font: {
-    family: g.$fontGillSans;
-    size: 1.8rem;
-    weight: 400;
-  }
-  line-height: 20.67px;
-
-  &-bold {
+  p {
     font: {
       family: g.$fontGillSans;
-      size: 2rem;
-      weight: 700;
+      size: 1.8rem;
+      weight: 400;
     }
-    line-height: 23.15px;
-    margin: 28px 0;
+    line-height: 20.67px;
   }
-}
-
-.section {
-  .section {
-    margin: 28px 0;
-  }
-}
-
-.list-faq {
-  font-family: g.$fontGillSans;
-  padding: 0 0 0 40px;
-  &__q,
-  &__a {
-    font-size: 1.8rem;
-    &::before {
-      display: inline-block;
-      font: {
-        size: 2.4rem;
-        weight: 400;
-      }
-      margin: 0 20px 0 0;
-    }
-  }
-  &__q {
-    font-weight: 600;
-    margin: 24px 0;
-    &::before {
-      content: "Q.";
-    }
-  }
-
-  &__a {
-    font-weight: 400;
-    &::before {
-      content: "A.";
-    }
-  }
+  
 }
