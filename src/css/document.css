@@ -115,7 +115,7 @@
   background-image: unset;
 }
 
-.title--h1 {
+.documents h1 {
   font-family: "Marcellus", serif;
   font-size: 6.4rem;
   font-weight: 400;
@@ -124,64 +124,25 @@
   margin: 0 0 97px;
   border-bottom: 1px solid #000;
 }
-.title--h2 {
+.documents h2 {
   font-family: "Lato", sans-serif;
   font-size: 3.2rem;
   font-weight: 400;
   line-height: 36.75px;
   margin: 51px 0;
 }
-.title--h3 {
+.documents h3 {
   font-family: "Lato", sans-serif;
   font-size: 2.4rem;
   font-weight: 400;
   line-height: 27.56px;
   margin: 30px 0;
 }
-
-.text {
+.documents p {
   font-family: "Lato", sans-serif;
   font-size: 1.8rem;
   font-weight: 400;
   line-height: 20.67px;
-}
-.text-bold {
-  font-family: "Lato", sans-serif;
-  font-size: 2rem;
-  font-weight: 700;
-  line-height: 23.15px;
-  margin: 28px 0;
-}
-
-.section .section {
-  margin: 28px 0;
-}
-
-.list-faq {
-  font-family: "Lato", sans-serif;
-  padding: 0 0 0 40px;
-}
-.list-faq__q, .list-faq__a {
-  font-size: 1.8rem;
-}
-.list-faq__q::before, .list-faq__a::before {
-  display: inline-block;
-  font-size: 2.4rem;
-  font-weight: 400;
-  margin: 0 20px 0 0;
-}
-.list-faq__q {
-  font-weight: 600;
-  margin: 24px 0;
-}
-.list-faq__q::before {
-  content: "Q.";
-}
-.list-faq__a {
-  font-weight: 400;
-}
-.list-faq__a::before {
-  content: "A.";
 }
 
 /*# sourceMappingURL=document.css.map */
