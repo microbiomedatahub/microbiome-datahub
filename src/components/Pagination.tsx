@@ -1,10 +1,13 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 const FirstPagination = ({ currentPage }: { currentPage: number }) => {
+  const location = useLocation()
+  const query = new URLSearchParams(location.search)
   if (currentPage === 1) {
     return <li className='pagination__item current'>1</li>
   } else {
-    return <Link className='pagination__item' to='?page=1'>1</Link>
+    query.set('page', '1')
+    return <Link className='pagination__item' to={`?${query.toString()}`}>1</Link>
   }
 }
 
@@ -32,6 +35,9 @@ const FirstDot = (
 const CenterPaginationItems = (
   { currentPage, lastPage }: { currentPage: number; lastPage: number },
 ) => {
+  const location = useLocation()
+  const query = new URLSearchParams(location.search)
+
   if (lastPage < 3) {
     return null
   }
@@ -46,7 +52,8 @@ const CenterPaginationItems = (
         if (item === currentPage) {
           return <li key={item} className='pagination__item current'>{item}</li>
         } else {
-          return <Link key={item} className='pagination__item' to={`?page=${item}`}>{item}</Link>
+          query.set('page', item.toString())
+          return <Link key={item} className='pagination__item' to={`?${query.toString()}`}>{item}</Link>
         }
       })}
     </>
@@ -75,6 +82,9 @@ const LastDot = (
 }
 
 const LastPagination = ({ currentPage, lastPage }: { currentPage: number; lastPage: number }) => {
+  const location = useLocation()
+  const query = new URLSearchParams(location.search)
+
   if (lastPage === 1) {
     return null
   }
@@ -82,7 +92,8 @@ const LastPagination = ({ currentPage, lastPage }: { currentPage: number; lastPa
   if (currentPage === lastPage) {
     return <li className='pagination__item current'>{lastPage}</li>
   } else {
-    return <Link className='pagination__item' to={`?page=${lastPage}`}>{lastPage}</Link>
+    query.set('page', lastPage.toString())
+    return <Link className='pagination__item' to={`?${query.toString()}`}>{lastPage}</Link>
   }
 }
 
