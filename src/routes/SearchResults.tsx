@@ -38,7 +38,7 @@ const SearchResults = () => {
   const { type } = useLoaderData() as MicrobiomeMode
   const {data, reset, trigger, error, isMutating} = useSWRMutation(`/${type}`, retrieveBioProject)
   const [currentPage, setCurrentPage] = useState(1)
-  const [searchParams, _setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
 
   useEffect(() => {
     setCurrentPage(parseInt(searchParams.get('page') ?? '1'))
@@ -50,6 +50,23 @@ const SearchResults = () => {
     const queries = []
     if (searchParams.get('env')) {
       queries.push({match: {'_annotation.sample_organism': searchParams.get('env')}})
+    }
+
+    if (searchParams.get('magCompleteness')) {
+      queries.push({
+        range: {
+          '_annnotation.completeness.min': {
+            lt: parseInt(searchParams.get('magCompleteness') ?? ''),
+          },
+        },
+      })
+      queries.push({
+        range: {
+          '_annotation.completeness.max': {
+            gt: parseInt(searchParams.get('magCompleteness') ?? ''),
+          },
+        },
+      })
     }
     if (searchParams.get('hostTaxon')) {
       queries.push({match: {'_annotation.sample_host_organism': searchParams.get('hostTaxon')}})
@@ -64,7 +81,7 @@ const SearchResults = () => {
     if (searchParams.get('temp')) {
       queries.push({
         range: {
-          '_annnotation.sample_temperature_range.min': {
+          '_annotation.sample_temperature_range.min': {
             lt: parseInt(searchParams.get('temp') ?? ''),
           },
         },
@@ -93,6 +110,10 @@ const SearchResults = () => {
           },
         },
       })
+    }
+
+    if (searchParams.get('quality')) {
+      queries.push({terms: {'quality': (searchParams.get('quality') ?? '0').split(',').map((item) => parseInt(item))}})
     }
 
     const qQueries = []
