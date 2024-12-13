@@ -29,20 +29,19 @@ const SearchSelect = ({ heading, value, setValue, isEnabled, setIsEnabled, selec
       </div>
       {selectItems.map((item, i) => {
         return (
-          <>
+          <div key={i}>
             <input
               type='radio'
               className={'side-menu__links__item' + (item === value ? ' current' : '')}
               name={selectId}
               id={radioButtonId(heading, item)}
               value={item}
-              key={i}
               disabled={!isEnabled}
               checked={item === value}
               onChange={(e) => setValue(e.currentTarget.value)}
             />
             <label htmlFor={radioButtonId(heading, item)}>{item}</label>
-          </>
+          </div>
         )
       })}
     </section>
