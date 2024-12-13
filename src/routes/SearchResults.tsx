@@ -52,6 +52,17 @@ const SearchResults = () => {
       queries.push({match: {'_annotation.sample_organism': searchParams.get('env')}})
     }
 
+    if (searchParams.get('genomeTaxon')) {
+      queries.push({
+        'bool': {
+          'should': [
+            { 'match': { 'organism': searchParams.get('genomeTaxon') } },
+            { 'match': { 'properties.organism_name': searchParams.get('genomeTaxon') } }
+          ]
+        }
+      })
+    }
+
     if (searchParams.get('magCompleteness')) {
       queries.push({
         range: {
