@@ -66,15 +66,8 @@ const SearchResults = () => {
     if (searchParams.get('magCompleteness')) {
       queries.push({
         range: {
-          '_annnotation.completeness.min': {
-            lt: parseInt(searchParams.get('magCompleteness') ?? ''),
-          },
-        },
-      })
-      queries.push({
-        range: {
-          '_annotation.completeness.max': {
-            gt: parseInt(searchParams.get('magCompleteness') ?? ''),
+          '_annotation.completeness': {
+            gte: parseInt(searchParams.get('magCompleteness') ?? ''),
           },
         },
       })
