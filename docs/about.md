@@ -13,7 +13,7 @@
 ## MAG Data in Microbiome Datahub
 
 - Microbiome Datahub collects publicly available MAG DNA sequence data from the INSDC sequence repository.
-- All MAG sequences are re-annotated using the **DFAST** and **DFAST_QC** tools.
+- All MAG sequences are re-annotated using the [DFAST](https://dfast.ddbj.nig.ac.jp/) and [DFAST_QC](https://github.com/nigyta/dfast_qc) tools.
 - **Version 1** contains **218,653 MAGs**.
 
 ---
@@ -25,11 +25,13 @@ Microbiome Datahub provides three interfaces for searching and retrieving data:
 1. **Facet-based metadata search** ([Explore Here](https://mdatahub.org/genomes))
    - Search MAG data by taxonomic name, environment, MAG quality, predicted phenotype, protein function, and more.
 
-2. **Sequence search** ([Search Here](https://pzlast.nig.ac.jp/pzlast/mag))
+2. **Sequence search by PZLAST-MAG** ([Search Here](https://pzlast.nig.ac.jp/pzlast/mag))
    - Search MAG data by protein sequences.
 
 3. **Download API**
-   - Example: [Download Genome](https://mdatahub.org/api/dl/sequence/genome/GCA_029762495.1).
+   - Example: [Download Genome sequence](https://mdatahub.org/api/dl/sequence/genome/GCA_029762495.1).
+   - [Download gene sequence](https://mdatahub.org/api/dl/sequence/cds/GCA_029762495.1).
+   - [Download protein sequence](https://mdatahub.org/api/dl/sequence/protein/GCA_029762495.1).
 
 ---
 
