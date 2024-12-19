@@ -39,7 +39,8 @@ Microbiome Datahub provides three interfaces for searching and retrieving data:
 
 ## Microbiome Datahub Project Team
 
-The construction and maintenance of Microbiome Datahub is a collaborative effort of the [team members](projectmember.md)
+The construction and maintenance of Microbiome Datahub is a collaborative effort of the [team members](projectmember.md).
+
 Please contact us if you have any questions:
 
 - Email: `hmori [at] nig.ac.jp`
