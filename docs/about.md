@@ -31,10 +31,10 @@ Microbiome Datahub provides three interfaces for searching and retrieving data:
 
 3. **Download API**
    - Examples
-   - [Download Genome sequence](https://mdatahub.org/api/dl/sequence/genome/GCA_029762495.1).
+   - [Download Genome sequence](https://mdatahub.org/api/dl/sequence/genome/GCA_029762495.1). 
    - [Download gene sequence](https://mdatahub.org/api/dl/sequence/cds/GCA_029762495.1).
    - [Download protein sequence](https://mdatahub.org/api/dl/sequence/protein/GCA_029762495.1).
-   - [Download API manual](apimanual.md).
+   - [User Manual for Download API](apimanual.md).
 
 ---
 
