@@ -1,4 +1,5 @@
-# Microbiome Datahub
+# Microbiome Datahub version 1
+Datasets last updated: 2024-12-20
 
 **Microbiome Datahub** is a metagenome database focused on metagenome-assembled genome (MAG) data and project metadata. Microbiome Datahub collects and indexes publicly available MAG data from the INSDC sequence repository.
 
