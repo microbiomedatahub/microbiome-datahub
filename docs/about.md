@@ -62,19 +62,19 @@ The construction and maintenance of Microbiome Datahub is a collaborative effort
 - **Dr. Takuji Yamada**: Department of Life Science and Technology, Institute of Science Tokyo, Japan.
 - **Dr. Ikuo Uchiyama**: Laboratory of Genome Informatics, National Institute for Basic Biology, Japan.
 - **Dr. Motomu Matsui**: Institute for Chemical Research, Kyoto University, Japan.
-- **Dr. Yasuhiro Tanizawa**: DDBJ, National Institute of Genetics, Japan.
-- **Dr. Yasukazu Nakamura**: DDBJ, National Institute of Genetics, Japan.
-- **Ms. Hiroyo Nishide**: Laboratory of Genome Informatics, National Institute for Basic Biology, Japan.
-- **Dr. Mikihiko Kawai**: Laboratory of Genome Informatics, National Institute for Basic Biology, Japan.
-- **Mr. Zenichi Nakagawa**: Department of Life Science and Technology, Institute of Science Tokyo, Japan.
-- **Dr. Takao Suzuki**: Department of Integrated Biosciences, Graduate School of Frontier Sciences, the University of Tokyo, Japan.
-- **Dr. Yuki Nishimura**: Department of Integrated Biosciences, Graduate School of Frontier Sciences, the University of Tokyo, Japan.
+- Dr. Yasuhiro Tanizawa: DDBJ, National Institute of Genetics, Japan.
+- Dr. Yasukazu Nakamura: DDBJ, National Institute of Genetics, Japan.
+- Ms. Hiroyo Nishide: Laboratory of Genome Informatics, National Institute for Basic Biology, Japan.
+- Dr. Mikihiko Kawai: Laboratory of Genome Informatics, National Institute for Basic Biology, Japan.
+- Mr. Zenichi Nakagawa: Department of Life Science and Technology, Institute of Science Tokyo, Japan.
+- Dr. Takao Suzuki: Department of Integrated Biosciences, Graduate School of Frontier Sciences, the University of Tokyo, Japan.
+- Dr. Yuki Nishimura: Department of Integrated Biosciences, Graduate School of Frontier Sciences, the University of Tokyo, Japan.
 
 ---
 
 ## Funding
 
-Microbiome Datahub is supported by **JST NBDC Grant Number JPMJND2202** in the Database Integration Coordination Program (DICP).
+Microbiome Datahub is supported by **JST NBDC Grant Number JPMJND2202** in the [Database Integration Coordination Program (DICP)](https://biosciencedbc.jp/en/funding/program/dicp/).
 
 ---
 
