@@ -37,26 +37,12 @@ Microbiome Datahub provides three interfaces for searching and retrieving data:
 
 ---
 
-## Cite Us
-
-All data on Microbiome Datahub is distributed under the **CC-BY 4.0 license**. When using the data and website, please cite Microbiome Datahub as follows:
-
-> Microbiome Datahub: a metagenome database focused on the metagenome-assembled genomes, [https://mdatahub.org/](https://mdatahub.org/)
-
----
-
-## Contact Us
-
-Please contact us if you have any questions:
-
-- Email: `hmori [at] nig.ac.jp`
-
----
-
 ## Microbiome Datahub Project Team
 
 The construction and maintenance of Microbiome Datahub is a collaborative effort of the [team members](projectmember.md)
+Please contact us if you have any questions:
 
+- Email: `hmori [at] nig.ac.jp`
 ---
 
 ## Funding
@@ -68,3 +54,7 @@ Microbiome Datahub is supported by **JST NBDC Grant Number JPMJND2202** in the [
 ## References
 
 Coming soon.
+All data on Microbiome Datahub is distributed under the **CC-BY 4.0 license**. When using the data and website, please cite Microbiome Datahub as follows:
+
+> Microbiome Datahub: a metagenome database focused on the metagenome-assembled genomes, [https://mdatahub.org/](https://mdatahub.org/)
+
