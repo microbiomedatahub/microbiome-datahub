@@ -1,5 +1,5 @@
 # Microbiome Datahub ver. 1
-Datasets last updated: 2024-04-2X
+Datasets last updated: 2024-12-20
 
 ## About
 - [Microbiome Datahub](https://mdatahub.org/) is a metagenome database focused on metagenome projects and metagenome assembled genomes (MAGs) data. MAGs data are rapidly accumulating due to their importance in describing microbial genome diversity.
