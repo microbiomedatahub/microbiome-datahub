@@ -1,8 +1,8 @@
 // import { PlotData } from 'plotly.js'
-import Plot from 'react-plotly.js'
 import '../css/show.css'
-import { LoaderFunction, LoaderFunctionArgs, useLoaderData } from 'react-router-dom'
+import {LoaderFunction, LoaderFunctionArgs, useLoaderData, useParams} from 'react-router-dom'
 import Chart from '../components/Chart'
+import {useEffect, useState} from 'react'
 // import dataForPlotly from '../test.json'
 
 interface MDataHubDocSource {
@@ -110,6 +110,19 @@ interface MDataHubDoc {
   _version: number
   found: boolean
 }
+type MBGD = {
+  id: string
+  count: number
+  ko: string
+  description: string
+}
+
+const mbgdHeaders = [
+  'id',
+  'count',
+  'ko',
+  'description',
+]
 
 export const loadShow = async ({ params }: LoaderFunctionArgs): Promise<LoaderFunction> => {
   let path
@@ -122,13 +135,59 @@ export const loadShow = async ({ params }: LoaderFunctionArgs): Promise<LoaderFu
   }
   const res = await fetch(`https://mdatahub.org/api/${path}`)
   const data = await res.json()
-
   return data?.index ?? data
 }
 
 const Show = () => {
   const data = useLoaderData() as MDataHubDoc
+  console.log(data)
+  const params = useParams()
+  const [mbgd, setMbgd] = useState<MBGD[]>([])
 
+  useEffect(() => {
+    (async () => {
+      if (params.genomeId) {
+        // const res = await fetch(`https://mdatahub.org/api/genome/mbgd/${params.genomeId}`)
+        // const data = await res.json()
+        // console.log(data)
+        const data = [
+          {
+            'id': '1.50',
+            'count': 1,
+            'ko': 'K02010',
+            'description': ''
+          },
+          {
+            'id': '1.77',
+            'count': 11,
+            'ko': '',
+            'description': ''
+          },
+          {
+            'id': '2.17',
+            'count': 1,
+            'ko': 'K02477',
+            'description': ''
+          },
+          {
+            'id': '2.37',
+            'count': 1,
+            'ko': '',
+            'description': ''
+          },
+          {
+            'id': '2.42',
+            'count': 35,
+            'ko': '',
+            'description': ''
+          }
+        ]
+        setMbgd(data)
+      }
+    })()
+  }, [])
+
+  console.log(mbgd)
   // const data1: Partial<PlotData> = {
   //   x: [1, 2, 3],
   //   y: [2, 6, 3],
@@ -459,6 +518,29 @@ const Show = () => {
       </div>
 
       {data._source?.type === 'bioproject' && <Chart id={data._id} />}
+
+      <div>
+        {data._source?.type === 'genome' ?
+          <table>
+            <thead>
+              <tr>
+                {mbgdHeaders.map((v, i) => <th key={i}>{v}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {mbgd && mbgd.length > 0 && mbgd.map((row: MBGD, i: number) => (
+                <tr key={i}>
+                  <td>{row.id}</td>
+                  <td>{row.count}</td>
+                  <td>{row.ko}</td>
+                  <td>{row.description}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          :null
+        }
+      </div>
     </main>
   )
 }
