@@ -140,54 +140,19 @@ export const loadShow = async ({ params }: LoaderFunctionArgs): Promise<LoaderFu
 
 const Show = () => {
   const data = useLoaderData() as MDataHubDoc
-  console.log(data)
   const params = useParams()
   const [mbgd, setMbgd] = useState<MBGD[]>([])
 
   useEffect(() => {
     (async () => {
       if (params.genomeId) {
-        // const res = await fetch(`https://mdatahub.org/api/genome/mbgd/${params.genomeId}`)
-        // const data = await res.json()
-        // console.log(data)
-        const data = [
-          {
-            'id': '1.50',
-            'count': 1,
-            'ko': 'K02010',
-            'description': ''
-          },
-          {
-            'id': '1.77',
-            'count': 11,
-            'ko': '',
-            'description': ''
-          },
-          {
-            'id': '2.17',
-            'count': 1,
-            'ko': 'K02477',
-            'description': ''
-          },
-          {
-            'id': '2.37',
-            'count': 1,
-            'ko': '',
-            'description': ''
-          },
-          {
-            'id': '2.42',
-            'count': 35,
-            'ko': '',
-            'description': ''
-          }
-        ]
+        const res = await fetch(`https://mdatahub.org/api/genome/mbgd/${params.genomeId}`)
+        const data = await res.json()
         setMbgd(data)
       }
     })()
   }, [])
 
-  console.log(mbgd)
   // const data1: Partial<PlotData> = {
   //   x: [1, 2, 3],
   //   y: [2, 6, 3],
