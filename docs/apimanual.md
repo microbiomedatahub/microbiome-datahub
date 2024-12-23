@@ -1,4 +1,4 @@
-# User Manual for Microbiome Datahub Download API manual
+# User Manual for Microbiome Datahub Download API
 
 **Manual last updated**: 2024-12-24
 
