@@ -63,7 +63,7 @@ This page describes how to explore Microbiome Datahub's [Facet-based metadata se
   - Completeness > 60%.
   - Contig number < 30.
   - rRNA gene copies >2.
-  - **"Quality not reviewed"** indicates the genome has not yet been analyzed by the Microbiome Datahub genome annotation pipeline.
+  - "Quality not reviewed" indicates the genome has not yet been analyzed by the Microbiome Datahub genome annotation pipeline.
 
 ### Data Downloads:
 - Genome metadata
