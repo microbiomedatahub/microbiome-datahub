@@ -83,7 +83,7 @@ This page describes how to explore Microbiome Datahub's [Facet-based metadata se
 ## Genome Page
 
 - Describes the genome metadata obtained from INSD.
-- Includes:
+- In addition, Microbiome Datahub conducted these analysis and provide analysis results:
   - [DFAST](https://dfast.ddbj.nig.ac.jp/) annotation summary
   - [DFAST_QC](https://github.com/nigyta/dfast_qc) analysis results
   - [MBGD Ortholog](https://mbgd.nibb.ac.jp/) list
