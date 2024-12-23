@@ -98,6 +98,7 @@ interface MDataHubDocSource {
   } | null
   quality: number
   quality_label: string
+  _bac2feature: {[key: string]: number}
 }
 
 interface MDataHubDoc {
@@ -135,6 +136,7 @@ export const loadShow = async ({ params }: LoaderFunctionArgs): Promise<LoaderFu
   }
   const res = await fetch(`https://mdatahub.org/api/${path}`)
   const data = await res.json()
+  console.log(data)
   return data?.index ?? data
 }
 
@@ -478,6 +480,23 @@ const Show = () => {
                 {data._source._dfastqc?.cc_result.strain_heterogeneity}
               </p>
             </div>
+          </div>
+        </div>
+
+        <div className='data-section__box'>
+          <h3 className='data-section__box__heading'>Bac2Feature</h3>
+          <div className='data-section__box__inner'>
+            {data._source._bac2feature && Object.keys(data._source._bac2feature).map((key: string, i: number) => {
+              const item: number = data._source._bac2feature.key
+              return (
+                <div className='data-section__box__item' key={i}>
+                  <p className='data-section__box__item__label'>{key}</p>
+                  <p className='data-section__box__item__content'>
+                    {item}
+                  </p>
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>
