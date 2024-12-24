@@ -512,12 +512,11 @@ const Show = () => {
           <h3 className='data-section__box__heading'>Bac2Feature</h3>
           <div className='data-section__box__inner'>
             {data._source._bac2feature && Object.keys(data._source._bac2feature).map((key: string, i: number) => {
-              const item: number = data._source._bac2feature.key
               return (
                 <div className='data-section__box__item' key={i}>
                   <p className='data-section__box__item__label'>{key}</p>
                   <p className='data-section__box__item__content'>
-                    {item}
+                    {data._source._bac2feature[key]}
                   </p>
                 </div>
               )
