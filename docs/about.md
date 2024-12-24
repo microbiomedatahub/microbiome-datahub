@@ -16,7 +16,7 @@ Datasets last updated: 2024-12-24
 ## MAG Data in Microbiome Datahub
 
 - Microbiome Datahub collects publicly available MAG DNA sequence data from the INSDC sequence repository.
-- All MAG sequences are re-annotated using the [DFAST](https://dfast.ddbj.nig.ac.jp/) and [DFAST_QC](https://github.com/nigyta/dfast_qc) tools.
+- All MAG sequences are re-annotated using the DFAST and DFAST_QC tools.
 - **Version 1** contains **218,653 MAGs**.
 
 ---
