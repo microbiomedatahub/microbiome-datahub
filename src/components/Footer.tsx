@@ -1,4 +1,4 @@
-import logo from '../images/site-logo-bk.png'
+import logo from '../images/site-logo.png'
 const Footer = () => {
   return (
     <footer className='footer'>
