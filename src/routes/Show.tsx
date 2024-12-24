@@ -159,7 +159,7 @@ const Show = () => {
             return v
           }
         })
-        setMbgd((currentMbgd))
+        setMbgd(currentMbgd)
         const quotient = Math.floor(data.length / 10)
         const remainder = data.length % 10
         const lastPage = remainder === 0 ? quotient : quotient + 1
@@ -531,24 +531,29 @@ const Show = () => {
       <div>
         {data._source?.type === 'genome' ?
           <section>
+            <div className='data-section__box'>
+              <h3 className='data-section__box__heading'>MBGD</h3>
+              <div className='data-section__box__inner'>
+                <table>
+                  <thead>
+                    <tr>
+                      {mbgdHeaders.map((v, i) => <th key={i} className='data-section__box__item__label'>{v}</th>)}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {mbgd && mbgd.length > 0 && mbgd.map((row: MBGD, i: number) => (
+                      <tr key={i}>
+                        <td className='data-section__box__item__content'>{row.id}</td>
+                        <td className='data-section__box__item__content'>{row.count}</td>
+                        <td className='data-section__box__item__content'>{row.ko}</td>
+                        <td className='data-section__box__item__content'>{row.description}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
             <PaginationNoQuery currentPage={currentPage} lastPage={lastPage} handleChangeCurrentPage={handleChangeCurrentPage}/>
-            <table>
-              <thead>
-                <tr>
-                  {mbgdHeaders.map((v, i) => <th key={i}>{v}</th>)}
-                </tr>
-              </thead>
-              <tbody>
-                {mbgd && mbgd.length > 0 && mbgd.map((row: MBGD, i: number) => (
-                  <tr key={i}>
-                    <td>{row.id}</td>
-                    <td>{row.count}</td>
-                    <td>{row.ko}</td>
-                    <td>{row.description}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
           </section>
           :null
         }

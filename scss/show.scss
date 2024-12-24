@@ -197,6 +197,15 @@
         line-height: g.lineHeight(18, 20.45);
       }
     }
+
+    th {
+      text-align: center;
+    }
+
+    th, td{
+      padding: 10px 15px;
+      border-bottom: 1px solid g.$colE0E0E0;
+    }
   }
 }
 
