@@ -408,105 +408,110 @@ const Show = () => {
             </div>
           </div>
         </div>
-
-        <div className='data-section__box'>
-          <h3 className='data-section__box__heading'>DFAST</h3>
-          <div className='data-section__box__inner'>
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>Total Sequence Length (bp)</p>
-              <p className='data-section__box__item__content'>
-                {data._source._dfast?.['Total Sequence Length (bp)']}
-              </p>
-            </div>
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>Number of Sequences</p>
-              <p className='data-section__box__item__content'>
-                {data._source._dfast?.['Number of Sequences']}
-              </p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>Longest Sequences (bp)</p>
-              <p className='data-section__box__item__content'>
-                {data._source._dfast?.['Longest Sequences (bp)']}
-              </p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>N50 (bp)</p>
-              <p className='data-section__box__item__content'>
-                {data._source._dfast?.['N50 (bp)']}
-              </p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>GCcontent (%)</p>
-              <p className='data-section__box__item__content'>
-                {data._source._dfast?.['GCcontent (%)']}
-              </p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>Number of CDSs</p>
-              <p className='data-section__box__item__content'>
-                {data._source._dfast?.['Number of CDSs']}
-              </p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>Coding Ratio (%)</p>
-              <p className='data-section__box__item__content'>
-                {data._source._dfast?.['Coding Ratio (%)']}
-              </p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>Number of rRNAs</p>
-              <p className='data-section__box__item__content'>
-                {data._source._dfast?.['Number of rRNAs']}
-              </p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>Number of tRNAs</p>
-              <p className='data-section__box__item__content'>
-                {data._source._dfast?.['Number of tRNAs']}
-              </p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>quality_label</p>
-              <p className='data-section__box__item__content'>
-                {data._source.quality_label}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className='data-section__box'>
-          <h3 className='data-section__box__heading'>DFASTQC</h3>
-          <div className='data-section__box__inner'>
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>completeness</p>
-              <p className='data-section__box__item__content'>
-                {data._source._dfastqc?.cc_result.completeness}
-              </p>
-            </div>
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>contamination</p>
-              <p className='data-section__box__item__content'>
-                {data._source._dfastqc?.cc_result.contamination}
-              </p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>strain_heterogeneity</p>
-              <p className='data-section__box__item__content'>
-                {data._source._dfastqc?.cc_result.strain_heterogeneity}
-              </p>
+        {data._source?.type === 'genome' ?
+          <div className='data-section__box'>
+            <h3 className='data-section__box__heading'>DFAST</h3>
+            <div className='data-section__box__inner'>
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>Total Sequence Length (bp)</p>
+                <p className='data-section__box__item__content'>
+                  {data._source._dfast?.['Total Sequence Length (bp)']}
+                </p>
+              </div>
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>Number of Sequences</p>
+                <p className='data-section__box__item__content'>
+                  {data._source._dfast?.['Number of Sequences']}
+                </p>
+              </div>
+      
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>Longest Sequences (bp)</p>
+                <p className='data-section__box__item__content'>
+                  {data._source._dfast?.['Longest Sequences (bp)']}
+                </p>
+              </div>
+      
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>N50 (bp)</p>
+                <p className='data-section__box__item__content'>
+                  {data._source._dfast?.['N50 (bp)']}
+                </p>
+              </div>
+      
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>GCcontent (%)</p>
+                <p className='data-section__box__item__content'>
+                  {data._source._dfast?.['GCcontent (%)']}
+                </p>
+              </div>
+      
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>Number of CDSs</p>
+                <p className='data-section__box__item__content'>
+                  {data._source._dfast?.['Number of CDSs']}
+                </p>
+              </div>
+      
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>Coding Ratio (%)</p>
+                <p className='data-section__box__item__content'>
+                  {data._source._dfast?.['Coding Ratio (%)']}
+                </p>
+              </div>
+      
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>Number of rRNAs</p>
+                <p className='data-section__box__item__content'>
+                  {data._source._dfast?.['Number of rRNAs']}
+                </p>
+              </div>
+      
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>Number of tRNAs</p>
+                <p className='data-section__box__item__content'>
+                  {data._source._dfast?.['Number of tRNAs']}
+                </p>
+              </div>
+      
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>quality_label</p>
+                <p className='data-section__box__item__content'>
+                  {data._source.quality_label}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+          : null }
+        
+
+
+        {data._source?.type === 'genome' ?
+          <div className='data-section__box'>
+            <h3 className='data-section__box__heading'>DFASTQC</h3>
+            <div className='data-section__box__inner'>
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>completeness</p>
+                <p className='data-section__box__item__content'>
+                  {data._source._dfastqc?.cc_result.completeness}
+                </p>
+              </div>
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>contamination</p>
+                <p className='data-section__box__item__content'>
+                  {data._source._dfastqc?.cc_result.contamination}
+                </p>
+              </div>
+
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>strain_heterogeneity</p>
+                <p className='data-section__box__item__content'>
+                  {data._source._dfastqc?.cc_result.strain_heterogeneity}
+                </p>
+              </div>
+            </div>
+          </div>
+          : null }
 
         <div className='data-section__box'>
           <h3 className='data-section__box__heading'>Bac2Feature</h3>
