@@ -197,7 +197,7 @@ const Search = () => {
               setIsEnabled={setIsEnabledHostTaxon}
             />
 
-            <SearchText
+            {/* <SearchText
               heading='Host disease'
               value={hostDisease}
               setValue={setHostDisease}
@@ -232,7 +232,7 @@ const Search = () => {
               min={0}
               max={15}
             />
-
+ */}
             {selectMode === 'genome'
               && (
                 <SearchStar
