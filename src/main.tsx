@@ -9,6 +9,8 @@ import Root from './routes/Root'
 import SearchResults from './routes/SearchResults'
 import Show, { loadShow } from './routes/Show'
 import Document from './routes/Document'
+import About from './routes/About'
+import APIManual from './routes/APIManual'
 
 export interface MicrobiomeMode {
   type: 'project' | 'genome'
@@ -28,9 +30,8 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        loader: () => {
-          return redirect('/projects')
-        },
+        element: <About />,
+        loader: projectLoader,
       },
       {
         path: '/projects',
@@ -55,6 +56,11 @@ const router = createBrowserRouter([
       {
         path: '/document',
         element: <Document />,
+        loader: projectLoader,
+      },
+      {
+        path: '/apimanual',
+        element: <APIManual />,
         loader: projectLoader,
       },
     ],
