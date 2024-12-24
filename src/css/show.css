@@ -279,6 +279,13 @@
   font-size: 1.8rem;
   line-height: 1.1361111111;
 }
+.data-section__box th {
+  text-align: center;
+}
+.data-section__box th, .data-section__box td {
+  padding: 10px 15px;
+  border-bottom: 1px solid #E0E0E0;
+}
 
 .chart__navigation {
   position: relative;
