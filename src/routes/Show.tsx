@@ -1,8 +1,9 @@
 // import { PlotData } from 'plotly.js'
-import Plot from 'react-plotly.js'
 import '../css/show.css'
-import { LoaderFunction, LoaderFunctionArgs, useLoaderData } from 'react-router-dom'
+import {LoaderFunction, LoaderFunctionArgs, useLoaderData, useParams} from 'react-router-dom'
 import Chart from '../components/Chart'
+import React, {useEffect, useState} from 'react'
+import PaginationNoQuery from '../components/PaginationNoQuery'
 // import dataForPlotly from '../test.json'
 
 interface MDataHubDocSource {
@@ -98,6 +99,7 @@ interface MDataHubDocSource {
   } | null
   quality: number
   quality_label: string
+  _bac2feature: {[key: string]: number}
 }
 
 interface MDataHubDoc {
@@ -110,6 +112,19 @@ interface MDataHubDoc {
   _version: number
   found: boolean
 }
+type MBGD = {
+  id: string
+  count: number
+  ko: string
+  description: string
+}
+
+const mbgdHeaders = [
+  'id',
+  'count',
+  'ko',
+  'description',
+]
 
 export const loadShow = async ({ params }: LoaderFunctionArgs): Promise<LoaderFunction> => {
   let path
@@ -122,12 +137,48 @@ export const loadShow = async ({ params }: LoaderFunctionArgs): Promise<LoaderFu
   }
   const res = await fetch(`https://mdatahub.org/api/${path}`)
   const data = await res.json()
-
   return data?.index ?? data
 }
 
 const Show = () => {
   const data = useLoaderData() as MDataHubDoc
+  const params = useParams()
+  const [allMbgd, setAllMbgd] = useState<MBGD[]>([])
+  const [mbgd, setMbgd] = useState<MBGD[]>([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const [lastPage, setLastPage] = useState(1)
+
+  useEffect(() => {
+    (async () => {
+      if (params.genomeId) {
+        const res = await fetch(`https://mdatahub.org/api/genome/mbgd/${params.genomeId}`)
+        const data = await res.json()
+        setAllMbgd(data)
+        const currentMbgd = data.filter((v: MBGD, i:number) => {
+          if (i < 10) {
+            return v
+          }
+        })
+        setMbgd((currentMbgd))
+        const quotient = Math.floor(data.length / 10)
+        const remainder = data.length % 10
+        const lastPage = remainder === 0 ? quotient : quotient + 1
+        setLastPage((lastPage))
+      }
+    })()
+  }, [])
+
+  const handleChangeCurrentPage = (newPage: number) => {
+    setCurrentPage(newPage)
+    const currentMbgd = allMbgd.filter((v: MBGD, i:number) => {
+      if (newPage === 1) {
+        return i < 10
+      } else {
+        return (newPage - 1) * 10 <= i && i < newPage * 10
+      }
+    })
+    setMbgd((currentMbgd))
+  }
 
   // const data1: Partial<PlotData> = {
   //   x: [1, 2, 3],
@@ -456,9 +507,52 @@ const Show = () => {
             </div>
           </div>
         </div>
+
+        <div className='data-section__box'>
+          <h3 className='data-section__box__heading'>Bac2Feature</h3>
+          <div className='data-section__box__inner'>
+            {data._source._bac2feature && Object.keys(data._source._bac2feature).map((key: string, i: number) => {
+              const item: number = data._source._bac2feature.key
+              return (
+                <div className='data-section__box__item' key={i}>
+                  <p className='data-section__box__item__label'>{key}</p>
+                  <p className='data-section__box__item__content'>
+                    {item}
+                  </p>
+                </div>
+              )
+            })}
+          </div>
+        </div>
       </div>
 
       {data._source?.type === 'bioproject' && <Chart id={data._id} />}
+
+      <div>
+        {data._source?.type === 'genome' ?
+          <section>
+            <PaginationNoQuery currentPage={currentPage} lastPage={lastPage} handleChangeCurrentPage={handleChangeCurrentPage}/>
+            <table>
+              <thead>
+                <tr>
+                  {mbgdHeaders.map((v, i) => <th key={i}>{v}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                {mbgd && mbgd.length > 0 && mbgd.map((row: MBGD, i: number) => (
+                  <tr key={i}>
+                    <td>{row.id}</td>
+                    <td>{row.count}</td>
+                    <td>{row.ko}</td>
+                    <td>{row.description}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </section>
+          :null
+        }
+      </div>
     </main>
   )
 }
