@@ -25,24 +25,29 @@ Datasets last updated: 2024-12-24
 
 Microbiome Datahub provides three interfaces for searching and retrieving data:
 
-1. **Facet-based metadata search** ([Explore Here](https://mdatahub.org/genomes))
+1. **Facet-based metadata search**
+
+    ([**Explore Here**](https://mdatahub.org/genomes))
    - Search MAG data by taxonomic name, environment, MAG quality, predicted phenotype, protein function, and more.
 
-2. **Sequence search by PZLAST-MAG** ([Search Here](https://pzlast.nig.ac.jp/pzlast/mag))
-   - Search MAG data by protein sequences.
+2. **Sequence search by PZLAST-MAG**
+
+    ([**Search Here**](https://pzlast.nig.ac.jp/pzlast/mag))
+    - Search MAG data by protein sequences.
 
 3. **Download API**
    - Examples
    - [Download Genome sequence](https://mdatahub.org/api/dl/sequence/genome/GCA_029762495.1). 
    - [Download gene sequence](https://mdatahub.org/api/dl/sequence/cds/GCA_029762495.1).
    - [Download protein sequence](https://mdatahub.org/api/dl/sequence/protein/GCA_029762495.1).
-   - [User Manual for Download API](apimanual.md).
+   - [Download ortholog list JSON](https://mdatahub.org/api/genome/mbgd/GCA_029762495.1).
+   - [User Manual for Download API](https://mdatahub.org/apimanual).
 
 ---
 
 ## Microbiome Datahub Project Team
 
-The construction and maintenance of Microbiome Datahub is a collaborative effort of the [team members](projectmember.md).
+The construction and maintenance of Microbiome Datahub is a collaborative effort of the [team members](https://github.com/microbiomedatahub/microbiome-datahub/blob/main/docs/projectmember.md).
 
 Please contact us if you have any questions:
 
