@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import '../css/document.css'
 import ReactMarkdown from 'react-markdown'
 
-const Documents = () => {
+const APIManual = () => {
   const [content, setContent] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -41,4 +41,4 @@ const Documents = () => {
   )
 }
 
-export default Documents
+export default APIManual
