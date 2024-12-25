@@ -61,3 +61,11 @@ https://mdatahub.org/api/dl/sequence/protein/GCA_000208265.2
 https://mdatahub.org/api/dl/sequence/protein/GCA_000208265.2,GCA_001735855.1,GCA_001735875.1
 
 ---
+
+## Download Genome MBGD ortholog list API
+
+**Usage example**
+- Download MBGD ortholog list from single genome
+https://mdatahub.org/api/genome/mbgd/GCA_029762515.1
+
+---
