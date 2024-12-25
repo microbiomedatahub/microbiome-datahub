@@ -28,19 +28,20 @@ Microbiome Datahub provides three interfaces for searching and retrieving data:
 
 1. **Facet-based metadata search**
 
-    ([**Explore Here**](https://mdatahub.org/genomes))<br>
-
-   - Search MAG data by taxonomic name, environment, MAG quality, predicted phenotype, protein function, and more.<br>
+    ([**Explore Here**](https://mdatahub.org/genomes))  
 
 
-2. **Sequence search by PZLAST-MAG**
-
-    ([**Search Here**](https://pzlast.nig.ac.jp/pzlast/mag))<br>
-
-     - Search MAG data by protein sequences.<br>
+   - Search MAG data by taxonomic name, environment, MAG quality, predicted phenotype, protein function, and more.  
 
 
-3. **Download API**
+3. **Sequence search by PZLAST-MAG**
+
+    ([**Search Here**](https://pzlast.nig.ac.jp/pzlast/mag))  
+
+     - Search MAG data by protein sequences.  
+
+
+4. **Download API**
    - Examples
    - [Download Genome sequence](https://mdatahub.org/api/dl/sequence/genome/GCA_029762495.1). 
    - [Download gene sequence](https://mdatahub.org/api/dl/sequence/cds/GCA_029762495.1).
@@ -69,7 +70,7 @@ Microbiome Datahub is supported by **JST NBDC Grant Number JPMJND2202** in the [
 
 Coming soon.
 
-All data on Microbiome Datahub is distributed under the **CC-BY 4.0 license**. <br>
+All data on Microbiome Datahub is distributed under the **CC-BY 4.0 license**.  
 
 When using the data and website, please cite Microbiome Datahub as follows:
 
