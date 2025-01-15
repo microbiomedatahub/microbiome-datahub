@@ -24,15 +24,18 @@ Datasets last updated: 2024-12-24
 ## Interfaces
 
 Microbiome Datahub provides three interfaces for searching and retrieving data:
-<br>
 
-1. **Facet-based metadata search**
+1. **Facet-based metadata search of MAGs**
 
     ([**Explore Here**](https://mdatahub.org/genomes))  
 
-
    - Search MAG data by taxonomic name, environment, MAG quality, predicted phenotype, protein function, and more.  
+ 
+2. **Facet-based metadata search of metagenome BioProject**
 
+    ([**Explore Here**](https://mdatahub.org/projects))  
+
+   - Search metagenome BioProject data by environment and host taxon.  
 
 3. **Sequence search by PZLAST-MAG**
 
