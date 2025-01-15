@@ -1,11 +1,20 @@
 # User Manual for Microbiome Datahub
 
-**Manual last updated**: 2024-12-24
+**Manual last updated**: 2025-01-15
 
 This page describes how to explore Microbiome Datahub's [Facet-based metadata search](https://mdatahub.org/genomes). Microbiome Datahub offers two different metadata searches:
 
 1. **Project Search**: Search BioProject by project metadata.
 2. **Genome Search**: Search Genome (MAG) by genome metadata.
+
+---
+
+## MAG
+
+**MAG** (Metagenome-Assembled Genome) is microbial genome information reconstructed from metagenomic sequencing data.  
+Most MAG sequences are draft genomes of microbial strains found in the environment.  
+MAG sequences are reconstructed by assembling sequence reads (short or long reads) and binning the contigs based on sequence patterns or abundance information.  
+MAG sequences are important for understanding microbial genomic diversity, including uncultured taxa.
 
 ---
 
@@ -89,5 +98,32 @@ This page describes how to explore Microbiome Datahub's [Facet-based metadata se
   - [MBGD Ortholog](https://mbgd.nibb.ac.jp/) list
   - [KEGG Orthology](https://www.genome.jp/kegg/ko.html) list
   - Bac2Feature phenotype inference results
+
+---
+
+## Microbiome Datahub Project Team
+
+The construction and maintenance of Microbiome Datahub is a collaborative effort of the [team members](https://github.com/microbiomedatahub/microbiome-datahub/blob/main/docs/projectmember.md).
+
+---
+
+**Contact us:**  
+Email: `hmori [at] nig.ac.jp`
+
+---
+
+## Funding
+
+Microbiome Datahub is supported by **JST NBDC Grant Number JPMJND2202** in the [Database Integration Coordination Program (DICP)](https://biosciencedbc.jp/en/funding/program/dicp/).
+
+---
+
+## References
+
+Coming soon.
+
+All data on Microbiome Datahub is distributed under the **CC-BY 4.0 license**.
+
+> Microbiome Datahub: a metagenome database focused on the metagenome-assembled genomes, [https://mdatahub.org/](https://mdatahub.org/)
 
 ---
