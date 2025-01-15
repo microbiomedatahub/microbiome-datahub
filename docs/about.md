@@ -7,15 +7,6 @@
 
 ---
 
-## MAG
-
-**MAG** (Metagenome-Assembled Genome) is microbial genome information reconstructed from metagenomic sequencing data.  
-Most MAG sequences are draft genomes of microbial strains found in the environment.  
-MAG sequences are reconstructed by assembling sequence reads (short or long reads) and binning the contigs based on sequence patterns or abundance information.  
-MAG sequences are important for understanding microbial genomic diversity, including uncultured taxa.
-
----
-
 ## MAG Data in Microbiome Datahub
 
 - Microbiome Datahub collects publicly available MAG DNA sequence data from the INSDC sequence repository.  
@@ -56,26 +47,3 @@ Microbiome Datahub provides four interfaces for searching and retrieving data:
    - [User Manual for Download API](https://mdatahub.org/apimanual)
 
 ---
-
-## Microbiome Datahub Project Team
-
-The construction and maintenance of Microbiome Datahub is a collaborative effort of the [team members](https://github.com/microbiomedatahub/microbiome-datahub/blob/main/docs/projectmember.md).
-
-**Contact us:**  
-Email: `hmori [at] nig.ac.jp`
-
----
-
-## Funding
-
-Microbiome Datahub is supported by **JST NBDC Grant Number JPMJND2202** in the [Database Integration Coordination Program (DICP)](https://biosciencedbc.jp/en/funding/program/dicp/).
-
----
-
-## References
-
-Coming soon.
-
-All data on Microbiome Datahub is distributed under the **CC-BY 4.0 license**.
-
-> Microbiome Datahub: a metagenome database focused on the metagenome-assembled genomes, [https://mdatahub.org/](https://mdatahub.org/)
