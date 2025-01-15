@@ -25,16 +25,19 @@ Microbiome Datahub provides four interfaces for searching and retrieving data:
    Search MAG data by taxonomic name, environment, MAG quality, predicted phenotype, protein function, and more.
 
 
+
 2. **Facet-based metadata search of Metagenome BioProject**  
    [**Explore Here**](https://mdatahub.org/projects)  
    Search Metagenome BioProject data by environment and host taxon.
 
-　  
+
+
 3. **Sequence search by PZLAST-MAG**  
    [**Search Here**](https://pzlast.nig.ac.jp/pzlast/mag)  
    Search MAG data by protein sequences.
 
-   
+
+
 4. **Download API**
 
    **Examples:**  
