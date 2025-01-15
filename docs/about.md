@@ -1,7 +1,7 @@
 # Microbiome Datahub
-Version: 1.0
 
-Datasets last updated: 2024-12-24
+**Version:** 1.0  
+**Datasets last updated:** 2024-12-24  
 
 **Microbiome Datahub** is a metagenome database focused on metagenome-assembled genome (MAG) data and project metadata. Microbiome Datahub collects and indexes publicly available MAG data from the INSDC sequence repository.
 
@@ -9,7 +9,7 @@ Datasets last updated: 2024-12-24
 
 ## MAG
 
-**MAG** (Metagenome-Assembled Genome) is a microbial genome information reconstructed from metagenomic sequencing data. Most of MAG sequences are draft genomes of microbial strains found in the environment. MAG sequences are reconstructed by assembling sequence reads (short or long reads) and binning the contigs based on sequence patterns or abundance information. MAG sequences are important for understanding microbial genomic diversity, including uncultured taxa.
+**MAG** (Metagenome-Assembled Genome) is microbial genome information reconstructed from metagenomic sequencing data. Most MAG sequences are draft genomes of microbial strains found in the environment. MAG sequences are reconstructed by assembling sequence reads (short or long reads) and binning the contigs based on sequence patterns or abundance information. MAG sequences are important for understanding microbial genomic diversity, including uncultured taxa.
 
 ---
 
@@ -23,37 +23,27 @@ Datasets last updated: 2024-12-24
 
 ## Interfaces
 
-Microbiome Datahub provides three interfaces for searching and retrieving data:
+Microbiome Datahub provides four interfaces for searching and retrieving data:
 
+1. **Facet-based metadata search of MAGs**  
+   [**Explore Here**](https://mdatahub.org/genomes)  
+   Search MAG data by taxonomic name, environment, MAG quality, predicted phenotype, protein function, and more.
 
-1. **Facet-based metadata search of MAGs**
+2. **Facet-based metadata search of Metagenome BioProject**  
+   [**Explore Here**](https://mdatahub.org/projects)  
+   Search Metagenome BioProject data by environment and host taxon.
 
-    ([**Explore Here**](https://mdatahub.org/genomes))  
+3. **Sequence search by PZLAST-MAG**  
+   [**Search Here**](https://pzlast.nig.ac.jp/pzlast/mag)  
+   Search MAG data by protein sequences.
 
-   - Search MAG data by taxonomic name, environment, MAG quality, predicted phenotype, protein function, and more.  
-
- 
-2. **Facet-based metadata search of Metagenome BioProject**
-
-    ([**Explore Here**](https://mdatahub.org/projects))  
-
-   - Search Metagenome BioProject data by environment and host taxon.  
-
-
-3. **Sequence search by PZLAST-MAG**
-
-    ([**Search Here**](https://pzlast.nig.ac.jp/pzlast/mag))  
-
-     - Search MAG data by protein sequences.  
-
-
-4. **Download API**
-   - Examples
-   - [Download Genome sequence](https://mdatahub.org/api/dl/sequence/genome/GCA_029762495.1). 
-   - [Download gene sequence](https://mdatahub.org/api/dl/sequence/cds/GCA_029762495.1).
-   - [Download protein sequence](https://mdatahub.org/api/dl/sequence/protein/GCA_029762495.1).
-   - [Download ortholog list JSON](https://mdatahub.org/api/genome/mbgd/GCA_029762495.1).
-   - [User Manual for Download API](https://mdatahub.org/apimanual).
+4. **Download API**  
+   Examples:
+   - [Download Genome sequence](https://mdatahub.org/api/dl/sequence/genome/GCA_029762495.1)
+   - [Download gene sequence](https://mdatahub.org/api/dl/sequence/cds/GCA_029762495.1)
+   - [Download protein sequence](https://mdatahub.org/api/dl/sequence/protein/GCA_029762495.1)
+   - [Download ortholog list JSON](https://mdatahub.org/api/genome/mbgd/GCA_029762495.1)
+   - [User Manual for Download API](https://mdatahub.org/apimanual)
 
 ---
 
@@ -61,9 +51,9 @@ Microbiome Datahub provides three interfaces for searching and retrieving data:
 
 The construction and maintenance of Microbiome Datahub is a collaborative effort of the [team members](https://github.com/microbiomedatahub/microbiome-datahub/blob/main/docs/projectmember.md).
 
-Please contact us if you have any questions:
+**Contact us:**  
+Email: `hmori [at] nig.ac.jp`
 
-- Email: `hmori [at] nig.ac.jp`
 ---
 
 ## Funding
@@ -76,9 +66,10 @@ Microbiome Datahub is supported by **JST NBDC Grant Number JPMJND2202** in the [
 
 Coming soon.
 
-All data on Microbiome Datahub is distributed under the **CC-BY 4.0 license**.  
+All data on Microbiome Datahub is distributed under the **CC-BY 4.0 license**.
 
 When using the data and website, please cite Microbiome Datahub as follows:
 
 > Microbiome Datahub: a metagenome database focused on the metagenome-assembled genomes, [https://mdatahub.org/](https://mdatahub.org/)
+
 
