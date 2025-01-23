@@ -323,7 +323,7 @@ const Show = () => {
             </div>
 
             <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>specires_taxid</p>
+              <p className='data-section__box__item__label'>species_taxid</p>
               <p className='data-section__box__item__content'>
                 {data._source?.properties?.species_taxid}
               </p>
