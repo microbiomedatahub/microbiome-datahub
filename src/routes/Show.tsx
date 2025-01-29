@@ -135,7 +135,7 @@ export const loadShow = async ({ params }: LoaderFunctionArgs): Promise<LoaderFu
   } else {
     return Promise.reject()
   }
-  const res = await fetch(`https://mdatahub.org/api/${path}`)
+  const res = await fetch(import.meta.env.VITE_URL + `/api${path}`)
   const data = await res.json()
   return data?.index ?? data
 }
@@ -151,7 +151,7 @@ const Show = () => {
   useEffect(() => {
     (async () => {
       if (params.genomeId) {
-        const res = await fetch(`https://mdatahub.org/api/genome/mbgd/${params.genomeId}`)
+        const res = await fetch(import.meta.env.VITE_URL + `/api/genome/mbgd/${params.genomeId}`)
         const data = await res.json()
         const filteredData = data.filter((item: MBGD) => item.id) //idがからのものを除外
         setAllMbgd(filteredData)
