@@ -144,5 +144,44 @@
   font-weight: 400;
   line-height: 20.67px;
 }
-
 /*# sourceMappingURL=document.css.map */
+
+.markdown-body {
+  white-space: pre-wrap;
+
+  & h1 {
+    font-weight: bold;
+    margin: 15px 0;
+  }
+
+  & h2 {
+    font-weight:bold;
+    margin: 10px 0;
+  }
+
+  & h3 {
+    font-weight:bold;
+    margin: 5px 0;
+  }
+
+  & a {
+    color: blue;
+    text-decoration: underline;
+  }
+
+  & ul {
+    list-style-type: disc; /* ノーマルな丸い箇条書き */
+    padding-left: 30px;
+
+  }
+
+  & ul ul {
+    list-style-type: disc; /* ノーマルな丸い箇条書き */
+    padding-left: 30px;
+  }
+
+  & ol {
+    list-style-type: decimal; /* 数字の箇条書き */
+    padding-left: 30px;
+  }
+}
