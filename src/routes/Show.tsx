@@ -135,7 +135,7 @@ export const loadShow = async ({ params }: LoaderFunctionArgs): Promise<LoaderFu
   } else {
     return Promise.reject()
   }
-  const res = await fetch(`https://mdatahub.org/api/${path}`)
+  const res = await fetch(import.meta.env.VITE_URL + `/api${path}`)
   const data = await res.json()
   return data?.index ?? data
 }
@@ -151,9 +151,10 @@ const Show = () => {
   useEffect(() => {
     (async () => {
       if (params.genomeId) {
-        const res = await fetch(`https://mdatahub.org/api/genome/mbgd/${params.genomeId}`)
+        const res = await fetch(import.meta.env.VITE_URL + `/api/genome/mbgd/${params.genomeId}`)
         const data = await res.json()
-        setAllMbgd(data)
+        const filteredData = data.filter((item: MBGD) => item.id) //idがからのものを除外
+        setAllMbgd(filteredData)
         const currentMbgd = data.filter((v: MBGD, i:number) => {
           if (i < 10) {
             return v
@@ -322,7 +323,7 @@ const Show = () => {
             </div>
 
             <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>specires_taxid</p>
+              <p className='data-section__box__item__label'>species_taxid</p>
               <p className='data-section__box__item__content'>
                 {data._source?.properties?.species_taxid}
               </p>
@@ -408,155 +409,160 @@ const Show = () => {
             </div>
           </div>
         </div>
+        {data._source?.type === 'genome' ?
+          <div className='data-section__box'>
+            <h3 className='data-section__box__heading'>DFAST</h3>
+            <div className='data-section__box__inner'>
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>Total Sequence Length (bp)</p>
+                <p className='data-section__box__item__content'>
+                  {data._source._dfast?.['Total Sequence Length (bp)']}
+                </p>
+              </div>
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>Number of Sequences</p>
+                <p className='data-section__box__item__content'>
+                  {data._source._dfast?.['Number of Sequences']}
+                </p>
+              </div>
 
-        <div className='data-section__box'>
-          <h3 className='data-section__box__heading'>DFAST</h3>
-          <div className='data-section__box__inner'>
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>Total Sequence Length (bp)</p>
-              <p className='data-section__box__item__content'>
-                {data._source._dfast?.['Total Sequence Length (bp)']}
-              </p>
-            </div>
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>Number of Sequences</p>
-              <p className='data-section__box__item__content'>
-                {data._source._dfast?.['Number of Sequences']}
-              </p>
-            </div>
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>Longest Sequences (bp)</p>
+                <p className='data-section__box__item__content'>
+                  {data._source._dfast?.['Longest Sequences (bp)']}
+                </p>
+              </div>
 
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>Longest Sequences (bp)</p>
-              <p className='data-section__box__item__content'>
-                {data._source._dfast?.['Longest Sequences (bp)']}
-              </p>
-            </div>
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>N50 (bp)</p>
+                <p className='data-section__box__item__content'>
+                  {data._source._dfast?.['N50 (bp)']}
+                </p>
+              </div>
 
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>N50 (bp)</p>
-              <p className='data-section__box__item__content'>
-                {data._source._dfast?.['N50 (bp)']}
-              </p>
-            </div>
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>GCcontent (%)</p>
+                <p className='data-section__box__item__content'>
+                  {data._source._dfast?.['GCcontent (%)']}
+                </p>
+              </div>
 
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>GCcontent (%)</p>
-              <p className='data-section__box__item__content'>
-                {data._source._dfast?.['GCcontent (%)']}
-              </p>
-            </div>
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>Number of CDSs</p>
+                <p className='data-section__box__item__content'>
+                  {data._source._dfast?.['Number of CDSs']}
+                </p>
+              </div>
 
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>Number of CDSs</p>
-              <p className='data-section__box__item__content'>
-                {data._source._dfast?.['Number of CDSs']}
-              </p>
-            </div>
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>Coding Ratio (%)</p>
+                <p className='data-section__box__item__content'>
+                  {data._source._dfast?.['Coding Ratio (%)']}
+                </p>
+              </div>
 
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>Coding Ratio (%)</p>
-              <p className='data-section__box__item__content'>
-                {data._source._dfast?.['Coding Ratio (%)']}
-              </p>
-            </div>
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>Number of rRNAs</p>
+                <p className='data-section__box__item__content'>
+                  {data._source._dfast?.['Number of rRNAs']}
+                </p>
+              </div>
 
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>Number of rRNAs</p>
-              <p className='data-section__box__item__content'>
-                {data._source._dfast?.['Number of rRNAs']}
-              </p>
-            </div>
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>Number of tRNAs</p>
+                <p className='data-section__box__item__content'>
+                  {data._source._dfast?.['Number of tRNAs']}
+                </p>
+              </div>
 
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>Number of tRNAs</p>
-              <p className='data-section__box__item__content'>
-                {data._source._dfast?.['Number of tRNAs']}
-              </p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>quality_label</p>
-              <p className='data-section__box__item__content'>
-                {data._source.quality_label}
-              </p>
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>quality_label</p>
+                <p className='data-section__box__item__content'>
+                  {data._source.quality_label}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+          : null }
 
-        <div className='data-section__box'>
-          <h3 className='data-section__box__heading'>DFASTQC</h3>
-          <div className='data-section__box__inner'>
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>completeness</p>
-              <p className='data-section__box__item__content'>
-                {data._source._dfastqc?.cc_result.completeness}
-              </p>
-            </div>
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>contamination</p>
-              <p className='data-section__box__item__content'>
-                {data._source._dfastqc?.cc_result.contamination}
-              </p>
-            </div>
 
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>strain_heterogeneity</p>
-              <p className='data-section__box__item__content'>
-                {data._source._dfastqc?.cc_result.strain_heterogeneity}
-              </p>
+
+        {data._source?.type === 'genome' ?
+          <div className='data-section__box'>
+            <h3 className='data-section__box__heading'>DFASTQC</h3>
+            <div className='data-section__box__inner'>
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>completeness</p>
+                <p className='data-section__box__item__content'>
+                  {data._source._dfastqc?.cc_result.completeness}
+                </p>
+              </div>
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>contamination</p>
+                <p className='data-section__box__item__content'>
+                  {data._source._dfastqc?.cc_result.contamination}
+                </p>
+              </div>
+
+              <div className='data-section__box__item'>
+                <p className='data-section__box__item__label'>strain_heterogeneity</p>
+                <p className='data-section__box__item__content'>
+                  {data._source._dfastqc?.cc_result.strain_heterogeneity}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+          : null }
 
-        <div className='data-section__box'>
-          <h3 className='data-section__box__heading'>Bac2Feature</h3>
-          <div className='data-section__box__inner'>
-            {data._source._bac2feature && Object.keys(data._source._bac2feature).map((key: string, i: number) => {
-              return (
-                <div className='data-section__box__item' key={i}>
-                  <p className='data-section__box__item__label'>{key}</p>
-                  <p className='data-section__box__item__content'>
-                    {data._source._bac2feature[key]}
-                  </p>
-                </div>
-              )
-            })}
+        {data._source?.type === 'genome' ?
+          <div className='data-section__box'>
+            <h3 className='data-section__box__heading'>Bac2Feature</h3>
+            <div className='data-section__box__inner'>
+              {data._source._bac2feature && Object.keys(data._source._bac2feature).map((key: string, i: number) => {
+                return (
+                  <div className='data-section__box__item' key={i}>
+                    <p className='data-section__box__item__label'>{key}</p>
+                    <p className='data-section__box__item__content'>
+                      {data._source._bac2feature[key]}
+                    </p>
+                  </div>
+                )
+              })}
+            </div>
           </div>
-        </div>
+          : null }
       </div>
 
       {data._source?.type === 'bioproject' && <Chart id={data._id} />}
 
-      <div>
-        {data._source?.type === 'genome' ?
-          <section>
-            <div className='data-section__box'>
-              <h3 className='data-section__box__heading'>MBGD</h3>
-              <div className='data-section__box__inner'>
-                <table>
-                  <thead>
-                    <tr>
-                      {mbgdHeaders.map((v, i) => <th key={i} className='data-section__box__item__label'>{v}</th>)}
+      {data._source?.type === 'genome' ?
+        <div>
+          <div className='data-section__box'>
+            <h3 className='data-section__box__heading'>MBGD</h3>
+            <div className='data-section__box__inner'>
+              <table>
+                <thead>
+                  <tr>
+                    {mbgdHeaders.map((v, i) => <th key={i} className='data-section__box__item__label'>{v}</th>)}
+                  </tr>
+                </thead>
+                <tbody>
+                  {mbgd && mbgd.length > 0 && mbgd.map((row: MBGD, i: number) => (
+                    <tr key={i}>
+                      <td className='data-section__box__item__content'>{row.id}</td>
+                      <td className='data-section__box__item__content'>{row.count}</td>
+                      <td className='data-section__box__item__content'>{row.ko}</td>
+                      <td className='data-section__box__item__content'>{row.description}</td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {mbgd && mbgd.length > 0 && mbgd.map((row: MBGD, i: number) => (
-                      <tr key={i}>
-                        <td className='data-section__box__item__content'>{row.id}</td>
-                        <td className='data-section__box__item__content'>{row.count}</td>
-                        <td className='data-section__box__item__content'>{row.ko}</td>
-                        <td className='data-section__box__item__content'>{row.description}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                  ))}
+                </tbody>
+              </table>
             </div>
-            <PaginationNoQuery currentPage={currentPage} lastPage={lastPage} handleChangeCurrentPage={handleChangeCurrentPage}/>
-          </section>
-          :null
-        }
-      </div>
+          </div>
+          <PaginationNoQuery currentPage={currentPage} lastPage={lastPage} handleChangeCurrentPage={handleChangeCurrentPage}/>
+        </div>
+        :null
+      }
     </main>
   )
 }

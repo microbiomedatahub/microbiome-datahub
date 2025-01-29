@@ -158,14 +158,16 @@ const Search = () => {
           />
 
           <nav id='projectMenu' className='side-menu__links'>
-            <SearchSelect
-              heading='Environment'
-              value={selectedEnv}
-              setValue={setSelectedEnv}
-              isEnabled={isEnabledEnv}
-              setIsEnabled={setIsEnabledEnv}
-              selectItems={environments}
-            />
+            {selectMode === 'project' && (
+              <SearchSelect
+                heading='Environment'
+                value={selectedEnv}
+                setValue={setSelectedEnv}
+                isEnabled={isEnabledEnv}
+                setIsEnabled={setIsEnabledEnv}
+                selectItems={environments}
+              />
+            )}
 
             {selectMode === 'genome' && (
               <SearchText
@@ -197,7 +199,7 @@ const Search = () => {
               setIsEnabled={setIsEnabledHostTaxon}
             />
 
-            <SearchText
+            {/* <SearchText
               heading='Host disease'
               value={hostDisease}
               setValue={setHostDisease}
@@ -232,7 +234,7 @@ const Search = () => {
               min={0}
               max={15}
             />
-
+ */}
             {selectMode === 'genome'
               && (
                 <SearchStar

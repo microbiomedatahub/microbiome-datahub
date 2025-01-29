@@ -4,11 +4,14 @@ import './index.css'
 import './css/destyle.min.css'
 import './css/base.css'
 import './css/index.css'
-import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Root from './routes/Root'
 import SearchResults from './routes/SearchResults'
 import Show, { loadShow } from './routes/Show'
 import Document from './routes/Document'
+import About from './routes/About'
+import APIManual from './routes/APIManual'
+import Documents from './routes/Documents'
 
 export interface MicrobiomeMode {
   type: 'project' | 'genome'
@@ -24,14 +27,29 @@ const genomeLoader = (): MicrobiomeMode => {
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Root />,
+    element: <Documents />,
     children: [
       {
         path: '/',
-        loader: () => {
-          return redirect('/projects')
-        },
+        element: <About />,
+        loader: projectLoader,
       },
+      {
+        path: '/document',
+        element: <Document />,
+        loader: projectLoader,
+      },
+      {
+        path: '/apimanual',
+        element: <APIManual />,
+        loader: projectLoader,
+      },
+    ]
+  },
+  {
+    path: '/',
+    element: <Root />,
+    children: [
       {
         path: '/projects',
         element: <SearchResults />,
@@ -51,11 +69,6 @@ const router = createBrowserRouter([
         path: '/genomes/:genomeId',
         element: <Show />,
         loader: loadShow,
-      },
-      {
-        path: '/document',
-        element: <Document />,
-        loader: projectLoader,
       },
     ],
   },

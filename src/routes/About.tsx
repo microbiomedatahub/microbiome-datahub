@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import '../css/document.css'
 import ReactMarkdown from 'react-markdown'
 
-const Document = () => {
+const About = () => {
   const [content, setContent] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -11,7 +11,7 @@ const Document = () => {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          'https://raw.githubusercontent.com/microbiomedatahub/microbiome-datahub/main/docs/help.md'
+          'https://raw.githubusercontent.com/microbiomedatahub/microbiome-datahub/main/docs/about.md'
         )
         if (!res.ok) {
           throw new Error('Failed to fetch the document')
@@ -41,4 +41,4 @@ const Document = () => {
   )
 }
 
-export default Document
+export default About

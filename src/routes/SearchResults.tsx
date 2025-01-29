@@ -25,7 +25,8 @@ interface SortQueriesInterface {
 
 const SearchResults = () => {
   const retrieveBioProject = async (url: string, {arg}: { arg: BioProjectListRequest }) => {
-    const res = await fetch(`https://mdatahub.org/api${url}`, {
+    console.log(import.meta.env.VITE_URL)
+    const res = await fetch(import.meta.env.VITE_URL + `/api${url}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
