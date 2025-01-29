@@ -25,8 +25,8 @@ interface SortQueriesInterface {
 
 const SearchResults = () => {
   const retrieveBioProject = async (url: string, {arg}: { arg: BioProjectListRequest }) => {
-    console.log(import.meta.env.VITE_API_URL)
-    const res = await fetch(import.meta.env.VITE_API_URL + `/api${url}`, {
+    console.log(import.meta.env.VITE_URL)
+    const res = await fetch(import.meta.env.VITE_URL + `/api${url}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
