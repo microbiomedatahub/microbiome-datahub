@@ -27,7 +27,7 @@ const Chart = ({ id }: { id: string }) => {
     const dirName = (idStrings as RegExpMatchArray)[1] + numPart.padStart(6, '0')
 
     try {
-      const res = await fetch(`https://mdatahub.org/data/project/${dirName}/analysis_${chartMode.toLowerCase()}.json`)
+      const res = await fetch(import.meta.env.VITE_URL + `/data/project/${dirName}/analysis_${chartMode.toLowerCase()}.json`)
       if (!res.ok) {
         setGraphData(null)
         return
