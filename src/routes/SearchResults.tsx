@@ -25,7 +25,6 @@ interface SortQueriesInterface {
 
 const SearchResults = () => {
   const retrieveBioProject = async (url: string, {arg}: { arg: BioProjectListRequest }) => {
-    console.log(import.meta.env.VITE_URL)
     const res = await fetch(import.meta.env.VITE_URL + `/api${url}`, {
       method: 'POST',
       headers: {
@@ -119,6 +118,15 @@ const SearchResults = () => {
 
     if (searchParams.get('quality')) {
       queries.push({terms: {'quality': (searchParams.get('quality') ?? '0').split(',').map((item) => parseInt(item))}})
+    }
+
+    if (searchParams.get('dataSource')) {
+      const matchQuery: { match: {'data_source': string}}[] = []
+      const dataSources = searchParams.get('dataSource') ?? ''
+      dataSources.split(',').forEach((item) => {
+        matchQuery.push({ match: {'data_source': item}})
+      })
+      queries.push({'bool': {should: matchQuery}})
     }
 
     const qQueries = []

@@ -7,6 +7,7 @@ import SearchRange from './components/SearchRange'
 import SearchSelect from './components/SearchSelect'
 import SearchStar from './components/SearchStar'
 import SearchText from './components/SearchText'
+import SearchCheck from './components/SearchCheck'
 import SearchToggleButton from './components/SearchToggleButton'
 
 const Search = () => {
@@ -56,6 +57,14 @@ const Search = () => {
   const [isEnabledMagSource, setIsEnabledMagSource] = useState(false)
   const [magCompleteness, setMagCompleteness] = useState(50)
   const [isEnabledMagCompleteness, setIsEnabledMagCompleteness] = useState(false)
+  const dataSources: CheckItemString[] = [
+    { id: 'INSDC', name: 'dataSource_INSDC', displayValue: 'INSDC MAG', value: 'INSDC' },
+    { id: 'RefSeq', name: 'dataSource_RefSeq', displayValue: 'Isolate Genome', value: 'RefSeq' },
+  // { id: 'MGnify', name: 'dataSource_MGnify', displayValue: '"MGnify MAG', value: 'MGnify' },todo データが入ったら追加する
+  ]
+  const [dataSource, setDataSource] = useState(dataSources.map((ds) => ds.value))
+  const [isEnabledDataSource, setIsEnabledDataSource] = useState(false)
+
 
   const searchProject = () => {
     const queries: { [key: string]: string } = {}
@@ -94,6 +103,9 @@ const Search = () => {
     }
     if (isEnabledMagCompleteness) {
       queries['magCompleteness'] = magCompleteness.toString()
+    }
+    if (isEnabledDataSource) {
+      queries['dataSource'] = dataSource.join(',')
     }
 
     setSearchParams({
@@ -143,6 +155,9 @@ const Search = () => {
     }
     if (searchParams.get('magCompleteness')) {
       setMagCompleteness(parseInt(searchParams.get('magCompleteness') ?? ''))
+    }
+    if (searchParams.get('dataSource')) {
+      setDataSource((searchParams.get('dataSource') ?? '').split(',').map((item) => item))
     }
   }, [searchParams])
 
@@ -242,6 +257,18 @@ const Search = () => {
                   setValue={setQuality}
                   isEnabled={isEnabledQuality}
                   setIsEnabled={setIsEnabledQuality}
+                />
+              )}
+
+            {selectMode === 'genome'
+              && (
+                <SearchCheck
+                  heading={'Data Source'}
+                  value={dataSource}
+                  setValue={setDataSource}
+                  isEnabled={isEnabledDataSource}
+                  setIsEnabled={setIsEnabledDataSource}
+                  checkItems={dataSources}
                 />
               )}
 
