@@ -48,6 +48,7 @@ const SearchStar = (
                 name={qs.name}
                 type='checkbox'
                 className='radio--square'
+                disabled={!isEnabled}
                 checked={value.some((el) => el === qs.value)}
                 onChange={() => {
                   if (value.some((el) => el === qs.value)) {
@@ -56,7 +57,6 @@ const SearchStar = (
                     return
                   }
                   setValue([...value, qs.value])
-                  console.log(value)
                 }}
               />
               <label htmlFor={qs.id} className='label'>{qs.displayValue}</label>
