@@ -494,20 +494,20 @@ const Show = () => {
               <div className='data-section__box__item'>
                 <p className='data-section__box__item__label'>completeness</p>
                 <p className='data-section__box__item__content'>
-                  {data._source._dfastqc?.cc_result.completeness}
+                  {data._source?._annotation?.completeness}
                 </p>
               </div>
               <div className='data-section__box__item'>
                 <p className='data-section__box__item__label'>contamination</p>
                 <p className='data-section__box__item__content'>
-                  {data._source._dfastqc?.cc_result.contamination}
+                  {data._source?._annotation?.contamination}
                 </p>
               </div>
 
               <div className='data-section__box__item'>
                 <p className='data-section__box__item__label'>strain_heterogeneity</p>
                 <p className='data-section__box__item__content'>
-                  {data._source._dfastqc?.cc_result.strain_heterogeneity}
+                  {data._source?._annotation?.strain_heterogeneity}
                 </p>
               </div>
             </div>
