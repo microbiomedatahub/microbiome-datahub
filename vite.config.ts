@@ -9,11 +9,7 @@ export default defineConfig(({ mode }) => {
     plugins: [react()],
     server: {
       proxy: {
-        '/api': {
-          target: isProduction ? 'https://mdatahub.org' : 'http://localhost:8081',
-          changeOrigin: true
-        },
-        '/data': {
+        '^/(api|data)': {
           target: isProduction ? 'https://mdatahub.org' : 'http://localhost:8081',
           changeOrigin: true
         }
