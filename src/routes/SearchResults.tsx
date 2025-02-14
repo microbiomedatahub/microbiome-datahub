@@ -232,11 +232,11 @@ const SearchResults = () => {
     <main className='app-main'>
       <nav>
         <ul className='tab-navigation'>
-          <li className={`tab-navigation__link${type === 'project' ? ' current' : ''}`}>
-            {type !== 'project' ? <Link to='/projects'>PROJECT</Link> : 'PROJECT'}
-          </li>
           <li className={`tab-navigation__link${type === 'genome' ? ' current' : ''}`}>
             {type !== 'genome' ? <Link to='/genomes'>GENOME</Link> : 'GENOME'}
+          </li>
+          <li className={`tab-navigation__link${type === 'project' ? ' current' : ''}`}>
+            {type !== 'project' ? <Link to='/projects'>PROJECT</Link> : 'PROJECT'}
           </li>
         </ul>
       </nav>
