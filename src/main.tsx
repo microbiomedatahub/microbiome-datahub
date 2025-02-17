@@ -44,6 +44,16 @@ const router = createBrowserRouter([
         element: <APIManual />,
         loader: projectLoader,
       },
+      {
+        path: '/projects/:projectId',
+        element: <Show />,
+        loader: loadShow,
+      },
+      {
+        path: '/genomes/:genomeId',
+        element: <Show />,
+        loader: loadShow,
+      },
     ]
   },
   {
@@ -59,16 +69,6 @@ const router = createBrowserRouter([
         path: '/genomes',
         element: <SearchResults />,
         loader: genomeLoader,
-      },
-      {
-        path: '/projects/:projectId',
-        element: <Show />,
-        loader: loadShow,
-      },
-      {
-        path: '/genomes/:genomeId',
-        element: <Show />,
-        loader: loadShow,
       },
     ],
   },
