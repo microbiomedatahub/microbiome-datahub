@@ -5,9 +5,10 @@ import GenomeItems from '../components/GenomeItems'
 import ProjectItems from '../components/ProjectItems'
 import SearchForm from '../components/SearchForm'
 import { MicrobiomeMode } from '../main'
-import { selectModeAtom } from '../store/store'
+import {linkStringBaseGenomeAtom, linkStringBaseProjectAtom, selectModeAtom} from '../store/store'
 import DownloadSelect from '../components/DownloadSelect'
 import useSWRMutation from 'swr/mutation'
+import {useAtomValue} from 'jotai/index'
 
 interface BioProjectListRequest {
   query: any
@@ -39,6 +40,8 @@ const SearchResults = () => {
   const {data, reset, trigger, error, isMutating} = useSWRMutation(`/${type}`, retrieveBioProject)
   const [currentPage, setCurrentPage] = useState(1)
   const [searchParams] = useSearchParams()
+  const linkStringGenome: string = useAtomValue(linkStringBaseGenomeAtom)
+  const linkStringProject: string = useAtomValue(linkStringBaseProjectAtom)
 
   useEffect(() => {
     setCurrentPage(parseInt(searchParams.get('page') ?? '1'))
@@ -233,10 +236,10 @@ const SearchResults = () => {
       <nav>
         <ul className='tab-navigation'>
           <li className={`tab-navigation__link${type === 'genome' ? ' current' : ''}`}>
-            {type !== 'genome' ? <Link to='/genomes'>GENOME</Link> : 'GENOME'}
+            {type !== 'genome' ? <Link to={`${linkStringGenome}`}>GENOME</Link> : 'GENOME'}
           </li>
           <li className={`tab-navigation__link${type === 'project' ? ' current' : ''}`}>
-            {type !== 'project' ? <Link to='/projects'>PROJECT</Link> : 'PROJECT'}
+            {type !== 'project' ? <Link to={`${linkStringProject}`}>PROJECT</Link> : 'PROJECT'}
           </li>
         </ul>
       </nav>
