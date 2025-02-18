@@ -99,15 +99,15 @@ const ProjectItems = (
                     </dd>
                   </div>
 
-                  <div className='results__item__data__item'>
-                    <dt className='heading'>BioSamples</dt>
-                    <dd className='content'>{item._source._annotation.sample_count}</dd>
-                  </div>
+                  {/*<div className='results__item__data__item'>*/}
+                  {/*  <dt className='heading'>BioSamples</dt>*/}
+                  {/*  <dd className='content'>{item._source._annotation.sample_count}</dd>*/}
+                  {/*</div>*/}
 
-                  <div className='results__item__data__item'>
-                    <dt className='heading'>Data size (GB)</dt>
-                    <dd className='content'>{item._source._annotation.data_size}</dd>
-                  </div>
+                  {/*<div className='results__item__data__item'>*/}
+                  {/*  <dt className='heading'>Data size (GB)</dt>*/}
+                  {/*  <dd className='content'>{item._source._annotation.data_size}</dd>*/}
+                  {/*</div>*/}
 
                   <div className='results__item__data__item'>
                     <dt className='heading'>Date Created</dt>
