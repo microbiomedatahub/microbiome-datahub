@@ -173,6 +173,7 @@ const Search = () => {
           />
 
           <nav id='projectMenu' className='side-menu__links'>
+            <button type='submit' className='side-menu__submit' onClick={() => searchProject()}>SUBMIT</button>
             {selectMode === 'project' && (
               <SearchSelect
                 heading='Environment'
