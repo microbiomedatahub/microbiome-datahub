@@ -141,6 +141,11 @@ const SearchResults = () => {
       })
       qQueries.push({
         wildcard: {
+          'title.keyword': `*${searchWord}*`,
+        },
+      })
+      qQueries.push({
+        wildcard: {
           'organism.keyword': `*${searchWord ?? ''}*`,
         },
       })
