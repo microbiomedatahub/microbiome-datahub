@@ -1,5 +1,5 @@
 import { useAtomValue } from 'jotai'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { selectModeAtom } from '../../store/store'
 import SearchKeyword from './components/SearchKeyword'
@@ -7,7 +7,7 @@ import SearchRange from './components/SearchRange'
 import SearchSelect from './components/SearchSelect'
 import SearchStar from './components/SearchStar'
 import SearchText from './components/SearchText'
-import SearchCheck from './components/SearchCheck'
+import SearchCheckString from './components/SearchCheckString'
 import SearchToggleButton from './components/SearchToggleButton'
 
 const Search = () => {
@@ -33,37 +33,25 @@ const Search = () => {
 
   const [selectedEnv, setSelectedEnv] = useState('soil')
   const [isEnabledEnv, setIsEnabledEnv] = useState(false)
-
   const [hostTaxon, setHostTaxon] = useState('')
-  const [isEnabledHostTaxon, setIsEnabledHostTaxon] = useState(false)
-  const [hostDisease, setHostDisease] = useState('')
-  const [isEnabledHostDisease, setIsEnabledHostDisease] = useState(false)
-  const [hostLocation, setHostLocation] = useState('')
-  const [isEnabledHostLocation, setIsEnabledHostLocation] = useState(false)
-  const [temperature, setTemperature] = useState(50)
-  const [isEnabledTemp, setIsEnabledTemp] = useState(false)
-  const [ph, setPh] = useState(0)
-  const [isEnabledPh, setIsEnabledPh] = useState(false)
-  const [quality, setQuality] = useState([0])
-  const [isEnabledQuality, setIsEnabledQuality] = useState(false)
-
-  const [genomeTaxon, setGenomeTaxon] = useState('')
-  const [isEnabledGenomeTaxon, setIsEnabledGenomeTaxon] = useState(false)
-  const genomeCategories = ['Isolate complete', 'Isolate draft', 'MAG high quality', 'MAG low quality']
-  const [genomeCategory, setGenomeCategory] = useState('')
-  const [isEnabledGenomeCategory, setIsEnabledGenomeCategory] = useState(false)
-  const magSources = ['INSDC', 'MGnify', 'Other DBs', 'Original']
-  const [magSource, setMagSource] = useState('')
-  const [isEnabledMagSource, setIsEnabledMagSource] = useState(false)
+  // const [hostDisease, setHostDisease] = useState('')
+  // const [isEnabledHostDisease, setIsEnabledHostDisease] = useState(false)
+  // const [hostLocation, setHostLocation] = useState('')
+  // const [isEnabledHostLocation, setIsEnabledHostLocation] = useState(false)
+  // const [temperature, setTemperature] = useState(50)
+  // const [isEnabledTemp, setIsEnabledTemp] = useState(false)
+  // const [ph, setPh] = useState(0)
+  // const [isEnabledPh, setIsEnabledPh] = useState(false)
   const [magCompleteness, setMagCompleteness] = useState(50)
   const [isEnabledMagCompleteness, setIsEnabledMagCompleteness] = useState(false)
+  const [genomeTaxon, setGenomeTaxon] = useState('')
+  const [quality, setQuality] = useState([0,1,2,3,4,5])
   const dataSources: CheckItemString[] = [
     { id: 'INSDC', name: 'dataSource_INSDC', displayValue: 'INSDC MAG', value: 'INSDC' },
     { id: 'RefSeq', name: 'dataSource_RefSeq', displayValue: 'Isolate Genome', value: 'RefSeq' },
   // { id: 'MGnify', name: 'dataSource_MGnify', displayValue: '"MGnify MAG', value: 'MGnify' },todo データが入ったら追加する
   ]
   const [dataSource, setDataSource] = useState(dataSources.map((ds) => ds.value))
-  const [isEnabledDataSource, setIsEnabledDataSource] = useState(false)
 
 
   const searchProject = () => {
@@ -74,37 +62,31 @@ const Search = () => {
     if (isEnabledEnv) {
       queries['env'] = selectedEnv
     }
-    if (isEnabledHostTaxon) {
+    if (hostTaxon) {
       queries['hostTaxon'] = hostTaxon
     }
-    if (isEnabledHostDisease) {
-      queries['hostDisease'] = hostDisease
-    }
-    if (isEnabledHostLocation) {
-      queries['hostLoc'] = hostLocation
-    }
-    if (isEnabledTemp) {
-      queries['temp'] = temperature.toString()
-    }
-    if (isEnabledPh) {
-      queries['ph'] = ph.toString()
-    }
-    if (isEnabledQuality) {
-      queries['quality'] = quality.join(',')
-    }
-    if (isEnabledGenomeTaxon) {
-      queries['genomeTaxon'] = genomeTaxon
-    }
-    if (isEnabledGenomeCategory) {
-      queries['genomeCategory'] = genomeCategory
-    }
-    if (isEnabledMagSource) {
-      queries['magSource'] = magSource
-    }
+    // if (isEnabledHostDisease) {
+    //   queries['hostDisease'] = hostDisease
+    // }
+    // if (isEnabledHostLocation) {
+    //   queries['hostLoc'] = hostLocation
+    // }
+    // if (isEnabledTemp) {
+    //   queries['temp'] = temperature.toString()
+    // }
+    // if (isEnabledPh) {
+    //   queries['ph'] = ph.toString()
+    // }
     if (isEnabledMagCompleteness) {
       queries['magCompleteness'] = magCompleteness.toString()
     }
-    if (isEnabledDataSource) {
+    if (genomeTaxon) {
+      queries['genomeTaxon'] = genomeTaxon
+    }
+    if (quality && quality.length > 0) {
+      queries['quality'] = quality.join(',')
+    }
+    if (dataSource && dataSource.length > 0) {
       queries['dataSource'] = dataSource.join(',')
     }
 
@@ -114,10 +96,6 @@ const Search = () => {
   }
 
   const [searchParams, setSearchParams] = useSearchParams()
-
-  const urlQuery = useMemo(() => {
-    return `?${searchParams.toString()}`
-  }, [searchParams])
 
   useEffect(() => {
     if (searchParams.get('q')) {
@@ -129,29 +107,23 @@ const Search = () => {
     if (searchParams.get('hostTaxon')) {
       setHostTaxon(searchParams.get('hostTaxon') ?? '')
     }
-    if (searchParams.get('hostDisease')) {
-      setHostDisease(searchParams.get('hostDisease') ?? '')
-    }
-    if (searchParams.get('hostLoc')) {
-      setHostLocation(searchParams.get('hostLoc') ?? '')
-    }
-    if (searchParams.get('temp')) {
-      setTemperature(parseInt(searchParams.get('temp') ?? ''))
-    }
-    if (searchParams.get('ph')) {
-      setPh(parseInt(searchParams.get('ph') ?? ''))
-    }
+    // if (searchParams.get('hostDisease')) {
+    //   setHostDisease(searchParams.get('hostDisease') ?? '')
+    // }
+    // if (searchParams.get('hostLoc')) {
+    //   setHostLocation(searchParams.get('hostLoc') ?? '')
+    // }
+    // if (searchParams.get('temp')) {
+    //   setTemperature(parseInt(searchParams.get('temp') ?? ''))
+    // }
+    // if (searchParams.get('ph')) {
+    //   setPh(parseInt(searchParams.get('ph') ?? ''))
+    // }
     if (searchParams.get('quality')) {
       setQuality((searchParams.get('quality') ?? '0').split(',').map((item) => parseInt(item)))
     }
     if (searchParams.get('genomeTaxon')) {
       setGenomeTaxon(searchParams.get('genomeTaxon') ?? '')
-    }
-    if (searchParams.get('genomeCategory')) {
-      setGenomeCategory(searchParams.get('genomeCategory') ?? '')
-    }
-    if (searchParams.get('magSource')) {
-      setMagSource(searchParams.get('magSource') ?? '')
     }
     if (searchParams.get('magCompleteness')) {
       setMagCompleteness(parseInt(searchParams.get('magCompleteness') ?? ''))
@@ -189,8 +161,6 @@ const Search = () => {
                 heading='Genome taxon'
                 value={genomeTaxon}
                 setValue={setGenomeTaxon}
-                isEnabled={isEnabledGenomeTaxon}
-                setIsEnabled={setIsEnabledGenomeTaxon}
               />
             )}
 
@@ -210,8 +180,6 @@ const Search = () => {
               heading='Host taxon'
               value={hostTaxon}
               setValue={setHostTaxon}
-              isEnabled={isEnabledHostTaxon}
-              setIsEnabled={setIsEnabledHostTaxon}
             />
 
             {/* <SearchText
@@ -255,19 +223,15 @@ const Search = () => {
                 <SearchStar
                   value={quality}
                   setValue={setQuality}
-                  isEnabled={isEnabledQuality}
-                  setIsEnabled={setIsEnabledQuality}
                 />
               )}
 
             {selectMode === 'genome'
               && (
-                <SearchCheck
+                <SearchCheckString
                   heading={'Data Source'}
                   value={dataSource}
                   setValue={setDataSource}
-                  isEnabled={isEnabledDataSource}
-                  setIsEnabled={setIsEnabledDataSource}
                   checkItems={dataSources}
                 />
               )}
