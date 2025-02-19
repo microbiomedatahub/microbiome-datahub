@@ -1,4 +1,4 @@
-import { useSetAtom } from 'jotai'
+import { useSetAtom, useAtomValue } from 'jotai'
 import React, { useState, useEffect } from 'react'
 import {Link, useLoaderData, useSearchParams} from 'react-router-dom'
 import GenomeItems from '../components/GenomeItems'
@@ -8,7 +8,6 @@ import { MicrobiomeMode } from '../main'
 import {linkStringBaseGenomeAtom, linkStringBaseProjectAtom, selectModeAtom} from '../store/store'
 import DownloadSelect from '../components/DownloadSelect'
 import useSWRMutation from 'swr/mutation'
-import {useAtomValue} from 'jotai/index'
 
 interface BioProjectListRequest {
   query: any
@@ -134,39 +133,75 @@ const SearchResults = () => {
 
     const qQueries = []
     if (searchParams.get('q')) {
+      const searchWord = searchParams.get('q')
       qQueries.push({
         wildcard: {
-          'identifier.keyword': {
-            value: `*${searchParams.get('q') ?? ''}*`,
-          },
+          'identifier.keyword': `*${searchWord}*`,
         },
       })
       qQueries.push({
         wildcard: {
-          'title.keyword': {
-            value: `*${searchParams.get('q')}*`,
-          },
+          'organism.keyword': `*${searchWord ?? ''}*`,
         },
       })
       qQueries.push({
         wildcard: {
-          'properties.assembly_accession.keyword': {
-            value: `*${searchParams.get('q') ?? ''}*`,
-          },
+          'organization.keyword': `*${searchWord ?? ''}*`,
         },
       })
       qQueries.push({
         wildcard: {
-          'properties.bioproject.keyword': {
-            value: `*${searchParams.get('q') ?? ''}*`,
-          },
+          'properties.assembly_accession.keyword': `*${searchWord ?? ''}*`,
         },
       })
       qQueries.push({
         wildcard: {
-          'properties.biosample.keyword': {
-            value: `*${searchParams.get('q') ?? ''}*`,
-          },
+          'properties.bioproject.keyword': `*${searchWord ?? ''}*`,
+        },
+      })
+      qQueries.push({
+        wildcard: {
+          'properties.biosample.keyword': `*${searchWord ?? ''}*`,
+        },
+      })
+      qQueries.push({
+        wildcard: {
+          'properties.species_taxid.keyword': `*${searchWord ?? ''}*`,
+        },
+      })
+      qQueries.push({
+        wildcard: {
+          'properties.organism_name.keyword': `*${searchWord ?? ''}*`,
+        },
+      })
+      qQueries.push({
+        wildcard: {
+          'properties.seq_rel_date.keyword': `*${searchWord ?? ''}*`,
+        },
+      })
+      qQueries.push({
+        wildcard: {
+          '_annotation.sample_organism.keyword': `*${searchWord ?? ''}*`,
+        },
+      })
+      qQueries.push({
+        wildcard: {
+          '_annotation.sample_taxid.keyword': `*${searchWord ?? ''}*`,
+        },
+      })
+      qQueries.push({
+        wildcard: {
+          '_annotation.sample_host_organism.keyword': `*${searchWord ?? ''}*`,
+        },
+      })
+      qQueries.push({
+        wildcard: {
+          '_annotation.sample_host_disease.keyword': `*${searchWord ?? ''}*`,
+        },
+      })
+      qQueries.push({
+        wildcard: {
+          '_annotation.sample_host_location.keyword': `*${searchWord ?? ''}*`,
         },
       })
     }
@@ -184,7 +219,7 @@ const SearchResults = () => {
     }
 
     trigger({
-      query: {bool: {must: queries, should: qQueries}},
+      query: {bool: { must: queries,  should: qQueries}},
       from: (currentPage - 1) * 10,
       size: 10,
       sort: sortQueries,
