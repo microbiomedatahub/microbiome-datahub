@@ -8,9 +8,6 @@ export default [
   ...tseslint.configs.recommended,
   { ignores: ['node_modules', 'dist', '.idea'] },
   {
-    linterOptions: {
-      reportUnusedDisableDirectives: 'error',
-    },
     files: ['**/*.ts', '**/*.tsx'],
     languageOptions: {
       globals: {
