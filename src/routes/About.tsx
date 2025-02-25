@@ -36,7 +36,9 @@ const About = () => {
 
   return (
     <main className="app-main documents">
-      <ReactMarkdown className="markdown-body">{content}</ReactMarkdown>
+      <div className="markdown-body">
+        <ReactMarkdown>{content}</ReactMarkdown>
+      </div>
     </main>
   )
 }
