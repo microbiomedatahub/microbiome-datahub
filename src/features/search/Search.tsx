@@ -17,7 +17,7 @@ const Search = () => {
 
   const [keyword, setKeyword] = useState('')
 
-  const [environments, setEnvironments] = useState<Array<string>>([
+  const [environments] = useState<Array<string>>([
     'soil',
     'marine',
     'freshwater',
