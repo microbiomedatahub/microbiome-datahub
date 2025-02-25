@@ -124,7 +124,7 @@ const ProjectItems = (
                     </svg>
                   </summary>
                   <div className="downloads-type">
-                    <a href={`https://mdatahub.org/api/dl/project/metadata/${item._id}`} download
+                    <a href={`/api/dl/project/metadata/${item._id}`} download
                       className="downloads-type__item">
                       metadata
                     </a>
