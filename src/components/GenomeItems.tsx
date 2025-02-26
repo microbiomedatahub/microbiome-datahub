@@ -12,6 +12,7 @@ const GenomeItems = (
       currentPage: number,
       isMutating: boolean
     }) => {
+
   const totalWritableAtom = atom(null, (get, set, newTotal: number) => {
     const resultsCountTotal = get(resultsCountTotalAtom)
     const newResultsCountTotal = {
