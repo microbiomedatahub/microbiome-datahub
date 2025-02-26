@@ -13,7 +13,7 @@ const DownloadSelect = (
   case 'project':
     downloadItems = (
       <>
-        <a href={`https://mdatahub.org/api/dl/project/metadata/${selectedData}`} download className="downloads__item">
+        <a href={`/api/dl/project/metadata/${selectedData}`} download className="downloads__item">
           metadata
         </a>
         {/* <a download className="downloads__item">taxonomic composition</a> */}
@@ -23,12 +23,12 @@ const DownloadSelect = (
   case 'genome':
     downloadItems = (
       <>
-        <a href={`https://mdatahub.org/api/dl/genome/metadata/${selectedData}`} download className="downloads__item">
+        <a href={`/api/dl/genome/metadata/${selectedData}`} download className="downloads__item">
           metadata
         </a>
-        <a href={`https://mdatahub.org/api/dl/sequence/genome/${selectedData}`} download className="downloads__item">genome sequence</a>
-        <a href={`https://mdatahub.org/api/dl/sequence/cds/${selectedData}`} download className="downloads__item">gene sequence</a>
-        <a href={`https://mdatahub.org/api/dl/sequence/protein/${selectedData}`} download className="downloads__item">protein sequence</a>
+        <a href={`/api/dl/sequence/genome/${selectedData}`} download className="downloads__item">genome sequence</a>
+        <a href={`/api/dl/sequence/cds/${selectedData}`} download className="downloads__item">gene sequence</a>
+        <a href={`/api/dl/sequence/protein/${selectedData}`} download className="downloads__item">protein sequence</a>
       </>
     )
     break
