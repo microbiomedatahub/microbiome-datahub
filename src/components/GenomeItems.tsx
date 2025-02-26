@@ -12,6 +12,7 @@ const GenomeItems = (
       currentPage: number,
       isMutating: boolean
     }) => {
+
   const totalWritableAtom = atom(null, (get, set, newTotal: number) => {
     const resultsCountTotal = get(resultsCountTotalAtom)
     const newResultsCountTotal = {
@@ -117,8 +118,8 @@ const GenomeItems = (
                     </svg>
                   </summary>
                   <div className="downloads-type">
-                    <a href={`https://mdatahub.org/api/dl/genome/metadata/${item._id}`} download className="downloads-type__item">metadata</a>
-                    <a href={`https://mdatahub.org/api/dl/sequence/genome/${item._id}`} download className="downloads-type__item">genome sequence</a>
+                    <a href={`/api/dl/genome/metadata/${item._id}`} download className="downloads-type__item">metadata</a>
+                    <a href={`/api/dl/sequence/genome/${item._id}`} download className="downloads-type__item">genome sequence</a>
                     <a href={`https://mdatahub.org/api/dl/sequence/cds/${item._id}`} download className="downloads-type__item">gene sequence</a>
                     <a href={`https://mdatahub.org/api/dl/sequence/protein/${item._id}`} download className="downloads-type__item">protein sequence</a>
                   </div>

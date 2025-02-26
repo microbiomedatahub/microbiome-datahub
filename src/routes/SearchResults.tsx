@@ -1,4 +1,4 @@
-import { useSetAtom } from 'jotai'
+import { useSetAtom, useAtomValue } from 'jotai'
 import React, { useState, useEffect } from 'react'
 import {Link, useLoaderData, useSearchParams} from 'react-router-dom'
 import GenomeItems from '../components/GenomeItems'
@@ -8,7 +8,6 @@ import { MicrobiomeMode } from '../main'
 import {linkStringBaseGenomeAtom, linkStringBaseProjectAtom, selectModeAtom} from '../store/store'
 import DownloadSelect from '../components/DownloadSelect'
 import useSWRMutation from 'swr/mutation'
-import {useAtomValue} from 'jotai/index'
 
 interface BioProjectListRequest {
   query: any
@@ -201,14 +200,16 @@ const SearchResults = () => {
     if (checkedValues.length > data?.hits?.hits?.length - 1) {
       setCheckedValues([])
     } else {
-      data?.hits?.hits && setCheckedValues((prevCheckedValues) => {
-        const newCheckedValues = data.hits.hits
-          .map((item: { _id: string }) => item._id)
-          .filter((id: string, index: number, self: string[]) => {
-            return !prevCheckedValues.includes(id) && self.indexOf(id) === index
-          })
-        return [...prevCheckedValues, ...newCheckedValues]
-      })
+      if (data?.hits?.hits) {
+        setCheckedValues((prevCheckedValues) => {
+          const newCheckedValues = data.hits.hits
+            .map((item: { _id: string }) => item._id)
+            .filter((id: string, index: number, self: string[]) => {
+              return !prevCheckedValues.includes(id) && self.indexOf(id) === index
+            })
+          return [...prevCheckedValues, ...newCheckedValues]
+        })
+      }
     }
   }
 
