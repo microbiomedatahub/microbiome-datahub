@@ -209,6 +209,7 @@ const SearchResults = () => {
           '_annotation.sample_host_location.keyword': `*${searchWord ?? ''}*`,
         },
       })
+      queries.push({'bool': {should: qQueries}})
     }
 
     const sortQueries: SortQueriesInterface = {}
@@ -224,7 +225,7 @@ const SearchResults = () => {
     }
 
     trigger({
-      query: {bool: { must: queries,  should: qQueries}},
+      query: {bool: { must: queries}},
       from: (currentPage - 1) * 10,
       size: 10,
       sort: sortQueries,
