@@ -17,7 +17,7 @@ const Search = () => {
 
   const [keyword, setKeyword] = useState('')
 
-  const [environments, setEnvironments] = useState<Array<string>>([
+  const [environments] = useState<Array<string>>([
     'soil',
     'marine',
     'freshwater',
@@ -145,6 +145,7 @@ const Search = () => {
           />
 
           <nav id='projectMenu' className='side-menu__links'>
+            <button type='submit' className='side-menu__submit' onClick={() => searchProject()}>SUBMIT</button>
             {selectMode === 'project' && (
               <SearchSelect
                 heading='Environment'

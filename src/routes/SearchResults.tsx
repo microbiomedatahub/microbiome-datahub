@@ -241,14 +241,16 @@ const SearchResults = () => {
     if (checkedValues.length > data?.hits?.hits?.length - 1) {
       setCheckedValues([])
     } else {
-      data?.hits?.hits && setCheckedValues((prevCheckedValues) => {
-        const newCheckedValues = data.hits.hits
-          .map((item: { _id: string }) => item._id)
-          .filter((id: string, index: number, self: string[]) => {
-            return !prevCheckedValues.includes(id) && self.indexOf(id) === index
-          })
-        return [...prevCheckedValues, ...newCheckedValues]
-      })
+      if (data?.hits?.hits) {
+        setCheckedValues((prevCheckedValues) => {
+          const newCheckedValues = data.hits.hits
+            .map((item: { _id: string }) => item._id)
+            .filter((id: string, index: number, self: string[]) => {
+              return !prevCheckedValues.includes(id) && self.indexOf(id) === index
+            })
+          return [...prevCheckedValues, ...newCheckedValues]
+        })
+      }
     }
   }
 
