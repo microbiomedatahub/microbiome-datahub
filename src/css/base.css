@@ -460,6 +460,10 @@ img {
   background: #FFF;
 }
 
+.button-back {
+  padding: 0 0 40px 0;
+}
+
 .radio--square {
   position: absolute;
   display: inline-block;
