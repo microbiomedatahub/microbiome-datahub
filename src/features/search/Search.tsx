@@ -83,10 +83,10 @@ const Search = () => {
     if (genomeTaxon) {
       queries['genomeTaxon'] = genomeTaxon
     }
-    if (quality && quality.length > 0) {
+    if (selectMode === 'genome'&& quality && quality.length > 0) {
       queries['quality'] = quality.join(',')
     }
-    if (dataSource && dataSource.length > 0) {
+    if (selectMode === 'genome' && dataSource && dataSource.length > 0) {
       queries['dataSource'] = dataSource.join(',')
     }
 
