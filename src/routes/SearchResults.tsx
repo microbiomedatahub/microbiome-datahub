@@ -10,7 +10,7 @@ import DownloadSelect from '../components/DownloadSelect'
 import useSWRMutation from 'swr/mutation'
 
 interface BioProjectListRequest {
-  query: any
+  query: object
   from: number
   size?: number
   sort: SortQueriesInterface
@@ -25,6 +25,7 @@ interface SortQueriesInterface {
 
 const SearchResults = () => {
   const retrieveBioProject = async (url: string, {arg}: { arg: BioProjectListRequest }) => {
+    console.log(arg)
     const res = await fetch(`/api${url}`, {
       method: 'POST',
       headers: {
