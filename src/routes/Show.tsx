@@ -1,10 +1,11 @@
 // import { PlotData } from 'plotly.js'
+// import dataForPlotly from '../test.json'
 import '../css/show.css'
 import {LoaderFunction, LoaderFunctionArgs, useLoaderData, useParams} from 'react-router-dom'
 import Chart from '../components/Chart'
 import React, {useEffect, useState} from 'react'
 import PaginationNoQuery from '../components/PaginationNoQuery'
-// import dataForPlotly from '../test.json'
+import { useNavigate } from 'react-router-dom'
 
 interface MDataHubDocSource {
   Download: null
@@ -147,6 +148,7 @@ const Show = () => {
   const [mbgd, setMbgd] = useState<MBGD[]>([])
   const [currentPage, setCurrentPage] = useState(1)
   const [lastPage, setLastPage] = useState(1)
+  const navigate = useNavigate()
 
   useEffect(() => {
     (async () => {
@@ -199,8 +201,15 @@ const Show = () => {
   //   return record as Partial<PlotData>
   // })
 
+  const handleBack = () => {
+    navigate(-1) // -1を指定することで1つ前のページに戻る
+  }
+
   return (
     <main className='app-main'>
+      <button className='button-back' onClick={handleBack}>
+        Back to Search
+      </button>
       <p className='current-type'>{data?._index === 'bioproject' ? 'PROJECT' : data?._index.toUpperCase()}</p>
       <h2 className='page-title'>{data?._source.title}</h2>
       <p className='quality'>

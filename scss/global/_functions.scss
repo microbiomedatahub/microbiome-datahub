@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@use "sass:math";
 
 /**
  * letter-spacing
@@ -16,5 +17,5 @@
  * @param $lh
  */
 @function lineHeight( $fs, $lh ) {
-  @return $lh / $fs;
+  @return math.div($lh, $fs);
 }
