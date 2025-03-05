@@ -1,16 +1,16 @@
-import { useSetAtom, useAtomValue } from 'jotai'
+import {useAtomValue, useAtom} from 'jotai'
 import React, { useState, useEffect } from 'react'
 import {Link, useLoaderData, useSearchParams} from 'react-router-dom'
 import GenomeItems from '../components/GenomeItems'
 import ProjectItems from '../components/ProjectItems'
 import SearchForm from '../components/SearchForm'
 import { MicrobiomeMode } from '../main'
-import {linkStringBaseGenomeAtom, linkStringBaseProjectAtom, selectModeAtom} from '../store/store'
+import {linkStringBaseGenomeAtom, linkStringBaseProjectAtom, selectedGenomeIdsAtom, selectedProjectIdsAtom, selectModeAtom} from '../store/store'
 import DownloadSelect from '../components/DownloadSelect'
 import useSWRMutation from 'swr/mutation'
 
 interface BioProjectListRequest {
-  query: any
+  query: object
   from: number
   size?: number
   sort: SortQueriesInterface
@@ -233,23 +233,30 @@ const SearchResults = () => {
     })
   }, [currentPage, searchParams])
 
-  const setSelectMode = useSetAtom(selectModeAtom)
-  const [checkedValues, setCheckedValues] = useState<string[]>([])
-  const selectedData = checkedValues.join()
-
+  const [selectMode, setSelectMode] = useAtom(selectModeAtom)
+  const [selectedGenomeIds, setSelectedGenomeIds] = useAtom(selectedGenomeIdsAtom)
+  const [selectedProjectIds, setSelectedProjectIds] = useAtom(selectedProjectIdsAtom)
+  const [selectedData, setSelectedData] = useState('') //type === 'genome' ? selectedGenomeIds.join() : selectedProjectIds.join()
   const [checkedAll, setCheckedAll] = useState(false)
-  const handleCheckedAll = () => {
-    if (checkedValues.length > data?.hits?.hits?.length - 1) {
-      setCheckedValues([])
-    } else {
-      if (data?.hits?.hits) {
-        setCheckedValues((prevCheckedValues) => {
-          const newCheckedValues = data.hits.hits
-            .map((item: { _id: string }) => item._id)
-            .filter((id: string, index: number, self: string[]) => {
-              return !prevCheckedValues.includes(id) && self.indexOf(id) === index
-            })
-          return [...prevCheckedValues, ...newCheckedValues]
+
+  const handleCheckedAll = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = e.target.checked
+    if (data?.hits?.hits) {
+      const items = data.hits.hits
+        .map((item: { _id: string }) => item._id)
+      if (checked) {
+        type === 'genome' ?
+          setSelectedGenomeIds((prevCheckedValues) => {
+            return [...prevCheckedValues, ...items]
+          }) :
+          setSelectedProjectIds((prevCheckedValues) => {
+            return [...prevCheckedValues, ...items]
+          })
+      } else {
+        type === 'genome' ? setSelectedGenomeIds((prevIds: string[]) => {
+          return prevIds.filter((id: string) => !items.some((item: string) => item === id))
+        }) : setSelectedProjectIds((prevIds: string[]) => {
+          return prevIds.filter((id: string) => !items.some((item: string) => item === id))
         })
       }
     }
@@ -257,32 +264,51 @@ const SearchResults = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value
-    if (checkedValues.includes(inputValue)) {
-      setCheckedValues(checkedValues.filter((value) => value !== inputValue))
+    if (type === 'genome' ? selectedGenomeIds.includes(inputValue) : selectedProjectIds.includes(inputValue)) {
+      type === 'genome' ? setSelectedGenomeIds((prevIds: string[]) => {
+        return prevIds.filter((id: string) => inputValue !== id)
+      }) : setSelectedProjectIds((prevIds: string[]) => {
+        return prevIds.filter((id: string) => inputValue !== id)
+      })
     } else {
-      setCheckedValues([...checkedValues, inputValue])
+      type === 'genome' ? setSelectedGenomeIds((prevIds: string[]) => ([...prevIds, inputValue])) :
+        setSelectedProjectIds((prevIds: string[]) => ([...prevIds, inputValue]))
     }
   }
 
   useEffect(() => {
-    setCheckedAll(checkedValues.length >= data?.hits?.hits?.length)
-  }, [checkedValues])
+    if (selectMode !== type) {
+      setCheckedAll(false)
+    }
+    setSelectMode(type)
+  }, [type])
 
   useEffect(() => {
-    setCheckedValues([])
-  }, [currentPage])
-
-  useEffect(() => setSelectMode(type), [type])
+    if (!data) return
+    if (data?.hits?.hits) {
+      const targetIds = type === 'genome' ? selectedGenomeIds : selectedProjectIds
+      let count: number = 0
+      data.hits.hits
+        .map((item: { _id: string }) => item._id)
+        .forEach((id: string) => {
+          if (targetIds.includes(id)) {
+            count++
+          }
+        })
+      setCheckedAll(count === 10)
+    }
+    type === 'genome' ? setSelectedData(selectedGenomeIds.join()) : setSelectedData(selectedProjectIds.join())
+  }, [data,selectedGenomeIds, selectedProjectIds])
 
   return (
     <main className='app-main'>
       <nav>
         <ul className='tab-navigation'>
           <li className={`tab-navigation__link${type === 'genome' ? ' current' : ''}`}>
-            {type !== 'genome' ? <Link to={`${linkStringGenome}`}>GENOME</Link> : 'GENOME'}
+            {type !== 'genome' ? <Link to={linkStringGenome}>GENOME</Link> : 'GENOME'}
           </li>
           <li className={`tab-navigation__link${type === 'project' ? ' current' : ''}`}>
-            {type !== 'project' ? <Link to={`${linkStringProject}`}>PROJECT</Link> : 'PROJECT'}
+            {type !== 'project' ? <Link to={linkStringProject}>PROJECT</Link> : 'PROJECT'}
           </li>
         </ul>
       </nav>
@@ -293,25 +319,26 @@ const SearchResults = () => {
         type={type}
         selectedData={selectedData}
         handleCheckedAll={handleCheckedAll}
-        checkedAll={checkedAll} />
+        checkedAll={checkedAll}
+      />
       {
         type === 'project' &&
         <ProjectItems
-          checkedValues={checkedValues}
           handleChange={handleChange}
           data={data}
           currentPage={currentPage}
           error={error}
-          isMutating={isMutating} />
+          isMutating={isMutating}
+        />
       }
       {
         type === 'genome' &&
         <GenomeItems
-          checkedValues={checkedValues}
           handleChange={handleChange}
           data={data}
           currentPage={currentPage}
-          isMutating={isMutating} />
+          isMutating={isMutating}
+        />
       }
     </main>
   )
