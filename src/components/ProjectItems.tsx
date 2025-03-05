@@ -1,19 +1,18 @@
-import {atom, useSetAtom} from 'jotai'
+import {atom, useAtomValue, useSetAtom} from 'jotai'
 import React, {useEffect, useMemo} from 'react'
 import {Link} from 'react-router-dom'
-import {resultsCountTotalAtom} from '../store/store'
+import {resultsCountTotalAtom, selectedProjectIdsAtom} from '../store/store'
 import Pagination from './Pagination'
 
 const ProjectItems = (
-  { checkedValues, handleChange, data, currentPage, error, isMutating }:
-    { checkedValues: string[],
-      handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+  { handleChange, data, currentPage, error, isMutating }:
+    { handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
       data: object,
       currentPage: number,
       error: string,
       isMutating: boolean
     }) => {
-
+  const selectedIds = useAtomValue(selectedProjectIdsAtom)
   const totalWritableAtom = atom(null, (get, set, newTotal: number) => {
     const resultsCountTotal = get(resultsCountTotalAtom)
     const newResultsCountTotal = {
@@ -66,7 +65,7 @@ const ProjectItems = (
                 <input
                   type="checkbox"
                   value={item._id}
-                  checked={ checkedValues.includes(item._id) }
+                  checked={ selectedIds.includes(item._id) }
                   onChange={ handleChange }
                   id={item._id}
                   className="g-checkbox"

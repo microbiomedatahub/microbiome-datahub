@@ -21,3 +21,6 @@ export const linkStringBaseGenomeAtom = atom<string>(
 export const linkStringBaseProjectAtom = atom<string>(
   '/projects?sort=dateCreated-',
 )
+
+export const selectedGenomeIdsAtom = atom<string[]>([])
+export const selectedProjectIdsAtom = atom<string[]>([])

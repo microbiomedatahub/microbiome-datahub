@@ -1,7 +1,7 @@
-import { useAtomValue } from 'jotai'
+import {useAtomValue, useSetAtom} from 'jotai'
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { selectModeAtom } from '../../store/store'
+import {selectedGenomeIdsAtom, selectedProjectIdsAtom, selectModeAtom} from '../../store/store'
 import SearchKeyword from './components/SearchKeyword'
 import SearchRange from './components/SearchRange'
 import SearchSelect from './components/SearchSelect'
@@ -52,9 +52,11 @@ const Search = () => {
   // { id: 'MGnify', name: 'dataSource_MGnify', displayValue: '"MGnify MAG', value: 'MGnify' },todo データが入ったら追加する
   ]
   const [dataSource, setDataSource] = useState(dataSources.map((ds) => ds.value))
-
+  const setSelectedGenomeIds = useSetAtom(selectedGenomeIdsAtom)
+  const setSelectedProjectIds = useSetAtom(selectedProjectIdsAtom)
 
   const searchProject = () => {
+    selectMode === 'genome' ? setSelectedGenomeIds([]) : setSelectedProjectIds([])
     const queries: { [key: string]: string } = {}
     if (keyword) {
       queries['q'] = keyword
