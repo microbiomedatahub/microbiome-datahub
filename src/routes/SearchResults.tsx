@@ -25,7 +25,6 @@ interface SortQueriesInterface {
 
 const SearchResults = () => {
   const retrieveBioProject = async (url: string, {arg}: { arg: BioProjectListRequest }) => {
-    console.log(arg)
     const res = await fetch(`/api${url}`, {
       method: 'POST',
       headers: {
