@@ -1,5 +1,23 @@
 @use "./global/index" as g;
 
+.button-back {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  font: {
+    family: g.$fontOswald;
+    size: 1.4rem;
+    weight: 400;
+  }
+  color: g.$col575757;
+  margin: 0 0 24px;
+
+  svg {
+    width: 7px;
+    height: 12px;
+  }
+}
+
 .current-type {
   width: fit-content;
   font: {
