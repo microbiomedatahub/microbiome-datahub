@@ -208,7 +208,11 @@ const Show = () => {
   return (
     <main className='app-main'>
       <button className='button-back' onClick={handleBack}>
-        Back to Search
+        <svg viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.91998 1.91L3.32998 6.5L7.91998 11.09L6.49998 12.5L0.499983 6.5L6.49998 0.5L7.91998 1.91Z"
+                fill="#9F9F9F"/>
+        </svg>
+        <span>Back</span>
       </button>
       <p className='current-type'>{data?._index === 'bioproject' ? 'PROJECT' : data?._index.toUpperCase()}</p>
       <h2 className='page-title'>{data?._source.title}</h2>

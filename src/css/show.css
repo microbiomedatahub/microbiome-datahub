@@ -115,6 +115,21 @@
   background-image: unset;
 }
 
+.button-back {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  font-family: "Oswald", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #575757;
+  margin: 0 0 24px;
+}
+.button-back svg {
+  width: 7px;
+  height: 12px;
+}
+
 .current-type {
   width: fit-content;
   font-family: "Oswald", sans-serif;
