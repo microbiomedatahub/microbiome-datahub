@@ -1,7 +1,5 @@
 import { Dispatch, SetStateAction } from 'react'
 
-const switchId = 'star_form_switch'
-
 interface QualityStar {
   id: string
   name: string
@@ -19,25 +17,15 @@ const qualityStars: QualityStar[] = [
 ]
 
 const SearchStar = (
-  { value, setValue, isEnabled, setIsEnabled }: {
+  { value, setValue }: {
     value: number[]
     setValue: Dispatch<SetStateAction<number[]>>
-    isEnabled: boolean
-    setIsEnabled: Dispatch<SetStateAction<boolean>>
   },
 ) => {
   return (
     <div className='side-menu__links__section'>
       <div className='side-menu__links__section__header'>
         <label htmlFor='star_form' className='side-menu__links__heading'>Quality</label>
-        <input
-          id={switchId}
-          type='checkbox'
-          className='g-switch'
-          onChange={() => setIsEnabled(!isEnabled)}
-          checked={isEnabled}
-        />
-        <label htmlFor={switchId} className='g-switch__button' />
       </div>
       <div className='side-menu__radio-wrapper'>
         {qualityStars.map((qs, i) => {
@@ -56,7 +44,6 @@ const SearchStar = (
                     return
                   }
                   setValue([...value, qs.value])
-                  console.log(value)
                 }}
               />
               <label htmlFor={qs.id} className='label'>{qs.displayValue}</label>

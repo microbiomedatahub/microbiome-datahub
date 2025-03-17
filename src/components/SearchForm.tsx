@@ -84,7 +84,7 @@ const SearchForm = () => {
       </select>
       <div className='search__order'>
         <button
-          onClick={(_e) => setOrder('asc')}
+          onClick={() => setOrder('asc')}
           className={`search__order__button${(order === 'asc' ? ' active' : '')}`}
         >
           <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'>
@@ -92,7 +92,7 @@ const SearchForm = () => {
           </svg>
         </button>
         <button
-          onClick={(_e) => setOrder('desc')}
+          onClick={() => setOrder('desc')}
           className={`search__order__button${(order === 'desc' ? ' active' : '')}`}
         >
           <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'>

@@ -1,10 +1,11 @@
 // import { PlotData } from 'plotly.js'
+// import dataForPlotly from '../test.json'
 import '../css/show.css'
 import {LoaderFunction, LoaderFunctionArgs, useLoaderData, useParams} from 'react-router-dom'
 import Chart from '../components/Chart'
 import React, {useEffect, useState} from 'react'
 import PaginationNoQuery from '../components/PaginationNoQuery'
-// import dataForPlotly from '../test.json'
+import { useNavigate } from 'react-router-dom'
 
 interface MDataHubDocSource {
   Download: null
@@ -135,7 +136,7 @@ export const loadShow = async ({ params }: LoaderFunctionArgs): Promise<LoaderFu
   } else {
     return Promise.reject()
   }
-  const res = await fetch(import.meta.env.VITE_URL + `/api${path}`)
+  const res = await fetch(`/api${path}`)
   const data = await res.json()
   return data?.index ?? data
 }
@@ -147,11 +148,12 @@ const Show = () => {
   const [mbgd, setMbgd] = useState<MBGD[]>([])
   const [currentPage, setCurrentPage] = useState(1)
   const [lastPage, setLastPage] = useState(1)
+  const navigate = useNavigate()
 
   useEffect(() => {
     (async () => {
       if (params.genomeId) {
-        const res = await fetch(import.meta.env.VITE_URL + `/api/genome/mbgd/${params.genomeId}`)
+        const res = await fetch(`/api/genome/mbgd/${params.genomeId}`)
         const data = await res.json()
         const filteredData = data.filter((item: MBGD) => item.id) //idがからのものを除外
         setAllMbgd(filteredData)
@@ -199,8 +201,19 @@ const Show = () => {
   //   return record as Partial<PlotData>
   // })
 
+  const handleBack = () => {
+    navigate(-1) // -1を指定することで1つ前のページに戻る
+  }
+
   return (
     <main className='app-main'>
+      <button className='button-back' onClick={handleBack}>
+        <svg viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.91998 1.91L3.32998 6.5L7.91998 11.09L6.49998 12.5L0.499983 6.5L6.49998 0.5L7.91998 1.91Z"
+                fill="#9F9F9F"/>
+        </svg>
+        <span>Back</span>
+      </button>
       <p className='current-type'>{data?._index === 'bioproject' ? 'PROJECT' : data?._index.toUpperCase()}</p>
       <h2 className='page-title'>{data?._source.title}</h2>
       <p className='quality'>
@@ -238,37 +251,6 @@ const Show = () => {
         <p className='data-id__id'>{data?._source.identifier}</p>
       </div>
 
-      <dl className='data-list'>
-        <div className='data-list__item'>
-          <dt className='heading'>Description</dt>
-          <dd className='content'>
-            {data?._source.description}
-          </dd>
-        </div>
-
-        <div className='data-list__item'>
-          <dt className='heading'>Publication</dt>
-          {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            (data?._source.publication ?? []).map((p: any, i: any) => {
-              return (
-                <dd className='content' key={i}>
-                  <p className='id'>{p.id}</p>
-                  <p>{p.Title}</p>
-                </dd>
-              )
-            })
-          }
-        </div>
-
-        <div className='data-list__item'>
-          <dt className='heading'>Properties</dt>
-          <dd className='content'>
-            <p className='null'>{data?._source.properties?.submitter ?? 'NULL'}</p>
-          </dd>
-        </div>
-      </dl>
-
       <dl className='date'>
         <div className='date__item'>
           <dt className='heading'>dateModified:</dt>
@@ -284,131 +266,121 @@ const Show = () => {
         </div>
       </dl>
 
-      <div className='data-section'>
-        <div className='data-section__box'>
-          <h3 className='data-section__box__heading'>Metadata</h3>
-          <div className='data-section__box__inner'>
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>identifier</p>
-              <p className='data-section__box__item__content'>{data._source?.identifier}</p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>organism</p>
-              <p className='data-section__box__item__content'>{data._source?.organism}</p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>organization</p>
-              <p className='data-section__box__item__content'>{data._source?.organization}</p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>assembly_accession</p>
-              <p className='data-section__box__item__content'>{data._source?.properties?.assembly_accession}</p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>bioproject</p>
-              <p className='data-section__box__item__content'>
-                {data._source?.properties?.bioproject}
-              </p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>biosample</p>
-              <p className='data-section__box__item__content'>
-                {data._source?.properties?.biosample}
-              </p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>species_taxid</p>
-              <p className='data-section__box__item__content'>
-                {data._source?.properties?.species_taxid}
-              </p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>organism_name</p>
-              <p className='data-section__box__item__content'>
-                {data._source?.properties?.organism_name}
-              </p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>seq_rel_date</p>
-              <p className='data-section__box__item__content'>
-                {data._source?.properties?.seq_rel_date}
-              </p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>sample_organism</p>
-              <p className='data-section__box__item__content'>
-                {data._source?._annotation?.sample_organism}
-              </p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>sample_taxid</p>
-              <p className='data-section__box__item__content'>
-                {data._source?._annotation?.sample_taxid}
-              </p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>sample_host_organism</p>
-              <p className='data-section__box__item__content'>
-                {data._source?._annotation?.sample_host_organism}
-              </p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>sample_host_organism_id</p>
-              <p className='data-section__box__item__content'>
-                {data._source?._annotation?.sample_host_organism_id}
-              </p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>sample_host_disease</p>
-              <p className='data-section__box__item__content'>
-                {data._source?._annotation?.sample_host_disease}
-              </p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>sample_host_disease_id</p>
-              <p className='data-section__box__item__content'>
-                {data._source?._annotation?.sample_host_disease_id}
-              </p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>sample_host_location</p>
-              <p className='data-section__box__item__content'>
-                {data._source?._annotation?.sample_host_location}
-              </p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>sample_ph_range</p>
-              <p className='data-section__box__item__content'>
-                {data._source?._annotation?.sample_ph_range.min + ' < '
-                  + data._source?._annotation?.sample_ph_range.max}
-              </p>
-            </div>
-
-            <div className='data-section__box__item'>
-              <p className='data-section__box__item__label'>sample_temperature_range</p>
-              <p className='data-section__box__item__content'>
-                {data._source?._annotation?.sample_temperature_range.min + ' < '
-                  + data._source?._annotation?.sample_temperature_range.max}
-              </p>
-            </div>
-          </div>
+      <dl className='data-list'>
+        <div className='data-list__item'>
+          <dt className='heading'>identifier</dt>
+          <dd className='content'>
+            {data?._source?.identifier}
+          </dd>
         </div>
+        <div className='data-list__item'>
+          <dt className='heading'>organism</dt>
+          <dd className='content'>
+            {data?._source?.organism}
+          </dd>
+        </div>
+
+        <div className='data-list__item'>
+          <dt className='heading'>organization</dt>
+          <dd className='content'>
+            {data?._source?.organization}
+          </dd>
+        </div>
+        <div className='data-list__item'>
+          <dt className='heading'>assembly_accession</dt>
+          <dd className='content'>
+            {data?._source?.properties?.assembly_accession}
+          </dd>
+        </div>
+        <div className='data-list__item'>
+          <dt className='heading'>bioproject</dt>
+          <dd className='content'>
+            {data?._source?.properties?.bioproject}
+          </dd>
+        </div>
+        <div className='data-list__item'>
+          <dt className='heading'>biosample</dt>
+          <dd className='content'>
+            {data?._source?.properties?.biosample}
+          </dd>
+        </div>
+        <div className='data-list__item'>
+          <dt className='heading'>species_taxid</dt>
+          <dd className='content'>
+            {data?._source?.properties?.species_taxid}
+          </dd>
+        </div>
+        <div className='data-list__item'>
+          <dt className='heading'>organism_name</dt>
+          <dd className='content'>
+            {data?._source?.properties?.organism_name}
+          </dd>
+        </div>
+        <div className='data-list__item'>
+          <dt className='heading'>seq_rel_date</dt>
+          <dd className='content'>
+            {data?._source?.properties?.seq_rel_date}
+          </dd>
+        </div>
+        <div className='data-list__item'>
+          <dt className='heading'>sample_organism</dt>
+          <dd className='content'>
+            {data?._source?._annotation?.sample_organism}
+          </dd>
+        </div>
+        <div className='data-list__item'>
+          <dt className='heading'>sample_taxid</dt>
+          <dd className='content'>
+            {data?._source?._annotation?.sample_taxid}
+          </dd>
+        </div>
+        <div className='data-list__item'>
+          <dt className='heading'>sample_host_organism</dt>
+          <dd className='content'>
+            {data?._source?._annotation?.sample_host_organism}
+          </dd>
+        </div>
+        <div className='data-list__item'>
+          <dt className='heading'>sample_host_organism_id</dt>
+          <dd className='content'>
+            {data?._source?._annotation?.sample_host_organism_id}
+          </dd>
+        </div>
+        <div className='data-list__item'>
+          <dt className='heading'>sample_host_disease</dt>
+          <dd className='content'>
+            {data?._source?._annotation?.sample_host_disease}
+          </dd>
+        </div>
+        <div className='data-list__item'>
+          <dt className='heading'>sample_host_disease_id</dt>
+          <dd className='content'>
+            {data?._source?._annotation?.sample_host_disease_id}
+          </dd>
+        </div>
+        <div className='data-list__item'>
+          <dt className='heading'>sample_host_location</dt>
+          <dd className='content'>
+            {data?._source?._annotation?.sample_host_location}
+          </dd>
+        </div>
+        <div className='data-list__item'>
+          <dt className='heading'>sample_ph_range</dt>
+          <dd className='content'>
+            {data._source?._annotation?.sample_ph_range.min + ' < '
+              + data._source?._annotation?.sample_ph_range.max}
+          </dd>
+        </div>
+        <div className='data-list__item'>
+          <dt className='heading'>sample_temperature_range</dt>
+          <dd className='content'>
+            {data._source?._annotation?.sample_temperature_range.min + ' < '
+              + data._source?._annotation?.sample_temperature_range.max}
+          </dd>
+        </div>
+      </dl>
+
+      <div className='data-section'>
         {data._source?.type === 'genome' ?
           <div className='data-section__box'>
             <h3 className='data-section__box__heading'>DFAST</h3>
@@ -494,20 +466,20 @@ const Show = () => {
               <div className='data-section__box__item'>
                 <p className='data-section__box__item__label'>completeness</p>
                 <p className='data-section__box__item__content'>
-                  {data._source._dfastqc?.cc_result.completeness}
+                  {data._source?._annotation?.completeness}
                 </p>
               </div>
               <div className='data-section__box__item'>
                 <p className='data-section__box__item__label'>contamination</p>
                 <p className='data-section__box__item__content'>
-                  {data._source._dfastqc?.cc_result.contamination}
+                  {data._source?._annotation?.contamination}
                 </p>
               </div>
 
               <div className='data-section__box__item'>
                 <p className='data-section__box__item__label'>strain_heterogeneity</p>
                 <p className='data-section__box__item__content'>
-                  {data._source._dfastqc?.cc_result.strain_heterogeneity}
+                  {data._source?._annotation?.strain_heterogeneity}
                 </p>
               </div>
             </div>

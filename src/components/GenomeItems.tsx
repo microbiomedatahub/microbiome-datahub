@@ -1,18 +1,18 @@
-import { atom, useSetAtom } from 'jotai'
+import {atom, useAtomValue, useSetAtom} from 'jotai'
 import React, { useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { resultsCountTotalAtom } from '../store/store'
+import {resultsCountTotalAtom, selectedGenomeIdsAtom} from '../store/store'
 import Pagination from './Pagination'
 
 const GenomeItems = (
-  { checkedValues, handleChange, data, currentPage, isMutating }:
-    { checkedValues: string[],
-      handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+  { handleChange, data, currentPage, isMutating }:
+    { handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
       data: object,
       currentPage: number,
       isMutating: boolean
     }) => {
 
+  const selectedIds = useAtomValue(selectedGenomeIdsAtom)
   const totalWritableAtom = atom(null, (get, set, newTotal: number) => {
     const resultsCountTotal = get(resultsCountTotalAtom)
     const newResultsCountTotal = {
@@ -61,7 +61,7 @@ const GenomeItems = (
                 <input
                   type="checkbox"
                   value={item._id}
-                  checked={ checkedValues.includes(item._id) }
+                  checked={ selectedIds.includes(item._id) }
                   onChange={ handleChange }
                   id={item._id}
                   className="g-checkbox"/>
@@ -118,10 +118,10 @@ const GenomeItems = (
                     </svg>
                   </summary>
                   <div className="downloads-type">
-                    <a href={`https://mdatahub.org/api/dl/genome/metadata/${item._id}`} download className="downloads-type__item">metadata</a>
-                    <a href={`https://mdatahub.org/api/dl/sequence/genome/${item._id}`} download className="downloads-type__item">genome sequence</a>
-                    <a href={`https://mdatahub.org/api/dl/sequence/cds/${item._id}`} download className="downloads-type__item">gene sequence</a>
-                    <a href={`https://mdatahub.org/api/dl/sequence/protein/${item._id}`} download className="downloads-type__item">protein sequence</a>
+                    <a href={`/api/dl/genome/metadata/${item._id}`} download className="downloads-type__item">metadata</a>
+                    <a href={`/api/dl/sequence/genome/${item._id}`} download className="downloads-type__item">genome sequence</a>
+                    <a href={`/api/dl/sequence/cds/${item._id}`} download className="downloads-type__item">gene sequence</a>
+                    <a href={`/api/dl/sequence/protein/${item._id}`} download className="downloads-type__item">protein sequence</a>
                   </div>
                 </details>
               </article>

@@ -1,5 +1,23 @@
 @use "./global/index" as g;
 
+.button-back {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  font: {
+    family: g.$fontOswald;
+    size: 1.4rem;
+    weight: 400;
+  }
+  color: g.$col575757;
+  margin: 0 0 24px;
+
+  svg {
+    width: 7px;
+    height: 12px;
+  }
+}
+
 .current-type {
   width: fit-content;
   font: {
@@ -95,9 +113,11 @@
 .data-list {
   margin: 0 0 13px;
   border-top: 1px solid g.$colE0E0E0;
+
   &__item {
-    display: flex;
+    display: grid;
     gap: 42px;
+    grid-template-columns: 1fr 4fr;
     padding: 17px 0 20px;
     border-bottom: 1px solid g.$colE0E0E0;
     .heading {
@@ -162,8 +182,13 @@
   &__box {
     display: flex;
     gap: 23px;
+
+    &__inner {
+      width: 100%;
+    }
+
     &__heading {
-      min-width: 100px;
+      min-width: 130px;
       font: {
         family: g.$fontOswald;
         weight: 400;
@@ -177,8 +202,9 @@
     }
 
     &__item {
-      display: flex;
+      display: grid;
       gap: 42px;
+      grid-template-columns: 1fr 4fr;
       padding: 13px 0 18px;
       border-bottom: 1px solid g.$colE0E0E0;
       &__label {
