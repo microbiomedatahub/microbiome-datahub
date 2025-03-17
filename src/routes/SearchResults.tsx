@@ -55,14 +55,24 @@ const SearchResults = () => {
     }
 
     if (searchParams.get('genomeTaxon')) {
-      queries.push({
-        'bool': {
-          'should': [
-            { 'match': { 'organism': searchParams.get('genomeTaxon') } },
-            { 'match': { 'properties.organism_name': searchParams.get('genomeTaxon') } }
-          ]
-        }
+      const searchWord = searchParams.get('genomeTaxon') ?? ''
+      const matchQuery: { match: {[key: string]: string}}[] = []
+      const searchWords = searchWord.split(/[\u0020\u3000]+/)
+      searchWords.forEach((item) => {
+        console.log(item)
+        matchQuery.push({ match: {'_genome_taxon': item}})
       })
+      matchQuery.push({ 'match': { 'organism': searchWord } })
+      matchQuery.push({ 'match': { 'properties.organism_name': searchWord } })
+      queries.push({'bool': {should: matchQuery}})
+      // queries.push({
+      //   'bool': {
+      //     'should': [
+      //       { 'match': { 'organism': searchWord } },
+      //       { 'match': { 'properties.organism_name': searchWord } }
+      //     ]
+      //   }
+      // })
     }
 
     if (searchParams.get('magCompleteness')) {
