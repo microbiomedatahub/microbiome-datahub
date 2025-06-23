@@ -21,7 +21,7 @@ The Bac2Feature phenotype inference results for the isolate genomes and MAGs are
 
 ## Interfaces
 
-Microbiome Datahub provides four interfaces for searching and retrieving data:
+Microbiome Datahub provides three interfaces for searching and retrieving data:
 
 **1. Facet-based metadata search**
 
