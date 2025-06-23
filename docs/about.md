@@ -25,8 +25,8 @@ Microbiome Datahub provides three interfaces for searching and retrieving data:
 
 **1. Facet-based metadata search**
 
-   - [Explore Heare](https://mdatahub.org/genomes)
-   - Search MAG data by taxonomic name, environment, MAG quality, predicted phenotype, protein function, and more.
+   - [Explore Here](https://mdatahub.org/genomes)
+     - Search MAG data by taxonomic name, environment, MAG quality, predicted phenotype, protein function, and more.
 
 **2. Sequence search by PZLAST-MAG**
 
