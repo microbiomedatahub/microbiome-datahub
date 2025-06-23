@@ -1,7 +1,8 @@
 # Microbiome Datahub
-Version: 1.0
+Version: 1.1
 
-Datasets last updated: 2024-12-24
+Datasets last updated: 2025-06-23
+The Bac2Feature phenotype inference results for the isolate genomes and MAGs are now available.
 
 **Microbiome Datahub** is a metagenome database focused on metagenome-assembled genome (MAG) data and project metadata. Microbiome Datahub collects and indexes publicly available MAG data from the INSDC sequence repository.
 
@@ -24,18 +25,17 @@ Datasets last updated: 2024-12-24
 ## Interfaces
 
 Microbiome Datahub provides three interfaces for searching and retrieving data:
-
-1. **Facet-based metadata search**
+**1. Facet-based metadata search**
 
     ([**Explore Here**](https://mdatahub.org/genomes))
    - Search MAG data by taxonomic name, environment, MAG quality, predicted phenotype, protein function, and more.
 
-2. **Sequence search by PZLAST-MAG**
+**2. Sequence search by PZLAST-MAG**
 
     ([**Search Here**](https://pzlast.nig.ac.jp/pzlast/mag))
     - Search MAG data by protein sequences.
 
-3. **Download API**
+**3. Download API**
    - Examples
    - [Download Genome sequence](https://mdatahub.org/api/dl/sequence/genome/GCA_029762495.1). 
    - [Download gene sequence](https://mdatahub.org/api/dl/sequence/cds/GCA_029762495.1).
