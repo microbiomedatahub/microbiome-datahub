@@ -1,7 +1,7 @@
 # Microbiome Datahub
 Version: 1.1
 
-Datasets last updated: 2025-06-23
+Datasets last updated: 2025-06-23.
 The Bac2Feature phenotype inference results for the isolate genomes and MAGs are now available.
 
 **Microbiome Datahub** is a metagenome database focused on metagenome-assembled genome (MAG) data and project metadata. Microbiome Datahub collects and indexes publicly available MAG data from the INSDC sequence repository.
