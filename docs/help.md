@@ -83,25 +83,24 @@ MAG sequences are important for understanding microbial genomic diversity, inclu
   - "Quality not reviewed" indicates the genome has not yet been analyzed by the Microbiome Datahub genome annotation pipeline.
 - **Phenotype information inferred by Bac2Feature**: The phenotypes of all MAGs and isolate genomes in the Microbiome Datahub were inferred using [Bac2Feature](https://github.com/fuyo780/Bac2Feature), a tool that predicts 27 phenotypic traits from the taxonomic information of each genome. If the value is blank, it indicates that Bac2Feature was unable to predict the phenotype for the isolate genome or MAG. The 27 phenotypes are:
   - Continuous traits
+    - Cell diameter (log scaling)
+    - Cell length (log scaling)
     - Doubling time (log_10 hours)
     - Growth temperature (Degrees C)
     - Optimum growth temperature (Degrees C)
+    - Optimum_ph
     - Genome size (Base Pair)
     - GC content (Percentage)
-    - Coding genes, rRNA genes, tRNA genes (Number)
+    - Coding genes, 16S rRNA genes, tRNA genes (Number)
   - Categorical traits (All traits are predicted yes (=1) or no (=0).)
     - Gram stain
     - Sporulation
-    - Anaerobes
     - Motility
-    - Temperature range
-    - Mesophiles
-    - Thermophiles
-    - Cell shape
-    - Bacillus
-    - Coccus
-    - Filament
-    - Spiral
+    - Salinity range
+    - Respiration (facultative, anaerobic, aerobic)
+    - Temperature range (mesophilic, thermophilic, psychrophilic)
+    - Cell shape (bacillus, coccus, filament, coccobacillus, vibrio, spiral)
+    For more information on each phenotype, see the [Bac2Feature paper](https://doi.org/10.1093/bioadv/vbaf136).
 - **Homolog information of the MAGs**: Assignment of MBGD ortholog cluster IDs to each protein sequence in the MAGs was performed using sequence similarity search via [PZLAST-MAG](https://pzlast.nig.ac.jp/pzlast/mag). For each MAG, the following information is provided:
   - the [MBGD](https://mbgd.nibb.ac.jp/) ortholog cluster ID 
   - the number of genes assigned to the cluster
