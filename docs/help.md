@@ -1,6 +1,6 @@
 # User Manual for Microbiome Datahub
 
-**Manual last updated**: 2025-01-15
+**Manual last updated**: 2025-06-24
 
 This page describes how to explore Microbiome Datahub's [Facet-based metadata search](https://mdatahub.org/genomes). Microbiome Datahub offers two different metadata searches:
 
@@ -52,20 +52,28 @@ MAG sequences are important for understanding microbial genomic diversity, inclu
 ## Genome Search
 
 - **Purpose**: Provides metadata search for genome data (mainly MAGs).
-- **Data Source**: Collects MAG data from INSD.
+- **Data Source**:
+  - MAG data from INSD.
+  - RefSeq representative/reference prokaryotic genomes.
 - **Searchable Criteria**:
   - Environment
   - Genome taxon
+    - NCBI taxonomy -based search (e.g., Escherichia coli)
+    - GTDB-based search (You need to specify prefix e.g., p__Bacteroidota, c__Gammaproteobacteria, o__Bacteroidales, f__Bacteroidaceae, g__Escherichia)
   - MAG completeness
   - Host taxon
   - Genome quality
   - Free keyword
 
 ### Key Features:
-- **Indexed Data**: 218,248 genome data entries are indexed and searchable.
+- **Indexed Data**:
+  - 218,653 genome data entries are indexed and searchable.
+  - 26,076 prokaryotic isolate genome data from RefSeq representative/reference genomes are indexed and searchable.
 - **Environment Annotation**: Environmental information is annotated using the [NCBI Taxonomy metagenome classification](https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=408169).
 - **MAG Completeness**: Calculated using [CheckM](https://github.com/Ecogenomics/CheckM).
-- **Genome Taxon**: Based on the taxonomic information from the original INSDC entry.
+- **Genome Taxon**:
+  - Based on the taxonomic information from the original INSDC entry.
+  - ・Inferred using [GTDB-Tk](https://github.com/Ecogenomics/GTDBTk) referred the [GTDB](https://gtdb.ecogenomic.org/) version 220. 
 - **Quality Criteria**: Counts according to five criteria
   - The genome has a DFAST result.
   - Contamination rate < 10%.
@@ -73,6 +81,32 @@ MAG sequences are important for understanding microbial genomic diversity, inclu
   - Contig number < 30.
   - rRNA gene copies >2.
   - "Quality not reviewed" indicates the genome has not yet been analyzed by the Microbiome Datahub genome annotation pipeline.
+- **Phenotype information inferred by Bac2Feature**: The phenotypes of all MAGs and isolate genomes in the Microbiome Datahub were inferred using [Bac2Feature](https://github.com/fuyo780/Bac2Feature), a tool that predicts 27 phenotypic traits from the taxonomic information of each genome. If the value is blank, it indicates that Bac2Feature was unable to predict the phenotype for the isolate genome or MAG. The 27 phenotypes are:
+  - Continuous traits
+    - Doubling time (log_10 hours)
+    - Growth temperature (Degrees C)
+    - Optimum growth temperature (Degrees C)
+    - Genome size (Base Pair)
+    - GC content (Percentage)
+    - Coding genes, rRNA genes, tRNA genes (Number)
+  - Categorical traits (All traits are predicted yes (=1) or no (=0).)
+    - Gram stain
+    - Sporulation
+    - Anaerobes
+    - Motility
+    - Temperature range
+    - Mesophiles
+    - Thermophiles
+    - Cell shape
+    - Bacillus
+    - Coccus
+    - Filament
+    - Spiral
+- **Homolog information of the MAGs**: Assignment of MBGD ortholog cluster IDs to each protein sequence in the MAGs was performed using sequence similarity search via [PZLAST-MAG](https://pzlast.nig.ac.jp/pzlast/mag). For each MAG, the following information is provided:
+  - the [MBGD](https://mbgd.nibb.ac.jp/) ortholog cluster ID 
+  - the number of genes assigned to the cluster
+  - the functional description of the MBGD ortholog cluster
+  - the corresponding [KEGG Orthology](https://www.genome.jp/kegg/ko.html) ID linked via MBGD
 
 ### Data Downloads:
 - Genome metadata
@@ -95,9 +129,9 @@ MAG sequences are important for understanding microbial genomic diversity, inclu
 - In addition, Microbiome Datahub performs these analyses and makes the analysis results available to users:
   - [DFAST](https://dfast.ddbj.nig.ac.jp/) annotation summary
   - [DFAST_QC](https://github.com/nigyta/dfast_qc) analysis results
-  - [MBGD Ortholog](https://mbgd.nibb.ac.jp/) list
-  - [KEGG Orthology](https://www.genome.jp/kegg/ko.html) list
-  - Bac2Feature phenotype inference results
+  - [MBGD Ortholog](https://mbgd.nibb.ac.jp/) cluster ID list
+  - [KEGG Orthology](https://www.genome.jp/kegg/ko.html) list infered from MBGD ortholog cluster ID
+  - [Bac2Feature](https://github.com/fuyo780/Bac2Feature) phenotype inference results
 
 ---
 
