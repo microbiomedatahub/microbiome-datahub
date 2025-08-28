@@ -54,6 +54,14 @@ const SearchResults = () => {
       queries.push({match: {'_annotation.sample_organism': searchParams.get('env')}})
     }
 
+    if (searchParams.get('envGenome')) {
+      queries.push({
+        term: {
+          '_meo.label': searchParams.get('envGenome'),
+        },
+      })
+    }
+
     if (searchParams.get('genomeTaxon')) {
       const searchWord = searchParams.get('genomeTaxon') ?? ''
       const matchQuery: { match: {[key: string]: string}}[] = []
@@ -307,6 +315,7 @@ const SearchResults = () => {
         })
       setCheckedAll(count === 10)
     }
+    console.log(data)
     type === 'genome' ? setSelectedData(selectedGenomeIds.join()) : setSelectedData(selectedProjectIds.join())
   }, [data,selectedGenomeIds, selectedProjectIds])
 

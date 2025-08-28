@@ -33,6 +33,21 @@ const Search = () => {
 
   const [selectedEnv, setSelectedEnv] = useState('soil')
   const [isEnabledEnv, setIsEnabledEnv] = useState(false)
+  const [environmentsGenome] = useState<Array<string>>([
+    'activated',
+    'sludge',
+    'feces',
+    'freshwater',
+    'ground water',
+    'hot spring',
+    'hydrothermal vent',
+    'marine water',
+    'rumen',
+    'sediment',
+    'soil',
+  ])
+  const [selectedEnvGenome, setSelectedEnvGenome] = useState('activated')
+  const [isEnabledEnvGenome, setIsEnabledEnvGenome] = useState(false)
   const [hostTaxon, setHostTaxon] = useState('')
   // const [hostDisease, setHostDisease] = useState('')
   // const [isEnabledHostDisease, setIsEnabledHostDisease] = useState(false)
@@ -61,8 +76,11 @@ const Search = () => {
     if (keyword) {
       queries['q'] = keyword
     }
-    if (isEnabledEnv) {
+    if (selectMode === 'project' && isEnabledEnv) {
       queries['env'] = selectedEnv
+    }
+    if (selectMode === 'genome' && isEnabledEnvGenome) {
+      queries['envGenome'] = selectedEnvGenome
     }
     if (hostTaxon) {
       queries['hostTaxon'] = hostTaxon
@@ -105,6 +123,9 @@ const Search = () => {
     }
     if (searchParams.get('env')) {
       setSelectedEnv(searchParams.get('env') ?? '')
+    }
+    if (searchParams.get('envGenome')) {
+      setSelectedEnvGenome(searchParams.get('envGenome') ?? '')
     }
     if (searchParams.get('hostTaxon')) {
       setHostTaxon(searchParams.get('hostTaxon') ?? '')
@@ -156,6 +177,17 @@ const Search = () => {
                 isEnabled={isEnabledEnv}
                 setIsEnabled={setIsEnabledEnv}
                 selectItems={environments}
+              />
+            )}
+
+            {selectMode === 'genome' && (
+              <SearchSelect
+                heading='Environment'
+                value={selectedEnvGenome}
+                setValue={setSelectedEnvGenome}
+                isEnabled={isEnabledEnvGenome}
+                setIsEnabled={setIsEnabledEnvGenome}
+                selectItems={environmentsGenome}
               />
             )}
 
