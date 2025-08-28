@@ -1,4 +1,4 @@
-<img width="442" height="22" alt="image" src="https://github.com/user-attachments/assets/cfd3cef8-9c5b-4be0-a8b4-e4ce2cba2940" /># User Manual for Microbiome Datahub
+# User Manual for Microbiome Datahub
 
 **Manual last updated**: 2025-08-28
 
@@ -145,8 +145,27 @@ MAG sequences are important for understanding microbial genomic diversity, inclu
 ## Data bulk download
 
 - MAG metadata are available in Zenodo [Microbiome Datahub MAG dataset](https://zenodo.org/records/16963986)
+  - The basic MAG metadata including
+    - sequence length, contig number, CDS number
+    - assigned MBGD ortholog cluster and KEGG Orthology numbers
+    - CheckM completeness and contamination %
+    - GTDB-Tk taxonomic assignment result
+    - BioProject and BioSample ID of the MAG
+    - MEO annotation result
+    - Host NCBI Taxonomy annotation result
+  - The Bac2Feature phenotype inference result is in the separate Excel file.
+
 - MAG DNA sequences and protein sequences are available in [our download web server](http://palaeo.nig.ac.jp/Resources/MDatahub/2025/)
-  -  
+  - 20250810AllMAG.fasta.gz (146 GB)
+    - All MAG DNA sequence FASTA file: This file contains all contig sequences from all MAGs (218,653) in the Microbiome Datahub.
+  - 20250810AllMAG.rm.tsv.gz (287 MB)
+    - Contig information TSV file: This file provides the corresponding MAG GCA ID information for each contig.
+  - AllMergedMDatahubProtein.faa.gz (79 GB)
+    - All MAG protein sequence FASTA file: This file contains all predicted protein sequences (454,799,231) from all MAGs in the Microbiome Datahub.
+  - AllMergedMDatahubProtein.rm.tsv.gz (7 GB)
+    - Protein information TSV file: This file provides the corresponding MAG GCA ID information for each protein
+  - clusterRes_rep_seq.fasta.gz (33 GB)
+    - 90% protein sequence cluster representative FASTA file: This file, generated using LinClust, contains representative sequences for 192,557,564 protein clusters.
 
 ## Microbiome Datahub Project Team
 
