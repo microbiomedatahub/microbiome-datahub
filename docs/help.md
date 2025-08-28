@@ -144,7 +144,7 @@ MAG sequences are important for understanding microbial genomic diversity, inclu
 
 ## Data bulk download
 
-- MAG metadata are available in Zenodo [Microbiome Datahub MAG dataset](https://zenodo.org/records/16963986)
+- MAG metadata are available in Zenodo [Microbiome Datahub MAG dataset](https://doi.org/10.5281/zenodo.16975252)
   - The basic MAG metadata including
     - sequence length, contig number, CDS number
     - assigned MBGD ortholog cluster and KEGG Orthology numbers
