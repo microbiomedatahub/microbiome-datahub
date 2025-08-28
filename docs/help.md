@@ -1,6 +1,6 @@
-# User Manual for Microbiome Datahub
+<img width="442" height="22" alt="image" src="https://github.com/user-attachments/assets/cfd3cef8-9c5b-4be0-a8b4-e4ce2cba2940" /># User Manual for Microbiome Datahub
 
-**Manual last updated**: 2025-06-24
+**Manual last updated**: 2025-08-28
 
 This page describes how to explore Microbiome Datahub's [Facet-based metadata search](https://mdatahub.org/genomes). Microbiome Datahub offers two different metadata searches:
 
@@ -26,7 +26,7 @@ MAG sequences are important for understanding microbial genomic diversity, inclu
 - The search results will appear on the right side.
 - Without clicking the SUBMIT button, all entries will be displayed by default.
 - Entries can be sorted by:
-  - Data creation date in INSD
+  - Data creation date in INSD (International Nucleotide Sequence Database: public sequence repositories)
   - Modified date in INSD
   - Published date in INSD
   - Project or genome ID
@@ -69,11 +69,14 @@ MAG sequences are important for understanding microbial genomic diversity, inclu
 - **Indexed Data**:
   - 218,653 genome data entries are indexed and searchable.
   - 26,076 prokaryotic isolate genome data from RefSeq representative/reference genomes are indexed and searchable.
-- **Environment Annotation**: Environmental information is annotated using the [NCBI Taxonomy metagenome classification](https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=408169).
-- **MAG Completeness**: Calculated using [CheckM](https://github.com/Ecogenomics/CheckM).
+- **Environment Annotation**: Environmental information is manually annotated using the [Metagenome / Microbes Environmental Ontology (MEO)](https://bioportal.bioontology.org/ontologies/MEO).
+  - The MEO ontology is developed and maintained by our team.
+  - Environmental information was extracted from the INSDC BioSample and BioProject databases associated with each MAG.
+  - Up to two MEO classes were manually annotated to each MAG. 
+- **MAG Completeness**: Calculated using [CheckM](https://github.com/Ecogenomics/CheckM). The completeness and contamination % were calculated.
 - **Genome Taxon**:
   - Based on the taxonomic information from the original INSDC entry.
-  - ・Inferred using [GTDB-Tk](https://github.com/Ecogenomics/GTDBTk) referred the [GTDB](https://gtdb.ecogenomic.org/) version 220. 
+  - Inferred using [GTDB-Tk](https://github.com/Ecogenomics/GTDBTk) referred the [GTDB](https://gtdb.ecogenomic.org/) version 220. 
 - **Quality Criteria**: Counts according to five criteria
   - The genome has a DFAST result.
   - Contamination rate < 10%.
@@ -83,16 +86,16 @@ MAG sequences are important for understanding microbial genomic diversity, inclu
   - "Quality not reviewed" indicates the genome has not yet been analyzed by the Microbiome Datahub genome annotation pipeline.
 - **Phenotype information inferred by Bac2Feature**: The phenotypes of all MAGs and isolate genomes in the Microbiome Datahub were inferred using [Bac2Feature](https://github.com/fuyo780/Bac2Feature), a tool that predicts 27 phenotypic traits from the taxonomic information of each genome. If the value is blank, it indicates that Bac2Feature was unable to predict the phenotype for the isolate genome or MAG. The 27 phenotypes are:
   - Continuous traits
-    - Cell diameter (log scaling)
-    - Cell length (log scaling)
-    - Doubling time (log_10 hours)
+    - Cell diameter (log 10 micrometer)
+    - Cell length (log 10 micrometer)
+    - Doubling time (log 10 hours)
     - Growth temperature (Degrees C)
     - Optimum growth temperature (Degrees C)
-    - Optimum_ph
-    - Genome size (Base Pair)
+    - Optimum ph
+    - Genome size (Base pairs)
     - GC content (Percentage)
     - Coding genes, 16S rRNA genes, tRNA genes (Number)
-  - Categorical traits (All traits are predicted yes (=1) or no (=0).)
+  - Categorical traits (All traits were predicted probability: 0–1; 1 means yes, 0 means no)
     - Gram stain
     - Sporulation
     - Motility
@@ -100,12 +103,14 @@ MAG sequences are important for understanding microbial genomic diversity, inclu
     - Respiration (facultative, anaerobic, aerobic)
     - Temperature range (mesophilic, thermophilic, psychrophilic)
     - Cell shape (bacillus, coccus, filament, coccobacillus, vibrio, spiral)
-    For more information on each phenotype, see the [Bac2Feature paper](https://doi.org/10.1093/bioadv/vbaf136).
+    For more information on each phenotype, see the [Bac2Feature paper](https://doi.org/10.1093/bioadv/vbaf136). Phenotype prediction was attempted sequentially at the species, genus, and family levels; once a phenotype could be assigned at a given taxonomic level, prediction at higher ranks was not performed.
+
 - **Homolog information of the MAGs**: Assignment of MBGD ortholog cluster IDs to each protein sequence in the MAGs was performed using sequence similarity search via [PZLAST-MAG](https://pzlast.nig.ac.jp/pzlast/mag). For each MAG, the following information is provided:
   - the [MBGD](https://mbgd.nibb.ac.jp/) ortholog cluster ID 
   - the number of genes assigned to the cluster
   - the functional description of the MBGD ortholog cluster
-  - the corresponding [KEGG Orthology](https://www.genome.jp/kegg/ko.html) ID linked via MBGD
+  - the corresponding [KEGG Orthology (KO)](https://www.genome.jp/kegg/ko.html) ID linked via MBGD
+  - the KEGG Module ID list assigned from the KO list of the MAG by using the [Genomaple](https://mbgd.nibb.ac.jp/docs/?MBGD/Genomaple) tool from MBGD.
 
 ### Data Downloads:
 - Genome metadata
@@ -127,12 +132,21 @@ MAG sequences are important for understanding microbial genomic diversity, inclu
 - Describes the genome metadata obtained from INSD.
 - In addition, Microbiome Datahub performs these analyses and makes the analysis results available to users:
   - [DFAST](https://dfast.ddbj.nig.ac.jp/) annotation summary
-  - [DFAST_QC](https://github.com/nigyta/dfast_qc) analysis results
+  - [DFAST_QC](https://github.com/nigyta/dfast_qc) analysis results including CheckM
+  - [GTDB-Tk](https://github.com/Ecogenomics/GTDBTk) taxonomic inference results
   - [MBGD Ortholog](https://mbgd.nibb.ac.jp/) cluster ID list
-  - [KEGG Orthology](https://www.genome.jp/kegg/ko.html) list infered from MBGD ortholog cluster ID
+  - [KEGG Orthology (KO)](https://www.genome.jp/kegg/ko.html) list infered from MBGD ortholog cluster ID
+  - [KEGG Module](https://www.genome.jp/kegg/module.html) list calculated from the Genomaple tool of MBGD using the KO list of the MAG
   - [Bac2Feature](https://github.com/fuyo780/Bac2Feature) phenotype inference results
+  - [MEO](https://bioportal.bioontology.org/ontologies/MEO) manual annotation for each MAG environment
 
 ---
+
+## Data bulk download
+
+- MAG metadata are available in Zenodo [Microbiome Datahub MAG dataset](https://zenodo.org/records/16963986)
+- MAG DNA sequences and protein sequences are available in [our download web server](http://palaeo.nig.ac.jp/Resources/MDatahub/2025/)
+  -  
 
 ## Microbiome Datahub Project Team
 
