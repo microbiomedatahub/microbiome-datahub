@@ -85,7 +85,11 @@ const SearchResults = () => {
       })
     }
     if (searchParams.get('hostTaxon')) {
-      queries.push({match: {'_annotation.sample_host_organism': searchParams.get('hostTaxon')}})
+      const searchWord = searchParams.get('hostTaxon') ?? ''
+      const matchQuery: { match: {[key: string]: string}}[] = []
+      matchQuery.push({ 'match': { '_annotation.sample_host_organism': searchWord } })
+      matchQuery.push({ 'match': { '_meo.label': searchWord } })
+      queries.push({'bool': {should: matchQuery}})
     }
     if (searchParams.get('hostDisease')) {
       queries.push({match: {'_annotation.sample_host_disease': searchParams.get('hostDisease')}})
