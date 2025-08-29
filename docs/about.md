@@ -1,7 +1,7 @@
 # Microbiome Datahub
 Version: 1.2
 
-Datasets last updated: 2025-08-28.
+Datasets last updated: 2025-08-29.
 Metagenome / Microbes Environmental Ontology (MEO)-based environmental annotations are available for MAGs.
 
 Datasets update: 2025-06-24.
@@ -45,7 +45,7 @@ Microbiome Datahub provides four interfaces for searching and retrieving data:
    - [User Manual for Download API](https://mdatahub.org/apimanual).
 
 **4. Bulk download**
-   - MAG metadata are available in Zenodo [Microbiome Datahub MAG dataset](https://doi.org/10.5281/zenodo.16975252)
+   - MAG metadata, phenotype prediction results, and the KEGG Module composition inference results are available in Zenodo [Microbiome Datahub MAG dataset](https://doi.org/10.5281/zenodo.16990662)
    - MAG DNA sequences and protein sequences are available in [our download web server](http://palaeo.nig.ac.jp/Resources/MDatahub/2025/)
 
 ---
