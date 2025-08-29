@@ -1,6 +1,6 @@
 # User Manual for Microbiome Datahub
 
-**Manual last updated**: 2025-08-28
+**Manual last updated**: 2025-08-29
 
 This page describes how to explore Microbiome Datahub's [Facet-based metadata search](https://mdatahub.org/genomes). Microbiome Datahub offers two different metadata searches:
 
@@ -144,7 +144,7 @@ MAG sequences are important for understanding microbial genomic diversity, inclu
 
 ## Data bulk download
 
-- MAG metadata are available in Zenodo [Microbiome Datahub MAG dataset](https://doi.org/10.5281/zenodo.16975252)
+- MAG metadata are available in Zenodo [Microbiome Datahub MAG dataset](https://doi.org/10.5281/zenodo.16990662)
   - The basic MAG metadata including
     - sequence length, contig number, CDS number
     - assigned MBGD ortholog cluster and KEGG Orthology numbers
@@ -154,6 +154,8 @@ MAG sequences are important for understanding microbial genomic diversity, inclu
     - MEO annotation result
     - Host NCBI Taxonomy annotation result
   - The Bac2Feature phenotype inference result is in the separate Excel file.
+  - The KEGG Module composition matrix for these MAGs, inferred using MBGD ortholog composition is also in a TSV file.
+    - These module label list is also in a TSV file.
 
 - MAG DNA sequences and protein sequences are available in [our download web server](http://palaeo.nig.ac.jp/Resources/MDatahub/2025/)
   - 20250810AllMAG.fasta.gz (146 GB)
