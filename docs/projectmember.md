@@ -14,3 +14,4 @@ The construction and maintenance of Microbiome Datahub is a collaborative effort
 - Mr. Zenichi Nakagawa: Department of Life Science and Technology, Institute of Science Tokyo, Japan.
 - Dr. Takao Suzuki: Department of Integrated Biosciences, Graduate School of Frontier Sciences, the University of Tokyo, Japan.
 - Dr. Yuki Nishimura: Department of Integrated Biosciences, Graduate School of Frontier Sciences, the University of Tokyo, Japan.
+- Mr. Masaki Fujiyoshi: Department of Integrated Biosciences, Graduate School of Frontier Sciences, the University of Tokyo, Japan.
