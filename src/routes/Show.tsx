@@ -101,6 +101,12 @@ interface MDataHubDocSource {
   quality: number
   quality_label: string
   _bac2feature: {[key: string]: number}
+  _meo: [
+    {
+      id: string
+      label: string
+    }
+  ]
 }
 
 interface MDataHubDoc {
@@ -210,7 +216,7 @@ const Show = () => {
       <button className='button-back' onClick={handleBack}>
         <svg viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M7.91998 1.91L3.32998 6.5L7.91998 11.09L6.49998 12.5L0.499983 6.5L6.49998 0.5L7.91998 1.91Z"
-                fill="#9F9F9F"/>
+            fill="#9F9F9F"/>
         </svg>
         <span>Back</span>
       </button>
@@ -532,6 +538,32 @@ const Show = () => {
             </div>
           </div>
           <PaginationNoQuery currentPage={currentPage} lastPage={lastPage} handleChangeCurrentPage={handleChangeCurrentPage}/>
+        </div>
+        :null
+      }
+
+      {data._source?.type === 'genome' && data._source._meo ?
+        <div>
+          <div className='data-section__box'>
+            <h3 className='data-section__box__heading'>MBGD</h3>
+            <div className='data-section__box__inner'>
+              <table>
+                <thead>
+                  <tr>
+                    {['id', 'label'].map((v, i) => <th key={i} className='data-section__box__item__label'>{v}</th>)}
+                  </tr>
+                </thead>
+                <tbody>
+                  {data._source._meo.map((row: {id: string, label: string}, i: number) => (
+                    <tr key={i}>
+                      <td className='data-section__box__item__content'>{row.id}</td>
+                      <td className='data-section__box__item__content'>{row.label}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
         :null
       }
