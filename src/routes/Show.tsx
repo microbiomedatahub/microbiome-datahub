@@ -545,7 +545,7 @@ const Show = () => {
       {data._source?.type === 'genome' && data._source._meo ?
         <div>
           <div className='data-section__box'>
-            <h3 className='data-section__box__heading'>MBGD</h3>
+            <h3 className='data-section__box__heading'>MEO</h3>
             <div className='data-section__box__inner'>
               <table>
                 <thead>
