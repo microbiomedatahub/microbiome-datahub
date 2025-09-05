@@ -2,39 +2,39 @@ import React, {JSX} from 'react'
 
 const DownloadSelect = (
   { type, selectedData, handleCheckedAll, checkedAll }:
-    { type: string
-      selectedData: string
-      handleCheckedAll: (e: React.ChangeEvent<HTMLInputElement>) => void
-      checkedAll: boolean
-    }
+  { type: string
+    selectedData: string
+    handleCheckedAll: (e: React.ChangeEvent<HTMLInputElement>) => void
+    checkedAll: boolean
+  }
 ) => {
   let downloadItems: JSX.Element | null = null
 
   switch (type) {
-  case 'project':
-    downloadItems = (
-      <>
-        <a href={`/api/dl/project/metadata/${selectedData}`} download className="downloads__item">
-          metadata
-        </a>
-        {/* <a download className="downloads__item">taxonomic composition</a> */}
-      </>
-    )
-    break
-  case 'genome':
-    downloadItems = (
-      <>
-        <a href={`/api/dl/genome/metadata/${selectedData}`} download className="downloads__item">
-          metadata
-        </a>
-        <a href={`/api/dl/sequence/genome/${selectedData}`} download className="downloads__item">genome sequence</a>
-        <a href={`/api/dl/sequence/cds/${selectedData}`} download className="downloads__item">gene sequence</a>
-        <a href={`/api/dl/sequence/protein/${selectedData}`} download className="downloads__item">protein sequence</a>
-      </>
-    )
-    break
-  default:
-    break
+    case 'project':
+      downloadItems = (
+        <>
+          <a href={`/api/dl/project/metadata/${selectedData}`} download className="downloads__item">
+            metadata
+          </a>
+          {/* <a download className="downloads__item">taxonomic composition</a> */}
+        </>
+      )
+      break
+    case 'genome':
+      downloadItems = (
+        <>
+          <a href={`/api/dl/genome/metadata/${selectedData}`} download className="downloads__item">
+            metadata
+          </a>
+          <a href={`/api/dl/sequence/genome/${selectedData}`} download className="downloads__item">genome sequence</a>
+          <a href={`/api/dl/sequence/cds/${selectedData}`} download className="downloads__item">gene sequence</a>
+          <a href={`/api/dl/sequence/protein/${selectedData}`} download className="downloads__item">protein sequence</a>
+        </>
+      )
+      break
+    default:
+      break
   }
 
   return (

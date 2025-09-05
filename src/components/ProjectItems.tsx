@@ -6,12 +6,12 @@ import Pagination from './Pagination'
 
 const ProjectItems = (
   { handleChange, data, currentPage, error, isMutating }:
-    { handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-      data: object,
-      currentPage: number,
-      error: string,
-      isMutating: boolean
-    }) => {
+  { handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    data: object,
+    currentPage: number,
+    error: string,
+    isMutating: boolean
+  }) => {
   const selectedIds = useAtomValue(selectedProjectIdsAtom)
   const totalWritableAtom = atom(null, (get, set, newTotal: number) => {
     const resultsCountTotal = get(resultsCountTotalAtom)

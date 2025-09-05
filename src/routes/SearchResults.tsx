@@ -263,19 +263,25 @@ const SearchResults = () => {
       const items = data.hits.hits
         .map((item: { _id: string }) => item._id)
       if (checked) {
-        type === 'genome' ?
+        if (type === 'genome') {
           setSelectedGenomeIds((prevCheckedValues) => {
             return [...prevCheckedValues, ...items]
-          }) :
+          })
+        } else {
           setSelectedProjectIds((prevCheckedValues) => {
             return [...prevCheckedValues, ...items]
           })
+        }
       } else {
-        type === 'genome' ? setSelectedGenomeIds((prevIds: string[]) => {
-          return prevIds.filter((id: string) => !items.some((item: string) => item === id))
-        }) : setSelectedProjectIds((prevIds: string[]) => {
-          return prevIds.filter((id: string) => !items.some((item: string) => item === id))
-        })
+        if (type === 'genome') {
+          setSelectedGenomeIds((prevIds: string[]) => {
+            return prevIds.filter((id: string) => !items.some((item: string) => item === id))
+          })
+        } else {
+          setSelectedProjectIds((prevIds: string[]) => {
+            return prevIds.filter((id: string) => !items.some((item: string) => item === id))
+          })
+        }
       }
     }
   }
@@ -283,14 +289,21 @@ const SearchResults = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value
     if (type === 'genome' ? selectedGenomeIds.includes(inputValue) : selectedProjectIds.includes(inputValue)) {
-      type === 'genome' ? setSelectedGenomeIds((prevIds: string[]) => {
-        return prevIds.filter((id: string) => inputValue !== id)
-      }) : setSelectedProjectIds((prevIds: string[]) => {
-        return prevIds.filter((id: string) => inputValue !== id)
-      })
+      if (type === 'genome') {
+        setSelectedGenomeIds((prevIds: string[]) => {
+          return prevIds.filter((id: string) => inputValue !== id)
+        })
+      } else {
+        setSelectedProjectIds((prevIds: string[]) => {
+          return prevIds.filter((id: string) => inputValue !== id)
+        })
+      }
     } else {
-      type === 'genome' ? setSelectedGenomeIds((prevIds: string[]) => ([...prevIds, inputValue])) :
+      if (type === 'genome') {
+        setSelectedGenomeIds((prevIds: string[]) => ([...prevIds, inputValue]))
+      } else {
         setSelectedProjectIds((prevIds: string[]) => ([...prevIds, inputValue]))
+      }
     }
   }
 
@@ -316,7 +329,11 @@ const SearchResults = () => {
       setCheckedAll(count === 10)
     }
     console.log(data)
-    type === 'genome' ? setSelectedData(selectedGenomeIds.join()) : setSelectedData(selectedProjectIds.join())
+    if (type === 'genome'){
+      setSelectedData(selectedGenomeIds.join())
+    } else {
+      setSelectedData(selectedProjectIds.join())
+    }
   }, [data,selectedGenomeIds, selectedProjectIds])
 
   return (

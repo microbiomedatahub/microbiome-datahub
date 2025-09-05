@@ -6,11 +6,11 @@ import Pagination from './Pagination'
 
 const GenomeItems = (
   { handleChange, data, currentPage, isMutating }:
-    { handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-      data: object,
-      currentPage: number,
-      isMutating: boolean
-    }) => {
+  { handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    data: object,
+    currentPage: number,
+    isMutating: boolean
+  }) => {
 
   const selectedIds = useAtomValue(selectedGenomeIdsAtom)
   const totalWritableAtom = atom(null, (get, set, newTotal: number) => {

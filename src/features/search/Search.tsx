@@ -71,7 +71,11 @@ const Search = () => {
   const setSelectedProjectIds = useSetAtom(selectedProjectIdsAtom)
 
   const searchProject = () => {
-    selectMode === 'genome' ? setSelectedGenomeIds([]) : setSelectedProjectIds([])
+    if (selectMode === 'genome') {
+      setSelectedGenomeIds([])
+    } else {
+      setSelectedProjectIds([])
+    }
     const queries: { [key: string]: string } = {}
     if (keyword) {
       queries['q'] = keyword
