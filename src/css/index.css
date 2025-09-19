@@ -341,7 +341,7 @@
   justify-content: center;
   align-items: center;
   gap: 9px;
-  margin: 23px 0 0;
+  margin: 23px 0;
 }
 .pagination__item {
   width: 40px;

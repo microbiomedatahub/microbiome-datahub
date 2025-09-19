@@ -2,6 +2,7 @@ import js from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import react from 'eslint-plugin-react'
 import globals from 'globals'
+import stylistic from '@stylistic/eslint-plugin'
 
 export default [
   js.configs.recommended,
@@ -21,22 +22,30 @@ export default [
     },
     plugins: {
       react,
+      '@stylistic': stylistic,
+      '@typescript-eslint': tseslint.plugin,
     },
     settings: {
       react: {
-        version: 'detect', // 自動的にインストールされたReactのバージョンを検出
+        version: 'detect',
       },
     },
     rules: {
+      // React
       'react/jsx-uses-react': 'off',
       'react/react-in-jsx-scope': 'off',
-      'indent': ['error', 2],
+      
+      // Style
       'linebreak-style': ['error', 'unix'],
-      'quotes': ['error', 'single'],
-      'semi': ['error', 'never'],
+      '@stylistic/quotes': ['error', 'single'],
+      '@stylistic/comma-dangle': ['error', 'only-multiline'],
+      '@stylistic/semi': ['error', 'never'],
+      '@stylistic/indent': ['error', 2],
+      
+      // TypeScript
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-unused-vars': 'warn',
-      '@typescript-eslint/no-unused-expressions': ['warn', { 'allowTernary': true }],
+      '@typescript-eslint/no-unused-expressions': ['warn', { allowTernary: true }],
     },
   },
 ]

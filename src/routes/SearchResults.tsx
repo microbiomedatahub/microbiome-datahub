@@ -54,6 +54,14 @@ const SearchResults = () => {
       queries.push({match: {'_annotation.sample_organism': searchParams.get('env')}})
     }
 
+    if (searchParams.get('envGenome')) {
+      queries.push({
+        term: {
+          '_meo.label': searchParams.get('envGenome'),
+        },
+      })
+    }
+
     if (searchParams.get('genomeTaxon')) {
       const searchWord = searchParams.get('genomeTaxon') ?? ''
       const matchQuery: { match: {[key: string]: string}}[] = []
@@ -255,19 +263,25 @@ const SearchResults = () => {
       const items = data.hits.hits
         .map((item: { _id: string }) => item._id)
       if (checked) {
-        type === 'genome' ?
+        if (type === 'genome') {
           setSelectedGenomeIds((prevCheckedValues) => {
             return [...prevCheckedValues, ...items]
-          }) :
+          })
+        } else {
           setSelectedProjectIds((prevCheckedValues) => {
             return [...prevCheckedValues, ...items]
           })
+        }
       } else {
-        type === 'genome' ? setSelectedGenomeIds((prevIds: string[]) => {
-          return prevIds.filter((id: string) => !items.some((item: string) => item === id))
-        }) : setSelectedProjectIds((prevIds: string[]) => {
-          return prevIds.filter((id: string) => !items.some((item: string) => item === id))
-        })
+        if (type === 'genome') {
+          setSelectedGenomeIds((prevIds: string[]) => {
+            return prevIds.filter((id: string) => !items.some((item: string) => item === id))
+          })
+        } else {
+          setSelectedProjectIds((prevIds: string[]) => {
+            return prevIds.filter((id: string) => !items.some((item: string) => item === id))
+          })
+        }
       }
     }
   }
@@ -275,14 +289,21 @@ const SearchResults = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value
     if (type === 'genome' ? selectedGenomeIds.includes(inputValue) : selectedProjectIds.includes(inputValue)) {
-      type === 'genome' ? setSelectedGenomeIds((prevIds: string[]) => {
-        return prevIds.filter((id: string) => inputValue !== id)
-      }) : setSelectedProjectIds((prevIds: string[]) => {
-        return prevIds.filter((id: string) => inputValue !== id)
-      })
+      if (type === 'genome') {
+        setSelectedGenomeIds((prevIds: string[]) => {
+          return prevIds.filter((id: string) => inputValue !== id)
+        })
+      } else {
+        setSelectedProjectIds((prevIds: string[]) => {
+          return prevIds.filter((id: string) => inputValue !== id)
+        })
+      }
     } else {
-      type === 'genome' ? setSelectedGenomeIds((prevIds: string[]) => ([...prevIds, inputValue])) :
+      if (type === 'genome') {
+        setSelectedGenomeIds((prevIds: string[]) => ([...prevIds, inputValue]))
+      } else {
         setSelectedProjectIds((prevIds: string[]) => ([...prevIds, inputValue]))
+      }
     }
   }
 
@@ -307,7 +328,12 @@ const SearchResults = () => {
         })
       setCheckedAll(count === 10)
     }
-    type === 'genome' ? setSelectedData(selectedGenomeIds.join()) : setSelectedData(selectedProjectIds.join())
+    console.log(data)
+    if (type === 'genome'){
+      setSelectedData(selectedGenomeIds.join())
+    } else {
+      setSelectedData(selectedProjectIds.join())
+    }
   }, [data,selectedGenomeIds, selectedProjectIds])
 
   return (
