@@ -9,6 +9,8 @@ import SearchStar from './components/SearchStar'
 import SearchText from './components/SearchText'
 import SearchCheckString from './components/SearchCheckString'
 import SearchToggleButton from './components/SearchToggleButton'
+import SearchSelectAutocomplete from './components/SearchSelectAutocomplete'
+import {GenomeEnvironmentList} from '../../constants/genomeEnvironmentList'
 
 const Search = () => {
   const [isShow, setIsShow] = useState(true)
@@ -34,8 +36,7 @@ const Search = () => {
   const [selectedEnv, setSelectedEnv] = useState('soil')
   const [isEnabledEnv, setIsEnabledEnv] = useState(false)
   const [environmentsGenome] = useState<Array<string>>([
-    'activated',
-    'sludge',
+    'activated sludge',
     'feces',
     'freshwater',
     'ground water',
@@ -46,7 +47,7 @@ const Search = () => {
     'sediment',
     'soil',
   ])
-  const [selectedEnvGenome, setSelectedEnvGenome] = useState('activated')
+  const [selectedEnvGenome, setSelectedEnvGenome] = useState('activated sludge')
   const [isEnabledEnvGenome, setIsEnabledEnvGenome] = useState(false)
   const [hostTaxon, setHostTaxon] = useState('')
   // const [hostDisease, setHostDisease] = useState('')
@@ -185,13 +186,14 @@ const Search = () => {
             )}
 
             {selectMode === 'genome' && (
-              <SearchSelect
+              <SearchSelectAutocomplete
                 heading='Environment'
                 value={selectedEnvGenome}
                 setValue={setSelectedEnvGenome}
                 isEnabled={isEnabledEnvGenome}
                 setIsEnabled={setIsEnabledEnvGenome}
                 selectItems={environmentsGenome}
+                options={GenomeEnvironmentList}
               />
             )}
 
