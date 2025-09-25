@@ -107,18 +107,22 @@ img {
     width: 270px;
     height: 100%;
     z-index: 10;
+
     .side-menu__switch {
       position: absolute;
       top: 0;
       left: 270px;
     }
+
     .side-menu__navigation {
       display: block;
     }
   }
+
   &__keyword {
     padding: 33px 20px 32px;
     border-bottom: 1px solid g.$col8F8E8E;
+
     &__input {
       width: 100%;
       height: 36px;
@@ -138,11 +142,13 @@ img {
         position: calc(100% - 9px) center;
         size: 17px auto;
       }
+
       &::placeholder {
         color: g.$col9F9F9F;
       }
     }
   }
+
   &__switch {
     display: flex;
     justify-content: center;
@@ -152,13 +158,16 @@ img {
     padding: 17px 16px;
     background-color: g.$col000;
   }
+
   &__navigation {
     display: none;
     height: 100%;
     background-color: g.$col9F9F9F;
   }
+
   &__select-panel {
     display: flex;
+
     &__button {
       flex-basis: 50%;
       font: {
@@ -170,6 +179,7 @@ img {
       text-align: center;
       border-bottom: 4px solid transparent;
       background-color: g.$colD9D9D9;
+
       &.current {
         border-color: g.$colFC540C;
         background-color: g.$col9F9F9F;
@@ -179,9 +189,11 @@ img {
 
   &__links {
     padding: 0 0 32px;
+
     &__section {
       font-family: g.$fontGillSans;
       padding: 20px 21px 21px;
+
       &:not(:last-of-type) {
         border-bottom: 1px solid g.$col8F8E8E;
       }
@@ -193,6 +205,7 @@ img {
         padding: 0 0 10px;
       }
     }
+
     &__heading {
       display: block;
       font: {
@@ -203,6 +216,7 @@ img {
       line-height: g.lineHeight(18, 21);
       margin: 0 0 10px;
     }
+
     &__item {
       position: absolute;
       white-space: nowrap;
@@ -214,6 +228,7 @@ img {
       clip: rect(0 0 0 0);
       clip-path: inset(50%);
       margin: -1px;
+
       & + label {
         display: block;
         font-size: 1.6rem;
@@ -222,24 +237,28 @@ img {
         padding: 0 0 0 54px;
         margin: 0 -21px;
       }
+
       &.current {
         & + label {
           font-weight: 700;
           background-color: g.$colB9A0A0;
         }
       }
+
       &:disabled {
         & + label {
           cursor: not-allowed;
         }
       }
     }
+
     &__input {
       width: 100%;
       height: 36px;
       padding: 0 18px;
       border-radius: 30px;
       background-color: g.$colFFF;
+
       &:disabled {
         background-color: g.$colD9D9D9;
       }
@@ -325,6 +344,10 @@ img {
     border-radius: 5px;
     box-shadow: 0 0 10px rgb(g.$col000, 0.25);
     background-color: g.$col575757;
+  }
+
+  &__autocomplete {
+    margin: 24px 0 0;
   }
 }
 

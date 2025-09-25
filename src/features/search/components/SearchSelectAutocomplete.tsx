@@ -1,4 +1,4 @@
-import { Autocomplete, TextField } from '@mui/material'
+import { Autocomplete } from '@mui/material'
 import { Dispatch, SetStateAction, useMemo } from 'react'
 
 const SearchSelectAutocomplete = ({
@@ -55,22 +55,34 @@ const SearchSelectAutocomplete = ({
         )
       })}
 
-      <Autocomplete
-        freeSolo
-        disabled={!isEnabled}
-        options={options}
-        inputValue={value}
-        onInputChange={(_, value) => setValue(value)}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            type='text'
-            placeholder=''
-            className='side-menu__links__input'
-            disabled={!isEnabled}
-          />
-        )}
-      />
+      <div className="side-menu__autocomplete">
+        <Autocomplete
+          freeSolo
+          disabled={!isEnabled}
+          options={options}
+          inputValue={value}
+          onInputChange={(_, value) => setValue(value)}
+          renderInput={(params) => (
+            <div ref={params.InputProps.ref}>
+              <input
+                type="text"
+                {...params.inputProps}
+                disabled={!isEnabled}
+                className='side-menu__links__input'
+              />
+            </div>
+          )}
+          slotProps={{
+            paper: {
+              sx: {
+                '& .MuiAutocomplete-listbox': {
+                  fontSize: '1.6rem',
+                },
+              },
+            },
+          }}
+        />
+      </div>
     </div>
   )
 }
