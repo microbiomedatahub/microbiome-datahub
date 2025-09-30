@@ -57,7 +57,7 @@ const SearchResults = () => {
     if (searchParams.get('envGenome')) {
       queries.push({
         term: {
-          '_meo.label': searchParams.get('envGenome'),
+          '_meo.label.keyword': searchParams.get('envGenome'),
         },
       })
     }

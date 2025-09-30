@@ -399,6 +399,9 @@ img {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
   background-color: #575757;
 }
+.side-menu__autocomplete {
+  margin: 24px 0 0;
+}
 
 .app-main {
   grid-column: 2/3;
