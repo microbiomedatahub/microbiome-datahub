@@ -1,7 +1,7 @@
 // import { PlotData } from 'plotly.js'
 // import dataForPlotly from '../test.json'
 import '../css/show.css'
-import {LoaderFunction, LoaderFunctionArgs, useLoaderData, useParams} from 'react-router-dom'
+import {Link, LoaderFunction, LoaderFunctionArgs, useLoaderData, useParams} from 'react-router-dom'
 import Chart from '../components/Chart'
 import React, {useEffect, useState} from 'react'
 import PaginationNoQuery from '../components/PaginationNoQuery'
@@ -295,19 +295,31 @@ const Show = () => {
         <div className='data-list__item'>
           <dt className='heading'>assembly_accession</dt>
           <dd className='content'>
-            {data?._source?.properties?.assembly_accession}
+            {data?._source?.properties?.assembly_accession ?
+              <Link to={`https://www.ncbi.nlm.nih.gov/datasets/genome/${data?._source?.properties?.assembly_accession}`}>
+                {data?._source?.properties?.assembly_accession}
+              </Link>
+              : null }
           </dd>
         </div>
         <div className='data-list__item'>
           <dt className='heading'>bioproject</dt>
           <dd className='content'>
-            {data?._source?.properties?.bioproject}
+            {data?._source?.properties?.bioproject ?
+              <Link to={`https://www.ncbi.nlm.nih.gov/bioproject/?term=${data?._source?.properties?.bioproject}`}>
+                {data?._source?.properties?.bioproject}
+              </Link>
+              : null }
           </dd>
         </div>
         <div className='data-list__item'>
           <dt className='heading'>biosample</dt>
           <dd className='content'>
-            {data?._source?.properties?.biosample}
+            {data?._source?.properties?.biosample ?
+              <Link to={`https://www.ncbi.nlm.nih.gov/biosample/?term=${data?._source?.properties?.biosample}`}>
+                {data?._source?.properties?.biosample}
+              </Link>
+              : null }
           </dd>
         </div>
         <div className='data-list__item'>
