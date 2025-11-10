@@ -107,6 +107,7 @@ interface MDataHubDocSource {
       label: string
     }
   ]
+  _gtdb_taxon: string[]
 }
 
 interface MDataHubDoc {
@@ -209,6 +210,28 @@ const Show = () => {
 
   const handleBack = () => {
     navigate(-1) // -1を指定することで1つ前のページに戻る
+  }
+
+  const gtdbTaxonItem = (item: string, isTitle: boolean) => {
+    let title = ''
+    const match = item.match(/^[a-z]__/)
+    const prefix = match ? match[0] : ''
+    if (prefix === 'd__') {
+      title = 'Domain'
+    } else if (prefix === 'p__') {
+      title = 'Phylum'
+    } else if (prefix === 'c__') {
+      title = 'Class'
+    } else if (prefix === 'o__') {
+      title = 'Order'
+    } else if (prefix === 'f__') {
+      title = 'Family'
+    } else if (prefix === 'g__') {
+      title = 'Genus'
+    } else if (prefix === 's__') {
+      title = 'Species'
+    }
+    return isTitle ? title : item.replace(prefix, '')
   }
 
   return (
@@ -387,6 +410,22 @@ const Show = () => {
       </dl>
 
       <div className='data-section'>
+        {data._source?.type === 'genome' && data._source._gtdb_taxon ?
+          <div className='data-section__box'>
+            <h3 className='data-section__box__heading'>GTDB taxon</h3>
+            <div className='data-section__box__inner'>
+              {data._source._gtdb_taxon.map(v => {
+                return (<div className='data-section__box__item' key={v}>
+                  <p className='data-section__box__item__label'>{gtdbTaxonItem(v, true)}</p>
+                  <p className='data-section__box__item__content'>
+                    {gtdbTaxonItem(v, false)}
+                  </p>
+                </div>)
+              })}
+            </div>
+          </div>
+          : null }
+
         {data._source?.type === 'genome' ?
           <div className='data-section__box'>
             <h3 className='data-section__box__heading'>DFAST</h3>
