@@ -14,34 +14,30 @@
     "sass": "sass --watch --update --style=expanded ./scss:./src/css"
   },
   "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
     "@mui/material": "^7.3.5",
-    "@mui/styled-engine-sc": "^7.3.5",
     "jotai": "^2.15.1",
-    "plotly.js": "^3.2.0",
+    "plotly.js": "^3.3.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-markdown": "^10.1.0",
     "react-plotly.js": "^2.6.0",
-    "react-router-dom": "^7.9.5",
-    "styled-components": "^6.1.19",
+    "react-router-dom": "^7.9.6",
     "swr": "^2.3.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
     "@stylistic/eslint-plugin": "^5.5.0",
     "@types/plotly.js": "^3.0.8",
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.2",
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.3",
     "@types/react-plotly.js": "^2.6.3",
-    "@vitejs/plugin-react-swc": "^4.2.1",
+    "@vitejs/plugin-react-swc": "^4.2.2",
     "eslint": "^9.39.1",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^16.5.0",
-    "sass": "^1.93.3",
+    "sass": "^1.94.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.46.3",
+    "typescript-eslint": "^8.46.4",
     "vite": "^7.2.2"
   }
 }
