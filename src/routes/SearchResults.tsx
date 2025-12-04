@@ -67,7 +67,7 @@ const SearchResults = () => {
       const matchQuery: { match: {[key: string]: string}}[] = []
       const searchWords = searchWord.split(/[\u0020\u3000]+/)
       searchWords.forEach((item) => {
-        console.log(item)
+        // console.log(item)
         matchQuery.push({ match: {'_genome_taxon': item}})
       })
       matchQuery.push({ 'match': { 'organism': searchWord } })
@@ -332,7 +332,7 @@ const SearchResults = () => {
         })
       setCheckedAll(count === 10)
     }
-    console.log(data)
+    // console.log(data)
     if (type === 'genome'){
       setSelectedData(selectedGenomeIds.join())
     } else {
