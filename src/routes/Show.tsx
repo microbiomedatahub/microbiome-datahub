@@ -4,7 +4,6 @@ import '../css/show.css'
 import {Link, LoaderFunction, LoaderFunctionArgs, useLoaderData, useParams} from 'react-router-dom'
 import Chart from '../components/Chart'
 import React, {useEffect, useState} from 'react'
-import PaginationNoQuery from '../components/PaginationNoQuery'
 import { useNavigate } from 'react-router-dom'
 
 interface MDataHubDocSource {
@@ -122,16 +121,12 @@ interface MDataHubDoc {
 }
 type MBGD = {
   id: string
-  count: number
-  ko: string
-  description: string
+  label: string
 }
 
 const mbgdHeaders = [
   'id',
-  'count',
-  'ko',
-  'description',
+  'label',
 ]
 
 export const loadShow = async ({ params }: LoaderFunctionArgs): Promise<LoaderFunction> => {
@@ -151,10 +146,7 @@ export const loadShow = async ({ params }: LoaderFunctionArgs): Promise<LoaderFu
 const Show = () => {
   const data = useLoaderData() as MDataHubDoc
   const params = useParams()
-  const [allMbgd, setAllMbgd] = useState<MBGD[]>([])
   const [mbgd, setMbgd] = useState<MBGD[]>([])
-  const [currentPage, setCurrentPage] = useState(1)
-  const [lastPage, setLastPage] = useState(1)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -163,50 +155,10 @@ const Show = () => {
         const res = await fetch(`/api/genome/mbgd/${params.genomeId}`)
         const data = await res.json()
         const filteredData = data.filter((item: MBGD) => item.id) //idがからのものを除外
-        setAllMbgd(filteredData)
-        const currentMbgd = data.filter((v: MBGD, i:number) => {
-          if (i < 10) {
-            return v
-          }
-        })
-        setMbgd(currentMbgd)
-        const quotient = Math.floor(data.length / 10)
-        const remainder = data.length % 10
-        const lastPage = remainder === 0 ? quotient : quotient + 1
-        setLastPage((lastPage))
+        setMbgd(filteredData)
       }
     })()
   }, [])
-
-  const handleChangeCurrentPage = (newPage: number) => {
-    setCurrentPage(newPage)
-    const currentMbgd = allMbgd.filter((v: MBGD, i:number) => {
-      if (newPage === 1) {
-        return i < 10
-      } else {
-        return (newPage - 1) * 10 <= i && i < newPage * 10
-      }
-    })
-    setMbgd((currentMbgd))
-  }
-
-  // const data1: Partial<PlotData> = {
-  //   x: [1, 2, 3],
-  //   y: [2, 6, 3],
-  //   type: 'scatter',
-  //   mode: 'lines+markers',
-  //   marker: {color: 'red'},
-  // }
-  // const data2: Partial<PlotData> = {type: 'bar', x: [1, 2, 3], y: [2, 5, 3]}
-  // const allData: Partial<PlotData>[] = [
-  //   data1,
-  //   data2,
-  // ]
-  //
-  // const layout1 = { width: 640, height: 480, title: 'A Fancy Plot' }
-  // const allData: Partial<PlotData>[] = dataForPlotly.map((record) => {
-  //   return record as Partial<PlotData>
-  // })
 
   const handleBack = () => {
     navigate(-1) // -1を指定することで1つ前のページに戻る
@@ -560,64 +512,62 @@ const Show = () => {
             </div>
           </div>
           : null }
+
+        {data._source?.type === 'genome' ?
+          <div>
+            <div className='data-section__box'>
+              <h3 className='data-section__box__heading'>MBGD</h3>
+              <div className='data-section__box__inner'>
+                <table>
+                  <thead>
+                    <tr>
+                      {mbgdHeaders.map((v, i) => <th key={i} className='data-section__box__item__label'>{v}</th>)}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {mbgd && mbgd.length > 0 && mbgd.map((row: MBGD, i: number) => (
+                      <tr key={i}>
+                        <td className='data-section__box__item__content'>{row.id}</td>
+                        <td className='data-section__box__item__content'>{row.label}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          :null
+        }
+
+        {data._source?.type === 'genome' && data._source._meo ?
+          <div>
+            <div className='data-section__box'>
+              <h3 className='data-section__box__heading'>MEO</h3>
+              <div className='data-section__box__inner'>
+                <table>
+                  <thead>
+                    <tr>
+                      {['id', 'label'].map((v, i) => <th key={i} className='data-section__box__item__label'>{v}</th>)}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data._source._meo.map((row: {id: string, label: string}, i: number) => (
+                      <tr key={i}>
+                        <td className='data-section__box__item__content'>{row.id}</td>
+                        <td className='data-section__box__item__content'>{row.label}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          :null
+        }
       </div>
 
       {data._source?.type === 'bioproject' && <Chart id={data._id} />}
 
-      {data._source?.type === 'genome' ?
-        <div>
-          <div className='data-section__box'>
-            <h3 className='data-section__box__heading'>MBGD</h3>
-            <div className='data-section__box__inner'>
-              <table>
-                <thead>
-                  <tr>
-                    {mbgdHeaders.map((v, i) => <th key={i} className='data-section__box__item__label'>{v}</th>)}
-                  </tr>
-                </thead>
-                <tbody>
-                  {mbgd && mbgd.length > 0 && mbgd.map((row: MBGD, i: number) => (
-                    <tr key={i}>
-                      <td className='data-section__box__item__content'>{row.id}</td>
-                      <td className='data-section__box__item__content'>{row.count}</td>
-                      <td className='data-section__box__item__content'>{row.ko}</td>
-                      <td className='data-section__box__item__content'>{row.description}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <PaginationNoQuery currentPage={currentPage} lastPage={lastPage} handleChangeCurrentPage={handleChangeCurrentPage}/>
-        </div>
-        :null
-      }
-
-      {data._source?.type === 'genome' && data._source._meo ?
-        <div>
-          <div className='data-section__box'>
-            <h3 className='data-section__box__heading'>MEO</h3>
-            <div className='data-section__box__inner'>
-              <table>
-                <thead>
-                  <tr>
-                    {['id', 'label'].map((v, i) => <th key={i} className='data-section__box__item__label'>{v}</th>)}
-                  </tr>
-                </thead>
-                <tbody>
-                  {data._source._meo.map((row: {id: string, label: string}, i: number) => (
-                    <tr key={i}>
-                      <td className='data-section__box__item__content'>{row.id}</td>
-                      <td className='data-section__box__item__content'>{row.label}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-        :null
-      }
     </main>
   )
 }
