@@ -332,7 +332,7 @@ const SearchResults = () => {
         })
       setCheckedAll(count === 10)
     }
-    // console.log(data)
+    console.log(selectedGenomeIds)
     if (type === 'genome'){
       setSelectedData(selectedGenomeIds.join())
     } else {
