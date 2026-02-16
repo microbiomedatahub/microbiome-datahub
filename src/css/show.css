@@ -130,6 +130,12 @@
   height: 12px;
 }
 
+.show-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .current-type {
   width: fit-content;
   font-family: "Oswald", sans-serif;

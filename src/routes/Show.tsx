@@ -3,6 +3,7 @@
 import '../css/show.css'
 import {Link, LoaderFunction, LoaderFunctionArgs, useLoaderData, useParams} from 'react-router-dom'
 import Chart from '../components/Chart'
+import DownloadSelect from '../components/DownloadSelect'
 import React, {useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -195,7 +196,12 @@ const Show = () => {
         </svg>
         <span>Back</span>
       </button>
-      <p className='current-type'>{data?._index === 'bioproject' ? 'PROJECT' : data?._index.toUpperCase()}</p>
+      <div className='show-header'>
+        <p className='current-type'>{data?._index === 'bioproject' ? 'PROJECT' : data?._index.toUpperCase()}</p>
+        {data._source?.type === 'genome' && (
+          <DownloadSelect type="genomeDetail" selectedData={data._id} />
+        )}
+      </div>
       <h2 className='page-title'>{data?._source.title}</h2>
       <p className='quality'>
         <span className='quality__star'>

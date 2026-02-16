@@ -4,8 +4,8 @@ const DownloadSelect = (
   { type, selectedData, handleCheckedAll, checkedAll }:
   { type: string
     selectedData: string
-    handleCheckedAll: (e: React.ChangeEvent<HTMLInputElement>) => void
-    checkedAll: boolean
+    handleCheckedAll?: (e: React.ChangeEvent<HTMLInputElement>) => void
+    checkedAll?: boolean
   }
 ) => {
   let downloadItems: JSX.Element | null = null
@@ -33,14 +33,30 @@ const DownloadSelect = (
         </>
       )
       break
+    case 'genomeDetail':
+      downloadItems = (
+        <>
+          <a href={`/api/dl/genome/metadata/${selectedData}`} download className="downloads__item">
+            metadata
+          </a>
+          <a href={`/api/dl/sequence/genome/${selectedData}`} download className="downloads__item">genome sequence</a>
+          <a href={`/api/dl/sequence/cds/${selectedData}`} download className="downloads__item">gene sequence</a>
+          <a href={`/api/dl/sequence/protein/${selectedData}`} download className="downloads__item">protein sequence</a>
+        </>
+      )
+      break
     default:
       break
   }
 
   return (
     <div className="downloads">
-      <input type="checkbox" onChange={ handleCheckedAll } checked={checkedAll} id="allCheck" className="g-checkbox border"/>
-      <label htmlFor="allCheck">Select</label>
+      {type !== 'genomeDetail' && (
+        <>
+          <input type="checkbox" onChange={ handleCheckedAll } checked={checkedAll} id="allCheck" className="g-checkbox border"/>
+          <label htmlFor="allCheck">Select</label>
+        </>
+      )}
 
       <details className="downlods__select">
         <summary className="downloads__button">Download</summary>
