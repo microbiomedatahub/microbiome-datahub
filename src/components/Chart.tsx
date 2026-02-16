@@ -35,11 +35,7 @@ const Chart = ({ id }: { id: string }) => {
 
       const content = await res.json()
 
-      const plotData = content.data.map((record: any) => {
-        return record as Partial<PlotData>
-      }) as Partial<PlotData>[]
-
-      setGraphData(plotData)
+      setGraphData(content.data as Partial<PlotData>[])
     } catch {
       setGraphData(null)
     }
