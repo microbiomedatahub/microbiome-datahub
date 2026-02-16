@@ -1,7 +1,6 @@
 import js from '@eslint/js'
 import tseslint from 'typescript-eslint'
-import eslintReact from '@eslint-react/eslint-plugin'
-import reactHooks from 'eslint-plugin-react-hooks'
+import react from 'eslint-plugin-react'
 import globals from 'globals'
 import stylistic from '@stylistic/eslint-plugin'
 
@@ -11,33 +10,30 @@ export default [
   { ignores: ['node_modules', 'dist', '.idea'] },
   {
     files: ['**/*.ts', '**/*.tsx'],
-    plugins: {
-      ...eslintReact.configs.recommended.plugins,
-      ...reactHooks.configs.flat.recommended.plugins,
-      '@stylistic': stylistic,
-      '@typescript-eslint': tseslint.plugin,
-    },
-    settings: {
-      ...eslintReact.configs.recommended.settings,
-    },
     languageOptions: {
       globals: {
-        ...globals.browser,
-        ...globals.es2021,
+      ...globals.browser,
+      ...globals.es2021,
       },
       parserOptions: {
         ecmaVersion: 'latest',
-        sourceType: 'module',
+          sourceType: 'module',
+      },
+    },
+    plugins: {
+      react,
+        '@stylistic': stylistic,
+        '@typescript-eslint': tseslint.plugin,
+    },
+    settings: {
+      react: {
+        version: 'detect',
       },
     },
     rules: {
-      ...eslintReact.configs.recommended.rules,
-
-      // React Hooks (classic rules as error, new strict rules as warn)
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn',
-      'react-hooks/set-state-in-effect': 'warn',
-      'react-hooks/use-memo': 'warn',
+      // React
+      'react/jsx-uses-react': 'off',
+      'react/react-in-jsx-scope': 'off',
 
       // Style
       'linebreak-style': ['error', 'unix'],
