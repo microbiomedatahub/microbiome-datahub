@@ -4,53 +4,54 @@ import {Link} from 'react-router-dom'
 import {resultsCountTotalAtom, selectedProjectIdsAtom} from '../store/store'
 import Pagination from './Pagination'
 
+const totalWritableAtom = atom(null, (get, set, newTotal: number) => {
+  const resultsCountTotal = get(resultsCountTotalAtom)
+  set(resultsCountTotalAtom, {
+    itemCount: resultsCountTotal.itemCount,
+    total: newTotal,
+  })
+})
+
+const itemCountWritableAtom = atom(null, (get, set, newItemCount: number) => {
+  const resultsCountTotal = get(resultsCountTotalAtom)
+  set(resultsCountTotalAtom, {
+    itemCount: newItemCount,
+    total: resultsCountTotal.total,
+  })
+})
+
 const ProjectItems = (
   { handleChange, data, currentPage, error, isMutating }:
   { handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    data: object,
+    data: SearchResultsResponse | undefined,
     currentPage: number,
     error: string,
     isMutating: boolean
   }) => {
   const selectedIds = useAtomValue(selectedProjectIdsAtom)
-  const totalWritableAtom = atom(null, (get, set, newTotal: number) => {
-    const resultsCountTotal = get(resultsCountTotalAtom)
-    const newResultsCountTotal = {
-      itemCount: resultsCountTotal.itemCount,
-      total: newTotal,
-    }
-    set(resultsCountTotalAtom, newResultsCountTotal)
-  })
-
   const setTotal = useSetAtom(totalWritableAtom)
-  useEffect(() => {
-    setTotal((data as { hits?: { total?: { value: number }}}) ?.hits?.total?.value ?? 0)
-  }, [(data as {hits?: {total?: never}}) ?.hits?.total])
-
-  const itemCountWritableAtom = atom(null, (get, set, newItemCount: number) => {
-    const resultsCountTotal = get(resultsCountTotalAtom)
-    const newResultsCountTotal = {
-      itemCount: newItemCount,
-      total: resultsCountTotal.total,
-    }
-    set(resultsCountTotalAtom, newResultsCountTotal)
-  })
-
   const setResultCount = useSetAtom(itemCountWritableAtom)
+
+  const hitsTotal = data?.hits?.total
+  const hits = data?.hits?.hits
+
   useEffect(() => {
-    setResultCount((data as {hits?: any })?.hits?.hits?.length ?? 0)
-  }, [(data as {hits: any})?.hits?.hits])
+    setTotal(hitsTotal?.value ?? 0)
+  }, [hitsTotal, setTotal])
+
+  useEffect(() => {
+    setResultCount(hits?.length ?? 0)
+  }, [hits, setResultCount])
 
   const lastPage = useMemo(() => {
-    if (!(data as {hits: {total?: {value?: number}}}) ?.hits?.total?.value || !(data as {hits?: any})?.hits?.hits) {
+    if (!hitsTotal?.value || !hits) {
       return 1
     }
-    if ((data as {hits?: any })?.hits?.hits.length < 10) {
-      return Math.ceil((data as {hits?: {total?: any}})?.hits?.total?.value / 10)
+    if (hits.length < 10) {
+      return Math.ceil(hitsTotal.value / 10)
     }
-
-    return Math.ceil((data as {hits?: any})?.hits?.total?.value / (data as {hits?: any})?.hits?.hits?.length)
-  }, [(data as {hits?: any})?.hits?.total, (data as {hits?: any})?.hits?.hits])
+    return Math.ceil(hitsTotal.value / hits.length)
+  }, [hitsTotal, hits])
 
   return (
     <>
@@ -58,10 +59,9 @@ const ProjectItems = (
       {error && <p>{Object.keys(error)}</p>}
       <section className='results'>
         {
-          // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-          (data as {hits?: any})?.hits?.hits && (data as {hits?: any}).hits.hits.map((item: any, index: number) => {
+          hits && hits.map((item) => {
             return (
-              <article className='results__item' key={index}>
+              <article className='results__item' key={item._id}>
                 <input
                   type="checkbox"
                   value={item._id}
