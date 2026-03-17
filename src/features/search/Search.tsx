@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom'
 import {selectedGenomeIdsAtom, selectedProjectIdsAtom, selectModeAtom} from '../../store/store'
 import SearchKeyword from './components/SearchKeyword'
 import SearchRange from './components/SearchRange'
+import SearchRangeMinMax from './components/SearchRangeMinMax'
 import SearchSelect from './components/SearchSelect'
 import SearchStar from './components/SearchStar'
 import SearchText from './components/SearchText'
@@ -60,6 +61,15 @@ const Search = () => {
   // const [isEnabledPh, setIsEnabledPh] = useState(false)
   const [magCompleteness, setMagCompleteness] = useState(50)
   const [isEnabledMagCompleteness, setIsEnabledMagCompleteness] = useState(false)
+  const [optimumTmpMin, setOptimumTmpMin] = useState(0)
+  const [optimumTmpMax, setOptimumTmpMax] = useState(150)
+  const [isEnabledOptimumTmp, setIsEnabledOptimumTmp] = useState(false)
+  const [doublingHMin, setDoublingHMin] = useState(0)
+  const [doublingHMax, setDoublingHMax] = useState(150)
+  const [isEnabledDoublingH, setIsEnabledDoublingH] = useState(false)
+  const [optimumPhMin, setOptimumPhMin] = useState(1)
+  const [optimumPhMax, setOptimumPhMax] = useState(14)
+  const [isEnabledOptimumPh, setIsEnabledOptimumPh] = useState(false)
   const [genomeTaxon, setGenomeTaxon] = useState('')
   const [quality, setQuality] = useState([0,1,2,3,4,5])
   const dataSources: CheckItemString[] = [
@@ -104,6 +114,18 @@ const Search = () => {
     // }
     if (isEnabledMagCompleteness) {
       queries['magCompleteness'] = magCompleteness.toString()
+    }
+    if (isEnabledOptimumTmp) {
+      queries['optimumTmpMin'] = optimumTmpMin.toString()
+      queries['optimumTmpMax'] = optimumTmpMax.toString()
+    }
+    if (isEnabledDoublingH) {
+      queries['doublingHMin'] = doublingHMin.toString()
+      queries['doublingHMax'] = doublingHMax.toString()
+    }
+    if (isEnabledOptimumPh) {
+      queries['optimumPhMin'] = optimumPhMin.toString()
+      queries['optimumPhMax'] = optimumPhMax.toString()
     }
     if (genomeTaxon) {
       queries['genomeTaxon'] = genomeTaxon
@@ -155,6 +177,24 @@ const Search = () => {
     }
     if (searchParams.get('magCompleteness')) {
       setMagCompleteness(parseInt(searchParams.get('magCompleteness') ?? ''))
+    }
+    if (searchParams.get('optimumTmpMin')) {
+      setOptimumTmpMin(parseInt(searchParams.get('optimumTmpMin') ?? '0'))
+    }
+    if (searchParams.get('optimumTmpMax')) {
+      setOptimumTmpMax(parseInt(searchParams.get('optimumTmpMax') ?? '150'))
+    }
+    if (searchParams.get('doublingHMin')) {
+      setDoublingHMin(parseInt(searchParams.get('doublingHMin') ?? '0'))
+    }
+    if (searchParams.get('doublingHMax')) {
+      setDoublingHMax(parseInt(searchParams.get('doublingHMax') ?? '150'))
+    }
+    if (searchParams.get('optimumPhMin')) {
+      setOptimumPhMin(parseInt(searchParams.get('optimumPhMin') ?? '1'))
+    }
+    if (searchParams.get('optimumPhMax')) {
+      setOptimumPhMax(parseInt(searchParams.get('optimumPhMax') ?? '14'))
     }
     if (searchParams.get('dataSource')) {
       setDataSource((searchParams.get('dataSource') ?? '').split(',').map((item) => item))
@@ -214,6 +254,48 @@ const Search = () => {
                 setIsEnabled={setIsEnabledMagCompleteness}
                 min={40}
                 max={100}
+              />
+            )}
+
+            {selectMode === 'genome' && (
+              <SearchRangeMinMax
+                heading='Optimum temperature (℃)'
+                minValue={optimumTmpMin}
+                setMinValue={setOptimumTmpMin}
+                maxValue={optimumTmpMax}
+                setMaxValue={setOptimumTmpMax}
+                isEnabled={isEnabledOptimumTmp}
+                setIsEnabled={setIsEnabledOptimumTmp}
+                min={0}
+                max={150}
+              />
+            )}
+
+            {selectMode === 'genome' && (
+              <SearchRangeMinMax
+                heading='Doubling time (h)'
+                minValue={doublingHMin}
+                setMinValue={setDoublingHMin}
+                maxValue={doublingHMax}
+                setMaxValue={setDoublingHMax}
+                isEnabled={isEnabledDoublingH}
+                setIsEnabled={setIsEnabledDoublingH}
+                min={0}
+                max={150}
+              />
+            )}
+
+            {selectMode === 'genome' && (
+              <SearchRangeMinMax
+                heading='Optimum pH'
+                minValue={optimumPhMin}
+                setMinValue={setOptimumPhMin}
+                maxValue={optimumPhMax}
+                setMaxValue={setOptimumPhMax}
+                isEnabled={isEnabledOptimumPh}
+                setIsEnabled={setIsEnabledOptimumPh}
+                min={1}
+                max={14}
               />
             )}
 
