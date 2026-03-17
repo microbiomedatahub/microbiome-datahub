@@ -92,6 +92,39 @@ const SearchResults = () => {
         },
       })
     }
+
+    if (searchParams.get('optimumTmpMin') || searchParams.get('optimumTmpMax')) {
+      queries.push({
+        range: {
+          '_bac2feature.optimum_tmp': {
+            gte: parseInt(searchParams.get('optimumTmpMin') ?? '0'),
+            lte: parseInt(searchParams.get('optimumTmpMax') ?? '150'),
+          },
+        },
+      })
+    }
+
+    if (searchParams.get('doublingHMin') || searchParams.get('doublingHMax')) {
+      queries.push({
+        range: {
+          '_bac2feature.doubling_h': {
+            gte: parseInt(searchParams.get('doublingHMin') ?? '0'),
+            lte: parseInt(searchParams.get('doublingHMax') ?? '150'),
+          },
+        },
+      })
+    }
+
+    if (searchParams.get('optimumPhMin') || searchParams.get('optimumPhMax')) {
+      queries.push({
+        range: {
+          '_bac2feature.optimum_ph': {
+            gte: parseInt(searchParams.get('optimumPhMin') ?? '1'),
+            lte: parseInt(searchParams.get('optimumPhMax') ?? '14'),
+          },
+        },
+      })
+    }
     if (searchParams.get('hostTaxon')) {
       const searchWord = searchParams.get('hostTaxon') ?? ''
       const matchQuery: { match: {[key: string]: string}}[] = []
