@@ -271,19 +271,19 @@ const Search = () => {
               />
             )}
 
-            {selectMode === 'genome' && (
-              <SearchRangeMinMax
-                heading='Doubling time (h)'
-                minValue={doublingHMin}
-                setMinValue={setDoublingHMin}
-                maxValue={doublingHMax}
-                setMaxValue={setDoublingHMax}
-                isEnabled={isEnabledDoublingH}
-                setIsEnabled={setIsEnabledDoublingH}
-                min={0}
-                max={150}
-              />
-            )}
+            {/*{selectMode === 'genome' && (*/}
+            {/*  <SearchRangeMinMax*/}
+            {/*    heading='Doubling time (h)'*/}
+            {/*    minValue={doublingHMin}*/}
+            {/*    setMinValue={setDoublingHMin}*/}
+            {/*    maxValue={doublingHMax}*/}
+            {/*    setMaxValue={setDoublingHMax}*/}
+            {/*    isEnabled={isEnabledDoublingH}*/}
+            {/*    setIsEnabled={setIsEnabledDoublingH}*/}
+            {/*    min={0}*/}
+            {/*    max={150}*/}
+            {/*  />*/}
+            {/*)}*/}
 
             {selectMode === 'genome' && (
               <SearchRangeMinMax
