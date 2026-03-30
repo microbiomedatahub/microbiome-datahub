@@ -169,6 +169,8 @@ When multiple filters are applied (e.g., taxonomy, phenotype, quality): Filters 
     - All MAG protein sequence FASTA file: This file contains all predicted protein sequences (454,799,231) from all MAGs in the Microbiome Datahub.
   - AllMergedMDatahubProtein.rm.tsv.gz (7 GB)
     - Protein information TSV file: This file provides the corresponding MAG GCA ID information for each protein
+  - cluster40Res_rep_seq.fasta.gz (11 GB)
+    - 40% protein sequence cluster representative FASTA file: This file, generated using LinClust, contains representative sequences for 69,769,482 protein clusters.
   - clusterRes_rep_seq.fasta.gz (33 GB)
     - 90% protein sequence cluster representative FASTA file: This file, generated using LinClust, contains representative sequences for 192,557,564 protein clusters.
 
