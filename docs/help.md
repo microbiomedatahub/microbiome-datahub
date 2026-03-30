@@ -64,7 +64,6 @@ MAG sequences are important for understanding microbial genomic diversity, inclu
   - Host taxon
   - Inferred Phenotype by Bac2Feature
     - Phenotype-based filtering (Bac2Feature). Phenotype-based filtering allows users to search genomes by predicted microbial traits inferred using Bac2Feature. Phenotypes are computationally predicted by Bac2Feature from taxonomic information and should be interpreted as probabilistic predictions, not experimentally validated traits.
-  - Filtering behavior. Selecting multiple phenotype conditions applies an AND logic (genomes must satisfy all selected conditions). Within each phenotype, thresholds are applied based on the prediction score.
 
 - **Combining multiple filters**:
 When multiple filters are applied (e.g., taxonomy, phenotype, quality): Filters are combined using AND logic across categories (i.e., genomes must satisfy all selected conditions).
