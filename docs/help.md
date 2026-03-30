@@ -1,6 +1,6 @@
 # User Manual for Microbiome Datahub
 
-**Manual last updated**: 2025-08-29
+**Manual last updated**: 2026-03-30
 
 This page describes how to explore Microbiome Datahub's [Facet-based metadata search](https://mdatahub.org/genomes). Microbiome Datahub offers two different metadata searches:
 
@@ -62,8 +62,12 @@ MAG sequences are important for understanding microbial genomic diversity, inclu
     - GTDB-based search (You need to specify prefix e.g., p__Bacteroidota, c__Gammaproteobacteria, o__Bacteroidales, f__Bacteroidaceae, g__Escherichia)
   - MAG completeness
   - Host taxon
-  - Genome quality
-  - Free keyword
+  - Inferred Phenotype by Bac2Feature
+    - Phenotype-based filtering (Bac2Feature). Phenotype-based filtering allows users to search genomes by predicted microbial traits inferred using Bac2Feature. Phenotypes are computationally predicted by Bac2Feature from taxonomic information and should be interpreted as probabilistic predictions, not experimentally validated traits.
+    - Filtering behavior. Selecting multiple phenotype conditions applies an AND logic (genomes must satisfy all selected conditions). Within each phenotype, thresholds are applied based on the prediction score.
+
+- **Combining multiple filters**:
+When multiple filters are applied (e.g., taxonomy, phenotype, quality): Filters are combined using AND logic across categories (i.e., genomes must satisfy all selected conditions).
 
 ### Key Features:
 - **Indexed Data**:
@@ -189,11 +193,8 @@ Microbiome Datahub is supported by **JST NBDC Grant Number JPMJND2202** in the [
 
 ## References
 
-Coming soon.
+Mori H, Fujisawa T, Higashi K, Tanizawa Y, Nakagawa Z, Nishide H, Fujiyoshi M, Nakamura Y, Uchiyama I, Matsui M, Yamada T. Microbiome Datahub: an open-access platform integrating environmental metadata, taxonomy, and functional annotation for comprehensive metagenome-assembled genome datasets. Microbiome. 2026 in press, doi: [10.1186/s40168-026-02385-x](https://link.springer.com/article/10.1186/s40168-026-02385-x)
 
-All data on Microbiome Datahub is distributed under the **CC-BY 4.0 license**.
-
-   
-> Microbiome Datahub: a metagenome database focused on the metagenome-assembled genomes, [https://mdatahub.org/](https://mdatahub.org/)
+All data on Microbiome Datahub is distributed under the **CC-BY 4.0 license**. When using the data and website, please cite Microbiome Datahub.
 
 ---
