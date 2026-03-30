@@ -67,8 +67,6 @@ Microbiome Datahub is supported by **JST NBDC Grant Number JPMJND2202** in the [
 
 ## References
 
-Coming soon.
+Mori H, Fujisawa T, Higashi K, Tanizawa Y, Nakagawa Z, Nishide H, Fujiyoshi M, Nakamura Y, Uchiyama I, Matsui M, Yamada T. Microbiome Datahub: an open-access platform integrating environmental metadata, taxonomy, and functional annotation for comprehensive metagenome-assembled genome datasets. Microbiome. 2026 in press, doi: 10.1186/s40168-026-02385-x
 
-All data on Microbiome Datahub is distributed under the **CC-BY 4.0 license**. When using the data and website, please cite Microbiome Datahub as follows:
-
-> Microbiome Datahub: a metagenome database focused on the metagenome-assembled genomes, [https://mdatahub.org/](https://mdatahub.org/)
+All data on Microbiome Datahub is distributed under the **CC-BY 4.0 license**. When using the data and website, please cite Microbiome Datahub.
