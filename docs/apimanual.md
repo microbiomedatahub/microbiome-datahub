@@ -1,14 +1,15 @@
 # User Manual for Microbiome Datahub Download API
 
-**Manual last updated**: 2024-12-24
+**Manual last updated**: 2026-03-30
 
-This page describes How to use Microbiome Datahub Download API. Microbiome Datahub provides five different download APIs:
+This page describes How to use Microbiome Datahub Download API. Microbiome Datahub provides six different download APIs:
 
 1. **Download Project metadata**
 2. **Download Genome metadata**
 3. **Download Genome sequence**
 4. **Download Genome protein-coding gene sequences**
 5. **Download Genome protein sequences**
+6. **Download KEGG Module list (JSON format) of the MAG**
 
 ---
 
@@ -62,10 +63,11 @@ https://mdatahub.org/api/dl/sequence/protein/GCA_000208265.2,GCA_001735855.1,GCA
 
 ---
 
-## Download Genome MBGD ortholog list API
+## Download the KEGG module list for genomes by inferring module presence from MBGD ortholog assignments via the API
 
 **Usage example**
-- Download MBGD ortholog list from single genome
+- Download KEGG Module list from single genome
 https://mdatahub.org/api/genome/mbgd/GCA_029762515.1
+The data is provided in JSON format.
 
 ---
