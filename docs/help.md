@@ -147,7 +147,7 @@ When multiple filters are applied (e.g., taxonomy, phenotype, quality): Filters 
 
 ## Data bulk download
 
-- MAG metadata are available in Zenodo [Microbiome Datahub MAG dataset](https://doi.org/10.5281/zenodo.16990662)
+- MAG metadata, phenotype prediction results, and the KEGG Module composition inference results are available in Zenodo [Microbiome Datahub dataset](https://zenodo.org/records/18073262)
   - The basic MAG metadata including
     - sequence length, contig number, CDS number
     - assigned MBGD ortholog cluster and KEGG Orthology numbers
