@@ -45,7 +45,7 @@ Microbiome Datahub provides four interfaces for searching and retrieving data:
    - [User Manual for Download API](https://mdatahub.org/apimanual).
 
 **4. Bulk download**
-   - MAG metadata, phenotype prediction results, and the KEGG Module composition inference results are available in Zenodo [Microbiome Datahub MAG dataset](https://doi.org/10.5281/zenodo.16990662)
+   - MAG metadata, phenotype prediction results, and the KEGG Module composition inference results are available in Zenodo [Microbiome Datahub dataset](https://zenodo.org/records/18073262)
    - MAG DNA sequences and protein sequences are available in [our download web server](http://palaeo.nig.ac.jp/Resources/MDatahub/2025/)
 
 ---
