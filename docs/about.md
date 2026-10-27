@@ -1,6 +1,9 @@
 # Microbiome Datahub
 Version: 1.2
 
+New web application: 2026-10-27.
+Average Nucleotide Identity(ANI)-based genome search server against Microbiome Datahub v.2's 232,781 representative MAGs. [ANI Search Server](https://snail.nig.ac.jp/)
+
 Datasets last updated: 2025-08-29.
 Metagenome / Microbes Environmental Ontology (MEO)-based environmental annotations are available for MAGs.
 
@@ -47,6 +50,11 @@ Microbiome Datahub provides four interfaces for searching and retrieving data:
 **4. Bulk download**
    - MAG metadata, phenotype prediction results, and the KEGG Module composition inference results are available in Zenodo [Microbiome Datahub dataset](https://zenodo.org/records/18073262)
    - MAG DNA sequences and protein sequences are available in [our download web server](http://palaeo.nig.ac.jp/Resources/MDatahub/2025/)
+
+**5. Sequence search by ANI**
+
+   - [Search Here](https://snail.nig.ac.jp/) 
+    - Search Microbiome Datahub v.2 232,781 representative MAG data by ANI.
 
 ---
 
